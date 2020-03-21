@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 import com.fils.glucose.domain.ddd.BaseValueObject;
 import com.fils.glucose.domain.ddd.DDD;
 import static java.util.Arrays.asList;
+
+import java.io.Serializable;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -16,7 +18,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @DDD.ValueObjectId
-public class DoctorId extends BaseValueObject<DoctorId> {
+public class DoctorId extends BaseValueObject<DoctorId> implements Serializable {
 	@Constraint
 	private final String value;
 

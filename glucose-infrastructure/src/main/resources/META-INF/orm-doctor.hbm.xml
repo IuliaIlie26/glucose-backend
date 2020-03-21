@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+                  http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
+	version="2.1">
+	<access>FIELD</access>
+	<entity class="com.fils.glucose.domain.doctor.Doctor">
+		<table name="DOCTOR" />
+		<attributes>
+			<many-to-many name="patients"
+				target-entity="com.fils.glucose.domain.patient.Patient">
+				<join-table name="patient_doctor">
+					<join-column name="doctor_id" />
+					<inverse-join-column name="patient_id" />
+				</join-table>
+			</many-to-many>
+			<embedded name="doctorName" />
+			<embedded name="contactInformation" />
+			<embedded name="medicalSpeciality" />
+		</attributes>
+	</entity>
+	<embeddable
+		class="com.fils.glucose.domain.doctor.MedicalSpeciality">
+		<attributes>
+			<basic name="value">
+				<column name="SPECIALITY" />
+			</basic>
+		</attributes>
+	</embeddable>
+	<embeddable
+		class="com.fils.glucose.domain.doctor.DoctorName">
+		<attributes>
+			<embedded name="firstName">
+				<attribute-override name="value">
+					<column name="FIRST_NAME" />
+				</attribute-override>
+			</embedded>
+			<embedded name="lastName">
+				<attribute-override name="value">
+					<column name="LAST_NAME" />
+				</attribute-override>
+			</embedded>
+		</attributes>
+	</embeddable>
+</entity-mappings>

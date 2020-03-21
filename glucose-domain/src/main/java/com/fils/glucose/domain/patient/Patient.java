@@ -1,12 +1,14 @@
 package com.fils.glucose.domain.patient;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
 import com.fils.glucose.domain.contact.information.ContactInformation;
 import com.fils.glucose.domain.ddd.BaseAggregateRoot;
 import com.fils.glucose.domain.ddd.DDD;
+import com.fils.glucose.domain.doctor.Doctor;
 import com.fils.glucose.domain.patient.address.Address;
 
 @DDD.AggregateRoot
@@ -20,15 +22,22 @@ public class Patient extends BaseAggregateRoot<Patient, PatientId> {
 	private ContactInformation contactInformation;
 	@NotNull
 	private LocalDate birthdate;
-	// doctors
+	@NotNull
+	private Set<Doctor> doctors;
 
 	protected Patient(PatientId patientId, PatientName patientName, Address address,
-			ContactInformation contactInformation, LocalDate birthdate) {
+			ContactInformation contactInformation, LocalDate birthdate, Set<Doctor> doctors) {
 		super(Patient.class, patientId);
 		this.patientName = patientName;
 		this.address = address;
 		this.contactInformation = contactInformation;
 		this.birthdate = birthdate;
+		this.doctors = doctors;
+		validate(this);
+	}
+
+	public Set<Doctor> getDoctors() {
+		return doctors;
 	}
 
 	public PatientName getPatientName() {

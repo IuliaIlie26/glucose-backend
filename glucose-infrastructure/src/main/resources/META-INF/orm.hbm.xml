@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+                  http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
+	version="2.1">
+	<access>FIELD</access>
+	<mapped-superclass
+		class="com.fils.glucose.domain.ddd.BaseEntity">
+		<attributes>
+			<embedded-id name="id" />
+			<transient name="type" />
+		</attributes>
+	</mapped-superclass>
+
+	<mapped-superclass
+		class="com.fils.glucose.domain.ddd.BaseAggregateRoot">
+		<attributes>
+			<version name="version" />
+		</attributes>
+	</mapped-superclass>
+
+	<embeddable
+		class="com.fils.glucose.domain.patient.PatientId">
+		<attributes>
+			<basic name="value">
+				<column name="PATIENT_ID" />
+			</basic>
+		</attributes>
+	</embeddable>
+
+	<embeddable class="com.fils.glucose.domain.doctor.DoctorId">
+		<attributes>
+			<basic name="value">
+				<column name="DOCTOR_ID" />
+			</basic>
+		</attributes>
+	</embeddable>
+</entity-mappings>

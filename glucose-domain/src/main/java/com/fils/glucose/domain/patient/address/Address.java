@@ -1,30 +1,29 @@
 package com.fils.glucose.domain.patient.address;
 
-import java.util.List;
 import java.util.Optional;
-import javax.validation.constraints.NotBlank;
-import static java.util.Arrays.asList;
-import com.fils.glucose.domain.ddd.BaseValueObject;
+import javax.validation.constraints.NotNull;
+import com.fils.glucose.domain.ddd.BaseEntity;
 import com.fils.glucose.domain.ddd.DDD;
+import com.fils.glucose.domain.patient.PatientId;
 
-@DDD.ValueObject
-public class Address extends BaseValueObject<Address> {
+@DDD.DomainEntity
+public class Address extends BaseEntity<Address, PatientId> {
 
-	@NotBlank
+	@NotNull
 	private final AddressLine addressLine1;
 	private final AddressLine addressLine2;
-	@NotBlank
+	@NotNull
 	private final ZipCode zipCode;
-	@NotBlank
+	@NotNull
 	private final City city;
-	@NotBlank
+	@NotNull
 	private final Region region;
-	@NotBlank
+	@NotNull
 	private final Country country;
 
-	public Address(AddressLine addressLine1, AddressLine addressLine2, ZipCode zipCode, City city, Region region,
+	public Address(PatientId id, AddressLine addressLine1, AddressLine addressLine2, ZipCode zipCode, City city, Region region,
 			Country country) {
-		super(Address.class);
+		super(Address.class, id);
 		this.addressLine1 = addressLine1;
 		this.addressLine2 = addressLine2;
 		this.zipCode = zipCode;
@@ -56,20 +55,5 @@ public class Address extends BaseValueObject<Address> {
 
 	public Country getCountry() {
 		return country;
-	}
-
-	private Address() {
-		super(Address.class);
-		this.addressLine1 = null;
-		this.addressLine2 = null;
-		this.zipCode = null;
-		this.city = null;
-		this.region = null;
-		this.country = null;
-	}
-
-	@Override
-	protected List<Object> attributesToIncludeInEqualityCheck() {
-		return asList(addressLine1, addressLine2, zipCode, country, region, city);
 	}
 }
