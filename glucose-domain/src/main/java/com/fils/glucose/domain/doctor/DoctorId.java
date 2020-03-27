@@ -32,6 +32,11 @@ public class DoctorId extends BaseValueObject<DoctorId> implements Serializable 
 		this.value = UUID.randomUUID().toString();
 	}
 
+	public DoctorId(String doctorIdAsString) {
+		super(DoctorId.class);
+		this.value = doctorIdAsString;
+	}
+
 	public String getValue() {
 		return value;
 	}

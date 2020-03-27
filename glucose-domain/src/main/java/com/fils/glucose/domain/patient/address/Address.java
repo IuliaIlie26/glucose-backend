@@ -12,7 +12,6 @@ public class Address extends BaseEntity<Address, PatientId> {
 	@NotNull
 	private final AddressLine addressLine1;
 	private final AddressLine addressLine2;
-	@NotNull
 	private final ZipCode zipCode;
 	@NotNull
 	private final City city;
@@ -21,8 +20,8 @@ public class Address extends BaseEntity<Address, PatientId> {
 	@NotNull
 	private final Country country;
 
-	public Address(PatientId id, AddressLine addressLine1, AddressLine addressLine2, ZipCode zipCode, City city, Region region,
-			Country country) {
+	public Address(PatientId id, AddressLine addressLine1, AddressLine addressLine2, ZipCode zipCode, City city,
+			Region region, Country country) {
 		super(Address.class, id);
 		this.addressLine1 = addressLine1;
 		this.addressLine2 = addressLine2;
@@ -41,8 +40,8 @@ public class Address extends BaseEntity<Address, PatientId> {
 		return Optional.of(addressLine2);
 	}
 
-	public ZipCode getZipCode() {
-		return zipCode;
+	public Optional<ZipCode> getZipCode() {
+		return Optional.of(zipCode);
 	}
 
 	public City getCity() {

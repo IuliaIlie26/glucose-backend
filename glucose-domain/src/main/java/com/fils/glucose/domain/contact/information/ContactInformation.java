@@ -21,6 +21,14 @@ public class ContactInformation extends BaseValueObject<ContactInformation> {
 		validate(this);
 	}
 
+	public Email geteMail() {
+		return eMail;
+	}
+
+	public PhoneNumber getPhoneNumber() {
+		return phoneNumber;
+	}
+
 	@Override
 	protected List<Object> attributesToIncludeInEqualityCheck() {
 		return asList(eMail, phoneNumber);
