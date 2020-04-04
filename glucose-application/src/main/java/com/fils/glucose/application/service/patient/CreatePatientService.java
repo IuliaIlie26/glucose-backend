@@ -1,19 +1,14 @@
 package com.fils.glucose.application.service.patient;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.fils.glucose.application.service.doctor.ConsultDoctorService;
-import com.fils.glucose.domain.ddd.DDD;
-import com.fils.glucose.domain.doctor.Doctor;
-import com.fils.glucose.domain.patient.Patient;
-import com.fils.glucose.domain.repository.PatientsRepository;
+import com.fils.glucose.domain.personal.information.doctor.Doctor;
+import com.fils.glucose.domain.personal.information.patient.Patient;
+import com.fils.glucose.domain.personal.information.patient.PatientsRepository;
 
 import static java.util.Objects.requireNonNull;
 
-@DDD.ApplicationService
 @Service
-@Transactional
 public class CreatePatientService {
 
 	private final ConsultDoctorService consultDoctorsService;
@@ -25,7 +20,9 @@ public class CreatePatientService {
 	}
 
 	public String savePatient(Patient patient, String doctorUsername) {
-		return patientRepository.save(patient).getId().getValue();
+		Doctor doctor = consultDoctorsService.findDoctorByUsername(doctorUsername);
+		patient.getDoctors().add(doctor);
+		return patientRepository.save(patient).getId();
 	}
 
 }

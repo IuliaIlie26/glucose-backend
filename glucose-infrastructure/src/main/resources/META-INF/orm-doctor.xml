@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+                  http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
+	version="2.1">
+	<access>FIELD</access>
+	<entity
+		class="com.fils.glucose.domain.personal.information.doctor.Doctor">
+		<table name="DOCTOR" schema="personalInformation" />
+		<attributes>
+			<id name="id">
+				<generated-value strategy="AUTO" />
+			</id>
+			<basic name="firstName">
+				<column name="FIRST_NAME" nullable="false" />
+			</basic>
+			<basic name="lastName">
+				<column name="LAST_NAME" nullable="false" />
+			</basic>
+			<basic name="email">
+				<column name="EMAIL" nullable="false" />
+			</basic>
+			<basic name="phoneNumber">
+				<column name="PHONE" nullable="false" />
+			</basic>
+			<basic name="medicalSpeciality">
+				<column name="SPECIALITY" />
+			</basic>
+			<many-to-many name="patients"
+				target-entity="com.fils.glucose.domain.personal.information.patient.Patient">
+				<join-table name="patient_doctor">
+					<join-column name="doctor_id" />
+					<inverse-join-column name="patient_id" />
+				</join-table>
+			</many-to-many>
+		</attributes>
+	</entity>
+</entity-mappings>

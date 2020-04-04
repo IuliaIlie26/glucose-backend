@@ -2,9 +2,8 @@ package com.fils.glucose.exposition.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.fils.glucose.application.service.doctor.ConsultDoctorService;
-import com.fils.glucose.domain.doctor.Doctor;
+import com.fils.glucose.domain.personal.information.doctor.Doctor;
 import com.fils.glucose.exposition.dto.DoctorDto;
 import static java.util.Objects.requireNonNull;
 
@@ -20,8 +19,8 @@ public class DoctorFacade {
 		this.doctorMapper = requireNonNull(doctorMapperService);
 	}
 
-	public DoctorDto getDoctorByUsername(String username) {
-		Doctor doctor = consultDoctorService.findDoctorIdByUsername(username);
+	public DoctorDto findDoctorByUsername(String username) {
+		Doctor doctor = consultDoctorService.findDoctorByUsername(username);
 		return doctorMapper.mapFromDomain(doctor);
 	}
 

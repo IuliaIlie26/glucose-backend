@@ -3,7 +3,7 @@ package com.fils.glucose.exposition.service;
 import org.springframework.stereotype.Service;
 
 import com.fils.glucose.application.service.patient.CreatePatientService;
-import com.fils.glucose.domain.patient.Patient;
+import com.fils.glucose.domain.personal.information.patient.Patient;
 import com.fils.glucose.exposition.dto.SavePatientDto;
 
 @Service

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+                  http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
+	version="2.1">
+	<access>FIELD</access>
+	<entity
+		class="com.fils.glucose.domain.personal.information.patient.Address">
+		<table name="ADDRESS" schema="personalInformation" />
+		<attributes>
+			<id name="id">
+				<generated-value strategy="AUTO" />
+			</id>
+			<basic name="addressLine1">
+				<column name="ADDRESS_LINE1" nullable="false" />
+			</basic>
+			<basic name="addressLine2">
+				<column name="ADDRESS_LINE2" nullable="true" />
+			</basic>
+			<basic name="zipCode">
+				<column name="ZIPCODE" nullable="true" />
+			</basic>
+			<basic name="region">
+				<column name="REGION" nullable="false" />
+			</basic>
+			<basic name="city">
+				<column name="CITY" nullable="false" />
+			</basic>
+			<basic name="country">
+				<column name="COUNTRY" nullable="false" />
+			</basic>
+		</attributes>
+	</entity>
+</entity-mappings>
