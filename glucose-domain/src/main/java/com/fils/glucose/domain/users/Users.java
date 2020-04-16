@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 public class Users {
 
-	private String userId;
+	private Long id;
 
 	@NotBlank
 	@Size(max = 50)
@@ -14,5 +14,9 @@ public class Users {
 	@NotBlank
 	@Size(max = 50)
 	private String password;
+
+	public Long getId() {
+		return id;
+	}
 
 }

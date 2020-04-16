@@ -3,6 +3,8 @@ package com.fils.glucose.domain.personal.information.patient;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,7 +15,7 @@ import com.fils.glucose.domain.personal.information.doctor.Doctor;
 
 public class Patient {
 
-	private String id;
+	private Long id;
 
 	@NotBlank
 	@Pattern(regexp = "(\\p{IsAlphabetic}|'|\\s)+")
@@ -31,7 +33,7 @@ public class Patient {
 
 	@NotBlank
 	@Size(min = 10, max = 10)
-	@Pattern(regexp = "[0-9]")
+	@Digits(integer = 10, fraction = 0)
 	private String phoneNumber;
 
 	@NotNull
@@ -55,7 +57,7 @@ public class Patient {
 		this.birthdate = birthdate;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.fils.glucose.domain.users.Users;
 
 public interface IUsersRepository extends JpaRepository<Users, String>{
-	Optional<String> findUsernameByUserId(String id);
+	Optional<Users> findByUsername(String username);
 }

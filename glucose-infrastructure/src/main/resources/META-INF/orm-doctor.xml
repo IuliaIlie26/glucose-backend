@@ -11,7 +11,7 @@
 		<table name="DOCTOR" schema="personalInformation" />
 		<attributes>
 			<id name="id">
-				<generated-value strategy="AUTO" />
+			<generated-value strategy="IDENTITY" />
 			</id>
 			<basic name="firstName">
 				<column name="FIRST_NAME" nullable="false" />

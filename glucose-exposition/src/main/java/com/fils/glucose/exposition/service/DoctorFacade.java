@@ -1,14 +1,12 @@
 package com.fils.glucose.exposition.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.fils.glucose.application.service.doctor.ConsultDoctorService;
 import com.fils.glucose.domain.personal.information.doctor.Doctor;
 import com.fils.glucose.exposition.dto.DoctorDto;
 import static java.util.Objects.requireNonNull;
 
 @Service
-@Transactional
 public class DoctorFacade {
 
 	private final ConsultDoctorService consultDoctorService;
@@ -22,6 +20,11 @@ public class DoctorFacade {
 	public DoctorDto findDoctorByUsername(String username) {
 		Doctor doctor = consultDoctorService.findDoctorByUsername(username);
 		return doctorMapper.mapFromDomain(doctor);
+	}
+
+	public String getDoctorNameAndLastname(String username) {
+		Doctor doctor = consultDoctorService.findDoctorByUsername(username);
+		return doctor.getFirstName() + " " + doctor.getLastName();
 	}
 
 }

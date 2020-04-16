@@ -8,10 +8,10 @@
 	<access>FIELD</access>
 	<entity
 		class="com.fils.glucose.domain.personal.information.patient.Address">
-		<table name="ADDRESS" schema="personalInformation" />
+		<table name="address" schema="personalInformation" />
 		<attributes>
 			<id name="id">
-				<generated-value strategy="AUTO" />
+			<generated-value strategy="IDENTITY" />
 			</id>
 			<basic name="addressLine1">
 				<column name="ADDRESS_LINE1" nullable="false" />

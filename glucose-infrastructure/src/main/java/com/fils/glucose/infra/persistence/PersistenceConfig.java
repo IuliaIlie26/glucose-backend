@@ -5,6 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+
 @Configuration
 @EnableJpaRepositories("com.fils.glucose")
 @EntityScan(basePackages = { "com.fils.glucose", "org.springframework.data.jpa.convert.threeten" })

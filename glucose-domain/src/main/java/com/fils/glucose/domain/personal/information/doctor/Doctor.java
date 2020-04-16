@@ -12,7 +12,7 @@ import com.fils.glucose.domain.personal.information.patient.Patient;
 
 public class Doctor {
 
-	private String id;
+	private Long id;
 
 	@NotBlank
 	@Pattern(regexp = "(\\p{IsAlphabetic}|'|\\s)+")

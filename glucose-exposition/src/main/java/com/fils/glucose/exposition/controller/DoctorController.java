@@ -24,4 +24,9 @@ public class DoctorController {
 	public DoctorDto getDoctorByUsername(@RequestParam String username) {
 		return doctorFacade.findDoctorByUsername(username);
 	}
+
+	@GetMapping("getDoctorNameAndLastname")
+	public String getDoctorNameAndLastname(@RequestParam String username){
+		return doctorFacade.getDoctorNameAndLastname(username);
+	}
 }

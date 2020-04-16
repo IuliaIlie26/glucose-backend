@@ -20,7 +20,10 @@
 			<classifier>tests</classifier>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>${project.group}</groupId>
 			<artifactId>glucose-infrastructure</artifactId>

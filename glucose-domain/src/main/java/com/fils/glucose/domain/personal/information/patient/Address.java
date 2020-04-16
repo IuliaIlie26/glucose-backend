@@ -1,14 +1,16 @@
 package com.fils.glucose.domain.personal.information.patient;
 
 import java.util.Optional;
+
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class Address {
 
-	private String id;
-	
+	private Long id;
+
 	@NotBlank
 	@Size(max = 50)
 	private final String addressLine1;
@@ -17,31 +19,31 @@ public class Address {
 	private final String addressLine2;
 
 	@Size(min = 6, max = 6)
-	@Pattern(regexp = "[0-9]")
+	@Digits(integer = 6, fraction = 0)
 	private final String zipCode;
 
 	@NotBlank
 	@Size(max = 20)
-	@Pattern(regexp = "[a-zA-Z]")
+	@Pattern(regexp = "(\\p{IsAlphabetic}|'|\\s)+")
 	private final String city;
 
 	@NotBlank
 	@Size(max = 20)
-	@Pattern(regexp = "[a-zA-Z]")
+	@Pattern(regexp = "(\\p{IsAlphabetic}|'|\\s)+")
 	private final String region;
 
 	@NotBlank
 	@Size(max = 20)
-	@Pattern(regexp = "[a-zA-Z]")
+	@Pattern(regexp = "(\\p{IsAlphabetic}|'|\\s)+")
 	private final String country;
 
 	protected Address() {
-		this.addressLine1="";
-		this.region="";
-		this.city="";
-		this.country="";
-		this.zipCode="";
-		this.addressLine2="";
+		this.addressLine1 = "";
+		this.region = "";
+		this.city = "";
+		this.country = "";
+		this.zipCode = "";
+		this.addressLine2 = "";
 	}
 
 	public Address(String addressLine1, String addressLine2, String zipCode, String city, String region,

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import com.fils.glucose.application.exception.TechnicalException;
 import com.fils.glucose.domain.personal.information.doctor.Doctor;
 import com.fils.glucose.domain.personal.information.doctor.DoctorRepository;
+import com.fils.glucose.domain.users.Users;
 
 import static java.util.Objects.requireNonNull;
 
@@ -19,16 +20,15 @@ public class ConsultDoctorService {
 	}
 
 	public Doctor findDoctorByUsername(String username) {
-		String doctorId = findDoctorUsernameById(username)
-				.orElseThrow(() -> new TechnicalException("doctor.not.found"));
+		Long doctorId = findDoctorIdByUsername(username);
 		return findDoctorById(doctorId).orElseThrow(() -> new TechnicalException("doctor.not.found"));
 	}
 
-	private Optional<String> findDoctorUsernameById(String id) {
-		return doctorRepository.findUserIdByUsername(id);
+	private Long findDoctorIdByUsername(String username) {
+		return doctorRepository.findByUsername(username).map(Users::getId).orElseThrow(() -> new TechnicalException("doctor.not.found"));
 	}
 
-	private Optional<Doctor> findDoctorById(String doctorId) {
+	private Optional<Doctor> findDoctorById(Long doctorId) {
 		return doctorRepository.findById(doctorId);
 	}
 }

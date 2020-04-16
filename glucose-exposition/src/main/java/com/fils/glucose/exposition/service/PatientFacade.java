@@ -17,7 +17,7 @@ public class PatientFacade {
 		this.patientMapperService = patientMapperService;
 	}
 
-	public String savePatient(SavePatientDto savePatient) {
+	public Long savePatient(SavePatientDto savePatient) {
 		Patient patient = patientMapperService.mapToDomain(savePatient.patient);
 		return createPatient.savePatient(patient, savePatient.doctorUsername);
 	}

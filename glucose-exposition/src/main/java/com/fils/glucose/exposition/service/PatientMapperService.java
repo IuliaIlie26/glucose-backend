@@ -16,10 +16,10 @@ public class PatientMapperService {
 		PatientDto patientDto = new PatientDto();
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
 
-		patientDto.firstName = patient.getFirstName();
+		patientDto.name = patient.getFirstName();
 		patientDto.lastname = patient.getLastName();
 		patientDto.birthdate = patient.getBirthdate().format(formatter);
-		patientDto.eMail = patient.getEmail();
+		patientDto.email = patient.getEmail();
 		patientDto.phone = patient.getPhoneNumber();
 		patientDto.address = mapAddressDtoFromDomain(patient.getAddress());
 		return patientDto;
@@ -30,7 +30,7 @@ public class PatientMapperService {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate birthdate = LocalDate.parse(dto.birthdate, formatter);
 		Address address = mapAddressDtoToDomain(dto.address);
-		return new Patient(dto.firstName, dto.lastname, address, dto.eMail, dto.phone, birthdate);
+		return new Patient(dto.name, dto.lastname, address, dto.email, dto.phone, birthdate);
 	}
 
 	private Address mapAddressDtoToDomain(AddressDto dto) {

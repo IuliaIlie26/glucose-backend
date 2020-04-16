@@ -19,7 +19,7 @@ public class CreatePatientService {
 		this.patientRepository = requireNonNull(patientRepository);
 	}
 
-	public String savePatient(Patient patient, String doctorUsername) {
+	public Long savePatient(Patient patient, String doctorUsername) {
 		Doctor doctor = consultDoctorsService.findDoctorByUsername(doctorUsername);
 		patient.getDoctors().add(doctor);
 		return patientRepository.save(patient).getId();

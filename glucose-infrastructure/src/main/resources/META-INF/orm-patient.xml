@@ -8,25 +8,25 @@
 	<access>FIELD</access>
 	<entity
 		class="com.fils.glucose.domain.personal.information.patient.Patient">
-		<table name="PATIENT" schema="personalInformation"/>
+		<table name="PATIENT" schema="personalInformation" />
 		<attributes>
 			<id name="id">
-				<generated-value strategy="AUTO" />
+			<generated-value strategy="IDENTITY" />
 			</id>
 			<basic name="birthdate">
-				<column name="BIRTHDATE" nullable="false"/>
+				<column name="BIRTHDATE" nullable="false" />
 			</basic>
 			<basic name="firstName">
-				<column name="FIRST_NAME" nullable="false"/>
+				<column name="FIRST_NAME" nullable="false" />
 			</basic>
 			<basic name="lastName">
-				<column name="LAST_NAME" nullable="false"/>
+				<column name="LAST_NAME" nullable="false" />
 			</basic>
 			<basic name="email">
-				<column name="EMAIL" nullable="false"/>
+				<column name="EMAIL" nullable="false" />
 			</basic>
 			<basic name="phoneNumber">
-				<column name="PHONE" nullable="false"/>
+				<column name="PHONE" nullable="false" />
 			</basic>
 			<one-to-one name="address">
 				<join-column name="ADDRESS_ID" />

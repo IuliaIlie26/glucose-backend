@@ -22,6 +22,6 @@ public class PatientController {
 	
 	@PostMapping("savePatient")
 	public String savePatient(@RequestBody SavePatientDto patient) {
-		return patientFacade.savePatient(patient);
+		return ""+patientFacade.savePatient(patient);
 	}
 }

@@ -10,8 +10,8 @@
 		class="com.fils.glucose.domain.users.Users">
 		<table name="USERS" schema="users"/>
 		<attributes>
-			<id name="userId">
-				<generated-value strategy="AUTO" />
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
 			</id>
 			<basic name="username">
 				<column name="USERNAME" nullable="false" unique="true" />

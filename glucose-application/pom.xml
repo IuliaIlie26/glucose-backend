@@ -14,20 +14,13 @@
 			<groupId>${project.group}</groupId>
 			<artifactId>glucose-domain</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>${project.group}</groupId>
 			<artifactId>glucose-domain</artifactId>
 			<classifier>tests</classifier>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>

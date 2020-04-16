@@ -25,7 +25,7 @@ public class PatientsJpaRepository implements PatientsRepository {
 		return patientsRepository.save(patient);
 	}
 
-	public Optional<Patient> findById(String id) {
+	public Optional<Patient> findById(Long id) {
 		return patientsRepository.findById(id);
 	}
 }
