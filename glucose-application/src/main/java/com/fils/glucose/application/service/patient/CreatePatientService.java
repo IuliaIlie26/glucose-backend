@@ -17,6 +17,7 @@ public class CreatePatientService {
 	public CreatePatientService(ConsultDoctorService consultDoctors, PatientsRepository patientRepository) {
 		this.consultDoctorsService = requireNonNull(consultDoctors);
 		this.patientRepository = requireNonNull(patientRepository);
+		
 	}
 
 	public Long savePatient(Patient patient, String doctorUsername) {
@@ -24,5 +25,4 @@ public class CreatePatientService {
 		patient.getDoctors().add(doctor);
 		return patientRepository.save(patient).getId();
 	}
-
 }

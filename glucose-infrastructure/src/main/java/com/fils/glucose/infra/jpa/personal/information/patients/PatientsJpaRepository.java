@@ -9,6 +9,7 @@ import com.fils.glucose.domain.personal.information.patient.PatientsRepository;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Primary
@@ -27,5 +28,10 @@ public class PatientsJpaRepository implements PatientsRepository {
 
 	public Optional<Patient> findById(Long id) {
 		return patientsRepository.findById(id);
+	}
+
+	@Override
+	public Optional<LocalDate> findBirthdateById(Long id) {
+		return patientsRepository.findBirthdateById(id);
 	}
 }
