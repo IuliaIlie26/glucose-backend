@@ -10,10 +10,11 @@
 		<table name="user_roles" schema="users" />
 		<attributes>
 			<id name="userId">
-				<generated-value strategy="AUTO" />
+				<generated-value strategy="IDENTITY" />
+				<column name="user_id"/>
 			</id>
 			<basic name="role">
-				<column name="ROLE" nullable="false" />
+				<column name="role" nullable="false" />
 			</basic>
 		</attributes>
 	</entity>

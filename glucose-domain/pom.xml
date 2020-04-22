@@ -28,6 +28,17 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-releasetrain</artifactId>
+			<version>Lovelace-SR9</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

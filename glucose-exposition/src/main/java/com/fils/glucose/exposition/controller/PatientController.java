@@ -2,12 +2,14 @@ package com.fils.glucose.exposition.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fils.glucose.exposition.dto.RiskFactorsDto;
 import com.fils.glucose.exposition.dto.SavePatientDto;
 import com.fils.glucose.exposition.service.PatientFacade;
 
@@ -25,6 +27,11 @@ public class PatientController {
 	@PostMapping("savePatient")
 	public String savePatient(@RequestBody SavePatientDto patient) {
 		return patientFacade.savePatient(patient).toString();
+	}
+	
+	@PostMapping("saveRiskFactors")
+	public void saveRiskFactors(@RequestBody RiskFactorsDto riskFactors) {
+		patientFacade.saveRiskFactors(riskFactors);
 	}
 	
 	@GetMapping("getFullFormatAgeById")

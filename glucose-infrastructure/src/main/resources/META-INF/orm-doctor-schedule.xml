@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+                  http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
+	version="2.1">
+	<access>FIELD</access>
+	<entity
+		class="com.fils.glucose.domain.medical.info.risk.factors.RiskFactors">
+		<table name="risk_factors" schema="personalInformation" />
+		<attributes>
+			<id name="doctorId">
+			</id>
+			<basic name="mondayStart">
+				<column name="monday_start" />
+			</basic>
+			<basic name="mondayEnd">
+				<column name="monday_end" />
+			</basic>
+			<basic name="tuesdayStart">
+				<column name="tuesday_start" />
+			</basic>
+			<basic name="tuesdayEnd">
+				<column name="tuesday_end" />
+			</basic>
+			<basic name="wednesdayStart">
+				<column name="wednesday_start" />
+			</basic>
+			<basic name="wednesdayEnd">
+				<column name="wednesday_end" />
+			</basic>
+			<basic name="thursdayStart">
+				<column name="thursday_start" />
+			</basic>
+			<basic name="thursdayEnd">
+				<column name="thursday_end" />
+			</basic>
+			<basic name="fridayStart">
+				<column name="friday_start" />
+			</basic>
+			<basic name="fridayEnd">
+				<column name="friday_end" />
+			</basic>
+		</attributes>
+	</entity>
+</entity-mappings>
