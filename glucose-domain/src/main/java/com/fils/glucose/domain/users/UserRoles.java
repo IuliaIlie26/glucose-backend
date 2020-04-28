@@ -5,9 +5,12 @@ import javax.validation.constraints.NotBlank;
 public class UserRoles {
 
 	@NotBlank
-	private String userId;
+	private Long id;
 
 	@NotBlank
-	private String role;
+	private String userRole;
 
+	public String getUserRole() {
+		return userRole;
+	}
 }

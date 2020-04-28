@@ -2,10 +2,13 @@ package com.fils.glucose.exposition.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SavePatientDto {
+public class UserDto {
 
 	@JsonProperty
-	public PatientDto patient;
+	public String username;
 	@JsonProperty
-	public String doctorUsername;
+	public String password;
+	@JsonProperty
+	public String role;
+
 }

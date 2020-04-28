@@ -7,13 +7,12 @@
 	version="2.1">
 	<access>FIELD</access>
 	<entity class="com.fils.glucose.domain.users.UserRoles">
-		<table name="user_roles" schema="users" />
+		<table name="USER_ROLES" schema="users" />
 		<attributes>
-			<id name="userId">
+			<id name="id">
 				<generated-value strategy="IDENTITY" />
-				<column name="user_id"/>
 			</id>
-			<basic name="role">
+			<basic name="userRole">
 				<column name="role" nullable="false" />
 			</basic>
 		</attributes>

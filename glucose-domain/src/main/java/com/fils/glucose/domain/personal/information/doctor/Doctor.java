@@ -38,8 +38,6 @@ public class Doctor {
 	@Pattern(regexp = "[0-9]")
 	private String phoneNumber;
 
-	private Set<Patient> patients = new HashSet<>();
-
 	protected Doctor() {
 	}
 
@@ -71,9 +69,4 @@ public class Doctor {
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-
-	public Set<Patient> getPatients() {
-		return patients;
-	}
-
 }

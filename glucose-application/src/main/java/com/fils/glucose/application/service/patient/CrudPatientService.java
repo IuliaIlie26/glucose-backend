@@ -1,37 +1,42 @@
 package com.fils.glucose.application.service.patient;
 
 import org.springframework.stereotype.Service;
-import com.fils.glucose.application.service.doctor.ConsultDoctorService;
+
+import com.fils.glucose.application.exception.TechnicalException;
 import com.fils.glucose.domain.medical.info.risk.factors.RiskFactors;
 import com.fils.glucose.domain.medical.info.risk.factors.RiskFactorsRepository;
-import com.fils.glucose.domain.personal.information.doctor.Doctor;
 import com.fils.glucose.domain.personal.information.patient.Patient;
 import com.fils.glucose.domain.personal.information.patient.PatientsRepository;
 
 import static java.util.Objects.requireNonNull;
 
 @Service
-public class CreatePatientService {
+public class CrudPatientService {
 
-	private final ConsultDoctorService consultDoctorsService;
 	private final PatientsRepository patientRepository;
 	private final RiskFactorsRepository riskFactorsRepository;
 
-	public CreatePatientService(ConsultDoctorService consultDoctors, PatientsRepository patientRepository,
-			RiskFactorsRepository riskFactorsRepository) {
-		this.consultDoctorsService = requireNonNull(consultDoctors);
+	public CrudPatientService(PatientsRepository patientRepository, RiskFactorsRepository riskFactorsRepository) {
 		this.patientRepository = requireNonNull(patientRepository);
 		this.riskFactorsRepository = requireNonNull(riskFactorsRepository);
-		
+
 	}
 
-	public Long savePatient(Patient patient, String doctorUsername) {
-		Doctor doctor = consultDoctorsService.findDoctorByUsername(doctorUsername);
-		patient.getDoctors().add(doctor);
+	public Long savePatient(Patient patient) {
+		if (patientRepository.findByCnp(patient.getCnp()).isPresent()) {
+			throw new TechnicalException("patient.cnp.exists");
+		} else if (patientRepository.findByEmail(patient.getEmail()).isPresent()) {
+			throw new TechnicalException("patient.email.exists");
+		}
 		return patientRepository.save(patient).getId();
 	}
 
 	public void saveRiskFactors(RiskFactors riskFactors) {
 		riskFactorsRepository.save(riskFactors);
+	}
+
+	public void deletePatientById(Long idLongValue) {
+		patientRepository.deleteById(idLongValue);
+		
 	}
 }

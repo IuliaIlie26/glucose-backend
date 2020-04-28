@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 public class Address {
 
-	private Long id;
+	private Long addressId;
 
 	@NotBlank
 	@Size(max = 50)
@@ -61,11 +61,11 @@ public class Address {
 	}
 
 	public Optional<String> getAddressLine2() {
-		return Optional.of(addressLine2);
+		return Optional.ofNullable(addressLine2);
 	}
 
 	public Optional<String> getZipCode() {
-		return Optional.of(zipCode);
+		return Optional.ofNullable(zipCode);
 	}
 
 	public String getCity() {

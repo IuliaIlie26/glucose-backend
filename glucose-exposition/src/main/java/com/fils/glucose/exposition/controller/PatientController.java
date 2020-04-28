@@ -1,16 +1,16 @@
 package com.fils.glucose.exposition.controller;
 
+import java.util.Set;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.fils.glucose.exposition.dto.PatientDto;
 import com.fils.glucose.exposition.dto.RiskFactorsDto;
-import com.fils.glucose.exposition.dto.SavePatientDto;
 import com.fils.glucose.exposition.service.PatientFacade;
 
 @RestController
@@ -25,7 +25,7 @@ public class PatientController {
 	}
 	
 	@PostMapping("savePatient")
-	public String savePatient(@RequestBody SavePatientDto patient) {
+	public String savePatient(@RequestBody PatientDto patient) {
 		return patientFacade.savePatient(patient).toString();
 	}
 	
@@ -37,5 +37,15 @@ public class PatientController {
 	@GetMapping("getFullFormatAgeById")
 	public String getFullFormatAgeById(@RequestParam Long id) {
 		return patientFacade.getFullFormatAgeById(id);
+	}
+	
+	@GetMapping("getAllPatients")
+	public Set<PatientDto> getAllPatients() {
+		return patientFacade.getAllPatients();
+	}
+	
+	@PostMapping("deletePatientById")
+	public void deletePatientById(@RequestBody String id) {
+		patientFacade.deletePatientById(id);
 	}
 }

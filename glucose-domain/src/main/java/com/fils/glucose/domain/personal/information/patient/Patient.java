@@ -1,17 +1,12 @@
 package com.fils.glucose.domain.personal.information.patient;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import com.fils.glucose.domain.personal.information.doctor.Doctor;
 
 public class Patient {
 
@@ -42,19 +37,23 @@ public class Patient {
 	@NotNull
 	private Address address;
 
-	private Set<Doctor> doctors = new HashSet<>();
+	@NotBlank
+	@Size(min = 13, max = 13)
+	@Digits(integer = 13, fraction = 0)
+	private String cnp;
 
 	protected Patient() {
 	}
 
 	public Patient(@NotBlank String firstName, @NotBlank String lastName, @NotNull Address address,
-			@NotBlank String eMail, @NotBlank String phoneNumber, @NotNull LocalDate birthdate) {
+			@NotBlank String eMail, @NotBlank String phoneNumber, @NotNull LocalDate birthdate, String cnp) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
 		this.email = eMail;
 		this.phoneNumber = phoneNumber;
 		this.birthdate = birthdate;
+		this.cnp = cnp;
 	}
 
 	public Long getId() {
@@ -85,7 +84,7 @@ public class Patient {
 		return birthdate;
 	}
 
-	public Set<Doctor> getDoctors() {
-		return doctors;
+	public String getCnp() {
+		return cnp;
 	}
 }

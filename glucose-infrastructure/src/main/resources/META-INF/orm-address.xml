@@ -10,8 +10,9 @@
 		class="com.fils.glucose.domain.personal.information.patient.Address">
 		<table name="address" schema="personalInformation" />
 		<attributes>
-			<id name="id">
-			<generated-value strategy="IDENTITY" />
+			<id name="addressId">
+				<generated-value strategy="IDENTITY" />
+				<column name="ADDRESS_ID"></column>
 			</id>
 			<basic name="addressLine1">
 				<column name="ADDRESS_LINE1" nullable="false" />

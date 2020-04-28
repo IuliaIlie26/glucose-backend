@@ -17,13 +17,14 @@ public class PatientMapperService {
 	public PatientDto mapFromDomain(Patient patient) {
 		PatientDto patientDto = new PatientDto();
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
-
+		patientDto.id=patient.getId().toString();
 		patientDto.name = patient.getFirstName();
 		patientDto.lastname = patient.getLastName();
 		patientDto.birthdate = patient.getBirthdate().format(formatter);
 		patientDto.email = patient.getEmail();
 		patientDto.phone = patient.getPhoneNumber();
 		patientDto.address = mapAddressDtoFromDomain(patient.getAddress());
+		patientDto.cnp= patient.getCnp();
 		return patientDto;
 	}
 
@@ -32,7 +33,7 @@ public class PatientMapperService {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate birthdate = LocalDate.parse(dto.birthdate, formatter);
 		Address address = mapAddressDtoToDomain(dto.address);
-		return new Patient(dto.name, dto.lastname, address, dto.email, dto.phone, birthdate);
+		return new Patient(dto.name, dto.lastname, address, dto.email, dto.phone, birthdate, dto.cnp);
 	}
 
 	private Address mapAddressDtoToDomain(AddressDto dto) {
@@ -42,11 +43,11 @@ public class PatientMapperService {
 	private AddressDto mapAddressDtoFromDomain(Address address) {
 		AddressDto addressDto = new AddressDto();
 		addressDto.addressLine1 = address.getAddressLine1();
-		addressDto.addressLine2 = address.getAddressLine2().orElse("");
+		addressDto.addressLine2 = address.getAddressLine2().isPresent() ? address.getAddressLine2().get() : "";
 		addressDto.city = address.getCity();
 		addressDto.country = address.getCountry();
 		addressDto.region = address.getRegion();
-		addressDto.zipCode = address.getZipCode().orElse("");
+		addressDto.zipCode = address.getZipCode().isPresent() ? address.getZipCode().get() : "";
 		return addressDto;
 	}
 

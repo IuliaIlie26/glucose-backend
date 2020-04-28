@@ -15,8 +15,32 @@ public class Users {
 	@Size(max = 50)
 	private String password;
 
+	@NotBlank
+	private UserRoles role;
+
+	protected Users() {
+	}
+
+	public Users(@NotBlank @Size(max = 50) String username, @NotBlank @Size(max = 50) String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
 	public Long getId() {
 		return id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public UserRoles getRole() {
+		return role;
 	}
 
 }
