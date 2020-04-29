@@ -2,6 +2,8 @@ package com.fils.glucose.exposition.service;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -56,8 +58,7 @@ public class PatientFacade {
 	private void computeFullAddress(PatientDto patient) {
 		AddressDto address = patient.address;
 		patient.fullAddress = address.addressLine1 + ", ";
-		if(!StringUtils.isEmpty(address.addressLine2))
-		{
+		if (!StringUtils.isEmpty(address.addressLine2)) {
 			patient.fullAddress += address.addressLine2 + ", ";
 		}
 		patient.fullAddress += address.zipCode + " " + address.city + ", " + address.region + ", " + address.country;
@@ -66,6 +67,27 @@ public class PatientFacade {
 	public void deletePatientById(String id) {
 		Long idLongValue = Long.parseLong(id);
 		crudPatient.deletePatientById(idLongValue);
-		
+
+	}
+
+	public PatientDto getPatientById(Long id) {
+		Patient patient = consultPatientService.getPatientById(id);
+		return patientMapperService.mapFromDomain(patient);
+	}
+
+	public void updatePatient(PatientDto dto) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate birthdate = LocalDate.parse(dto.birthdate, formatter);
+
+		Long idLongValue = Long.parseLong(dto.id);
+		Patient oldPatient = consultPatientService.getPatientById(idLongValue);
+		oldPatient.setAddress(patientMapperService.mapAddressDtoToDomain(dto.address));
+		oldPatient.setBirthdate(birthdate);
+		oldPatient.setCnp(dto.cnp);
+		oldPatient.setFirstName(dto.name);
+		oldPatient.setLastName(dto.lastname);
+		oldPatient.setEmail(dto.email);
+		oldPatient.setPhoneNumber(dto.phone);
+		crudPatient.updatePatient(oldPatient);
 	}
 }

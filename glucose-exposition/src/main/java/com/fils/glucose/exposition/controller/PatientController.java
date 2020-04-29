@@ -48,4 +48,14 @@ public class PatientController {
 	public void deletePatientById(@RequestBody String id) {
 		patientFacade.deletePatientById(id);
 	}
+	
+	@GetMapping("getPatientById")
+	public PatientDto getPatientById(@RequestParam Long id) {
+		return patientFacade.getPatientById(id);
+	}
+	
+	@PostMapping("updatePatient")
+	public void updatePatient(@RequestBody PatientDto patientDto) {
+		patientFacade.updatePatient(patientDto);
+	}
 }

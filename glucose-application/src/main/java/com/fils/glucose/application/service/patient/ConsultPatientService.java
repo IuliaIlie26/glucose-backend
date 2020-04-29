@@ -32,4 +32,7 @@ public class ConsultPatientService {
 		return patientsRepository.findAll();
 	}
 
+	public Patient getPatientById(Long id) {
+		return patientsRepository.findById(id).orElseThrow(() -> new TechnicalException("patient.not.found"));
+	}
 }

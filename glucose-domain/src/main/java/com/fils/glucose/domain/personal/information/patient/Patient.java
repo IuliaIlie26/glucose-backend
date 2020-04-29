@@ -87,4 +87,33 @@ public class Patient {
 	public String getCnp() {
 		return cnp;
 	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public void setBirthdate(LocalDate birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public void setCnp(String cnp) {
+		this.cnp = cnp;
+	}
+	
 }

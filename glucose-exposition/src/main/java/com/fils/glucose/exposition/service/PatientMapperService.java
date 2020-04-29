@@ -36,11 +36,11 @@ public class PatientMapperService {
 		return new Patient(dto.name, dto.lastname, address, dto.email, dto.phone, birthdate, dto.cnp);
 	}
 
-	private Address mapAddressDtoToDomain(AddressDto dto) {
+	public Address mapAddressDtoToDomain(AddressDto dto) {
 		return new Address(dto.addressLine1, dto.addressLine2, dto.zipCode, dto.city, dto.region, dto.country);
 	}
 
-	private AddressDto mapAddressDtoFromDomain(Address address) {
+	public AddressDto mapAddressDtoFromDomain(Address address) {
 		AddressDto addressDto = new AddressDto();
 		addressDto.addressLine1 = address.getAddressLine1();
 		addressDto.addressLine2 = address.getAddressLine2().isPresent() ? address.getAddressLine2().get() : "";

@@ -37,6 +37,10 @@ public class CrudPatientService {
 
 	public void deletePatientById(Long idLongValue) {
 		patientRepository.deleteById(idLongValue);
-		
+
+	}
+
+	public void updatePatient(Patient patient) {
+		patientRepository.save(patient);
 	}
 }
