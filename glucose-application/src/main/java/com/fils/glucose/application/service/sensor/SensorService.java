@@ -6,6 +6,8 @@ import com.fils.glucose.domain.sensor.SensorDistribution;
 import com.fils.glucose.domain.sensor.SensorDistributionRepository;
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 @Service
 public class SensorService {
 
@@ -25,5 +27,9 @@ public class SensorService {
 
 	public void assignSensorToPatient(String sensorId, Long patientId) {
 		sensorDistributionRepository.save(new SensorDistribution(sensorId, patientId));
+	}
+
+	public List<SensorDistribution> getDistributionList() {
+		return sensorDistributionRepository.findAll();
 	}
 }

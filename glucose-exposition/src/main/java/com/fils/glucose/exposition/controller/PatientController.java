@@ -1,5 +1,6 @@
 package com.fils.glucose.exposition.controller;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -65,5 +66,10 @@ public class PatientController {
 	@PostMapping("assignSensor")
 	public MessageDto assignSensor(@RequestBody PatientDistributionDto dto) {
 		return patientFacade.assignSensor(dto);
+	}
+	
+	@GetMapping("getSensorDistribution")
+	public List<PatientDistributionDto> getSensorDistribution() {
+		return patientFacade.getSensorDistribution();
 	}
 }

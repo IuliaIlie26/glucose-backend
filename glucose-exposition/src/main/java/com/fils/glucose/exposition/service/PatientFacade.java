@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -15,6 +16,7 @@ import com.fils.glucose.application.service.patient.CrudPatientService;
 import com.fils.glucose.application.service.sensor.SensorService;
 import com.fils.glucose.domain.medical.info.risk.factors.RiskFactors;
 import com.fils.glucose.domain.personal.information.patient.Patient;
+import com.fils.glucose.domain.sensor.SensorDistribution;
 import com.fils.glucose.exposition.dto.AddressDto;
 import com.fils.glucose.exposition.dto.MessageDto;
 import com.fils.glucose.exposition.dto.PatientDistributionDto;
@@ -119,4 +121,35 @@ public class PatientFacade {
 		return result;
 	}
 
+	public List<PatientDistributionDto> getSensorDistribution() {
+		List<PatientDistributionDto> patientList = new ArrayList<>();
+		List<SensorDistribution> sensorDistributionList = sensorService.getDistributionList();
+		sensorDistributionList.stream()
+				.forEach(distribution -> mapToPatientDistributionAndAddToList(patientList, distribution));
+		return patientList;
+	}
+
+	private void mapToPatientDistributionAndAddToList(List<PatientDistributionDto> patientList,
+			SensorDistribution distribution) {
+		PatientDistributionDto dto = new PatientDistributionDto();
+		Patient patient = crudPatientService.getPatientById(distribution.getPatientId());
+		dto.patientCnp = patient.getCnp();
+		dto.patientName = patient.getFirstName() + " " + patient.getLastName();
+		dto.status = distribution.getStatus();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		Optional<LocalDate> activationDate = distribution.getActivationDate();
+		if (activationDate.isPresent()) {
+			dto.activationDate = activationDate.get().format(formatter);
+		}
+		Optional<LocalDate> deactivationDate = distribution.getDeactivationDate();
+		if (deactivationDate.isPresent()) {
+			dto.deactivationDate = deactivationDate.get().format(formatter);
+		}
+		Optional<String> doctorId = distribution.getDoctorId();
+		if (doctorId.isPresent()) {
+			dto.doctorName = doctorId.get(); // TODO ia numele doctorului
+		}
+		dto.sensorId = distribution.getSensorId();
+		patientList.add(dto);
+	}
 }

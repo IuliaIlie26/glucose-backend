@@ -1,5 +1,8 @@
 package com.fils.glucose.domain.sensor;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,17 +10,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class SensorDistribution {
 
 	@Id
-	private final String sensorId;
-	private final Long patientId;
-
-	public SensorDistribution() {
-		this.sensorId = null;
-		this.patientId = null;
-	}
+	private String sensorId;
+	private Long patientId;
+	private String status;
+	private String doctorId;
+	private LocalDate activationDate;
+	private LocalDate deactivationDate;
 
 	public SensorDistribution(String sensorId, Long patientId) {
-		this.patientId = patientId;
+		super();
 		this.sensorId = sensorId;
+		this.patientId = patientId;
+	}
+
+	public SensorDistribution() {
 	}
 
 	public String getSensorId() {
@@ -26,5 +32,21 @@ public class SensorDistribution {
 
 	public Long getPatientId() {
 		return patientId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public Optional<String> getDoctorId() {
+		return Optional.ofNullable(doctorId);
+	}
+
+	public Optional<LocalDate> getActivationDate() {
+		return Optional.ofNullable(activationDate);
+	}
+
+	public Optional<LocalDate> getDeactivationDate() {
+		return Optional.ofNullable(deactivationDate);
 	}
 }
