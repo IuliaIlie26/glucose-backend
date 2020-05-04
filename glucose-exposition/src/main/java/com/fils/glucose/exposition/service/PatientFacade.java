@@ -5,50 +5,52 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import com.fils.glucose.application.service.patient.ConsultPatientService;
 import com.fils.glucose.application.service.patient.CrudPatientService;
+import com.fils.glucose.application.service.sensor.SensorService;
 import com.fils.glucose.domain.medical.info.risk.factors.RiskFactors;
 import com.fils.glucose.domain.personal.information.patient.Patient;
 import com.fils.glucose.exposition.dto.AddressDto;
+import com.fils.glucose.exposition.dto.MessageDto;
+import com.fils.glucose.exposition.dto.PatientDistributionDto;
 import com.fils.glucose.exposition.dto.PatientDto;
 import com.fils.glucose.exposition.dto.RiskFactorsDto;
 
 @Service
 public class PatientFacade {
 
-	private final CrudPatientService crudPatient;
+	private final CrudPatientService crudPatientService;
 	private final PatientMapperService patientMapperService;
-	private final ConsultPatientService consultPatientService;
+	private final SensorService sensorService;
 
-	public PatientFacade(CrudPatientService createPatient, PatientMapperService patientMapperService,
-			ConsultPatientService consultPatientService) {
-		this.crudPatient = requireNonNull(createPatient);
+	public PatientFacade(CrudPatientService crudPatientService, PatientMapperService patientMapperService,
+			SensorService sensorService) {
+		this.crudPatientService = requireNonNull(crudPatientService);
 		this.patientMapperService = requireNonNull(patientMapperService);
-		this.consultPatientService = requireNonNull(consultPatientService);
+		this.sensorService = requireNonNull(sensorService);
 	}
 
 	public Long savePatient(PatientDto patientDto) {
 		Patient patient = patientMapperService.mapToDomain(patientDto);
-		return crudPatient.savePatient(patient);
+		return crudPatientService.savePatient(patient);
 	}
 
 	public String getFullFormatAgeById(Long id) {
-		return consultPatientService.getFullFormatAgeById(id);
+		return crudPatientService.getFullFormatAgeById(id);
 	}
 
 	public void saveRiskFactors(RiskFactorsDto riskFactorsDto) {
 		RiskFactors riskFactors = patientMapperService.mapRiskFactorsToDomain(riskFactorsDto);
-		crudPatient.saveRiskFactors(riskFactors);
+		crudPatientService.saveRiskFactors(riskFactors);
 	}
 
 	public Set<PatientDto> getAllPatients() {
-		List<Patient> allPatients = consultPatientService.getAllPatients();
+		List<Patient> allPatients = crudPatientService.getAllPatients();
 		Set<PatientDto> patientsSet = allPatients.stream().map(patientMapperService::mapFromDomain)
 				.collect(Collectors.toSet());
 		patientsSet.forEach(this::computeFullAddress);
@@ -66,12 +68,12 @@ public class PatientFacade {
 
 	public void deletePatientById(String id) {
 		Long idLongValue = Long.parseLong(id);
-		crudPatient.deletePatientById(idLongValue);
+		crudPatientService.deletePatientById(idLongValue);
 
 	}
 
 	public PatientDto getPatientById(Long id) {
-		Patient patient = consultPatientService.getPatientById(id);
+		Patient patient = crudPatientService.getPatientById(id);
 		return patientMapperService.mapFromDomain(patient);
 	}
 
@@ -80,7 +82,7 @@ public class PatientFacade {
 		LocalDate birthdate = LocalDate.parse(dto.birthdate, formatter);
 
 		Long idLongValue = Long.parseLong(dto.id);
-		Patient oldPatient = consultPatientService.getPatientById(idLongValue);
+		Patient oldPatient = crudPatientService.getPatientById(idLongValue);
 		oldPatient.setAddress(patientMapperService.mapAddressDtoToDomain(dto.address));
 		oldPatient.setBirthdate(birthdate);
 		oldPatient.setCnp(dto.cnp);
@@ -88,6 +90,33 @@ public class PatientFacade {
 		oldPatient.setLastName(dto.lastname);
 		oldPatient.setEmail(dto.email);
 		oldPatient.setPhoneNumber(dto.phone);
-		crudPatient.updatePatient(oldPatient);
+		crudPatientService.updatePatient(oldPatient);
 	}
+
+	public MessageDto assignSensor(PatientDistributionDto dto) {
+
+		MessageDto result = new MessageDto();
+
+		Optional<Long> potentialPatient = crudPatientService.findByCnp(dto.patientCnp);
+		if (!potentialPatient.isPresent()) {
+			result.message = "patient.manage.sensor.assign.not.found";
+			return result;
+		}
+
+		Long patientId = potentialPatient.get();
+		if (sensorService.checkIfPatientHasSensor(patientId)) {
+			result.message = "patient.manage.sensor.assign.hasSensor";
+			return result;
+		}
+
+		if (sensorService.checkIfSensorIsAlreadyAssigned(dto.sensorId)) {
+			result.message = "patient.manage.sensor.assign.sensor.assigned";
+			return result;
+		}
+
+		sensorService.assignSensorToPatient(dto.sensorId, patientId);
+
+		return result;
+	}
+
 }

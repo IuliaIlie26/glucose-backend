@@ -1,6 +1,5 @@
 package com.fils.glucose.infra.jpa.personal.information.patients;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import com.fils.glucose.domain.personal.information.patient.Patient;
 import com.fils.glucose.domain.personal.information.patient.PatientsRepository;
@@ -9,7 +8,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-@Primary
 @Repository
 public class PatientsJpaRepository implements PatientsRepository {
 

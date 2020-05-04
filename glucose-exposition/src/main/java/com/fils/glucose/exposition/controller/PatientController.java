@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fils.glucose.exposition.dto.MessageDto;
+import com.fils.glucose.exposition.dto.PatientDistributionDto;
 import com.fils.glucose.exposition.dto.PatientDto;
 import com.fils.glucose.exposition.dto.RiskFactorsDto;
 import com.fils.glucose.exposition.service.PatientFacade;
@@ -25,8 +28,8 @@ public class PatientController {
 	}
 	
 	@PostMapping("savePatient")
-	public String savePatient(@RequestBody PatientDto patient) {
-		return patientFacade.savePatient(patient).toString();
+	public void savePatient(@RequestBody PatientDto patient) {
+		 patientFacade.savePatient(patient);
 	}
 	
 	@PostMapping("saveRiskFactors")
@@ -57,5 +60,10 @@ public class PatientController {
 	@PostMapping("updatePatient")
 	public void updatePatient(@RequestBody PatientDto patientDto) {
 		patientFacade.updatePatient(patientDto);
+	}
+	
+	@PostMapping("assignSensor")
+	public MessageDto assignSensor(@RequestBody PatientDistributionDto dto) {
+		return patientFacade.assignSensor(dto);
 	}
 }
