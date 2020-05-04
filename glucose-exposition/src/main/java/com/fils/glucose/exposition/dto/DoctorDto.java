@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class DoctorDto {
 
 	@JsonProperty
-	public String firstName;
+	public String name;
 	@JsonProperty
 	public String lastname;
 	@JsonProperty
 	public String speciality;
 	@JsonProperty
-	public String eMail;
+	public String email;
 	@JsonProperty
-	public String phoneNumber;
+	public String phone;
 }

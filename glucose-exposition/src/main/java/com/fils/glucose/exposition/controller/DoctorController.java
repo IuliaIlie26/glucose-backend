@@ -1,11 +1,11 @@
 package com.fils.glucose.exposition.controller;
 
+import java.util.Set;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.fils.glucose.exposition.dto.DoctorDto;
 import com.fils.glucose.exposition.service.DoctorFacade;
 
@@ -28,5 +28,10 @@ public class DoctorController {
 	@GetMapping("getDoctorNameAndLastname")
 	public String getDoctorNameAndLastname(@RequestParam String username){
 		return doctorFacade.getDoctorNameAndLastname(username);
+	}
+	
+	@GetMapping("getDoctorsList")
+	public Set<DoctorDto> getDoctorsList(){
+		return doctorFacade.getDoctorsList();
 	}
 }

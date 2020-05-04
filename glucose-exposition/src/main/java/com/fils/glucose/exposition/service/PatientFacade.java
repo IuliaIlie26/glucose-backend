@@ -135,7 +135,7 @@ public class PatientFacade {
 		Patient patient = crudPatientService.getPatientById(distribution.getPatientId());
 		dto.patientCnp = patient.getCnp();
 		dto.patientName = patient.getFirstName() + " " + patient.getLastName();
-		dto.status = distribution.getStatus();
+		dto.status = distribution.getStatus().name();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		Optional<LocalDate> activationDate = distribution.getActivationDate();
 		if (activationDate.isPresent()) {

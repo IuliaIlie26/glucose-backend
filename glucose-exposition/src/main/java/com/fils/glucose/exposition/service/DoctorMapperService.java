@@ -9,16 +9,16 @@ import com.fils.glucose.exposition.dto.DoctorDto;
 public class DoctorMapperService {
 
 	public Doctor mapToDomain(DoctorDto dto) {
-		return new Doctor(dto.firstName, dto.lastname, dto.speciality, dto.eMail, dto.phoneNumber);
+		return new Doctor(dto.name, dto.lastname, dto.speciality, dto.email, dto.phone);
 	}
 
 	public DoctorDto mapFromDomain(Doctor doctor) {
 
 		DoctorDto dto = new DoctorDto();
-		dto.firstName = doctor.getFirstName();
+		dto.name = doctor.getFirstName();
 		dto.lastname = doctor.getLastName();
-		dto.eMail = doctor.getEmail();
-		dto.phoneNumber = doctor.getPhoneNumber();
+		dto.email = doctor.getEmail();
+		dto.phone = doctor.getPhoneNumber();
 		dto.speciality = doctor.getMedicalSpeciality();
 		return dto;
 	}

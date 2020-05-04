@@ -9,6 +9,8 @@ import com.fils.glucose.domain.users.Users;
 import com.fils.glucose.infra.jpa.users.IUsersRepository;
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 @Repository
 public class DoctorJpaRepository implements DoctorRepository {
 
@@ -28,5 +30,10 @@ public class DoctorJpaRepository implements DoctorRepository {
 	@Override
 	public Optional<Users> findByUsername(String username) {
 		return usersRepository.findByUsername(username);
+	}
+
+	@Override
+	public List<Doctor> findAll() {
+		return doctorRepository.findAll();
 	}
 }

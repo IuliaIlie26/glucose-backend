@@ -12,15 +12,16 @@ public class SensorDistribution {
 	@Id
 	private String sensorId;
 	private Long patientId;
-	private String status;
+	private Status status;
 	private String doctorId;
 	private LocalDate activationDate;
 	private LocalDate deactivationDate;
 
-	public SensorDistribution(String sensorId, Long patientId) {
+	public SensorDistribution(String sensorId, Long patientId, Status status) {
 		super();
 		this.sensorId = sensorId;
 		this.patientId = patientId;
+		this.status = status;
 	}
 
 	public SensorDistribution() {
@@ -34,7 +35,7 @@ public class SensorDistribution {
 		return patientId;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 

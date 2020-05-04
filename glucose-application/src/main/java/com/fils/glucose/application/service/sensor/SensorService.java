@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 
 import com.fils.glucose.domain.sensor.SensorDistribution;
 import com.fils.glucose.domain.sensor.SensorDistributionRepository;
+import com.fils.glucose.domain.sensor.Status;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -26,7 +28,7 @@ public class SensorService {
 	}
 
 	public void assignSensorToPatient(String sensorId, Long patientId) {
-		sensorDistributionRepository.save(new SensorDistribution(sensorId, patientId));
+		sensorDistributionRepository.save(new SensorDistribution(sensorId, patientId, Status.INACTIVE));
 	}
 
 	public List<SensorDistribution> getDistributionList() {
