@@ -24,7 +24,8 @@ public class CrudDoctorService {
 	}
 
 	private Long findDoctorIdByUsername(String username) {
-		return doctorRepository.findByUsername(username).map(Users::getId).orElseThrow(() -> new TechnicalException("doctor.not.found"));
+		return doctorRepository.findByUsername(username).map(Users::getId)
+				.orElseThrow(() -> new TechnicalException("doctor.not.found"));
 	}
 
 	private Optional<Doctor> findDoctorById(Long doctorId) {
@@ -33,5 +34,9 @@ public class CrudDoctorService {
 
 	public List<Doctor> findAll() {
 		return doctorRepository.findAll();
+	}
+
+	public void save(Doctor doc) {
+		doctorRepository.save(doc);
 	}
 }

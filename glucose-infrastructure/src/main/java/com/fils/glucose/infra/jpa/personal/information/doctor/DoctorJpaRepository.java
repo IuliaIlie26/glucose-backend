@@ -36,4 +36,9 @@ public class DoctorJpaRepository implements DoctorRepository {
 	public List<Doctor> findAll() {
 		return doctorRepository.findAll();
 	}
+
+	@Override
+	public void save(Doctor doc) {
+		doctorRepository.save(doc);
+	}
 }

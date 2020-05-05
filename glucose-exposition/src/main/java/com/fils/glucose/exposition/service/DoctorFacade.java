@@ -36,4 +36,10 @@ public class DoctorFacade {
 		return doctors.stream().map(doctorMapper::mapFromDomain).collect(Collectors.toSet());
 	}
 
+	public void saveDoctor(DoctorDto dto) {
+		Doctor doc = doctorMapper.mapToDomain(dto);
+		crudDoctorService.save(doc);
+		
+	}
+
 }

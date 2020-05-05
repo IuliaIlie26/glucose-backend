@@ -1,14 +1,11 @@
 package com.fils.glucose.domain.personal.information.doctor;
 
-import java.util.HashSet;
-import java.util.Set;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import com.fils.glucose.domain.personal.information.patient.Patient;
 
 public class Doctor {
 
@@ -25,7 +22,6 @@ public class Doctor {
 	private String lastName;
 
 	@NotBlank
-	@Pattern(regexp = "(\\p{IsAlphabetic}|'|\\s)+")
 	@Size(min = 2, max = 50)
 	private String medicalSpeciality;
 
@@ -35,7 +31,7 @@ public class Doctor {
 
 	@NotBlank
 	@Size(min = 10, max = 10)
-	@Pattern(regexp = "[0-9]")
+	@Digits(integer = 10, fraction = 0)
 	private String phoneNumber;
 
 	protected Doctor() {
