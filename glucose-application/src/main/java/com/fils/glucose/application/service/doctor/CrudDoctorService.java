@@ -7,7 +7,6 @@ import com.fils.glucose.domain.personal.information.doctor.DoctorRepository;
 import com.fils.glucose.domain.users.Users;
 import static java.util.Objects.requireNonNull;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CrudDoctorService {
@@ -20,7 +19,7 @@ public class CrudDoctorService {
 
 	public Doctor findDoctorByUsername(String username) {
 		Long doctorId = findDoctorIdByUsername(username);
-		return findDoctorById(doctorId).orElseThrow(() -> new TechnicalException("doctor.not.found"));
+		return findDoctorById(doctorId);
 	}
 
 	private Long findDoctorIdByUsername(String username) {
@@ -28,8 +27,8 @@ public class CrudDoctorService {
 				.orElseThrow(() -> new TechnicalException("doctor.not.found"));
 	}
 
-	private Optional<Doctor> findDoctorById(Long doctorId) {
-		return doctorRepository.findById(doctorId);
+	public Doctor findDoctorById(Long doctorId) {
+		return doctorRepository.findById(doctorId).orElseThrow(() -> new TechnicalException("doctor.not.found"));
 	}
 
 	public List<Doctor> findAll() {

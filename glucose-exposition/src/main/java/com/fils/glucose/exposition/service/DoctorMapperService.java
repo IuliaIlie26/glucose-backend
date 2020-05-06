@@ -15,6 +15,7 @@ public class DoctorMapperService {
 	public DoctorDto mapFromDomain(Doctor doctor) {
 
 		DoctorDto dto = new DoctorDto();
+		dto.id= doctor.getId().toString();
 		dto.name = doctor.getFirstName();
 		dto.lastname = doctor.getLastName();
 		dto.email = doctor.getEmail();

@@ -39,7 +39,24 @@ public class DoctorFacade {
 	public void saveDoctor(DoctorDto dto) {
 		Doctor doc = doctorMapper.mapToDomain(dto);
 		crudDoctorService.save(doc);
-		
+
+	}
+
+	public void updateDoctor(DoctorDto dto) {
+
+		Doctor newDoctor = updateOldDoctor(dto);
+		crudDoctorService.save(newDoctor);
+	}
+
+	private Doctor updateOldDoctor(DoctorDto dto) {
+		Long doctorId = Long.parseLong(dto.id);
+		Doctor doctor = crudDoctorService.findDoctorById(doctorId);
+		doctor.setEmail(dto.email);
+		doctor.setFirstName(dto.name);
+		doctor.setLastName(dto.lastname);
+		doctor.setMedicalSpeciality(dto.speciality);
+		doctor.setPhoneNumber(dto.phone);
+		return doctor;
 	}
 
 }

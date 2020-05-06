@@ -28,17 +28,22 @@ public class DoctorController {
 	}
 
 	@GetMapping("getDoctorNameAndLastname")
-	public String getDoctorNameAndLastname(@RequestParam String username){
+	public String getDoctorNameAndLastname(@RequestParam String username) {
 		return doctorFacade.getDoctorNameAndLastname(username);
 	}
-	
+
 	@GetMapping("getDoctorsList")
-	public Set<DoctorDto> getDoctorsList(){
+	public Set<DoctorDto> getDoctorsList() {
 		return doctorFacade.getDoctorsList();
 	}
-	
+
 	@PostMapping("saveDoctor")
 	public void saveDoctor(@RequestBody DoctorDto dto) {
 		doctorFacade.saveDoctor(dto);
+	}
+
+	@PostMapping("updateDoctor")
+	public void updateDoctor(@RequestBody DoctorDto dto) {
+		doctorFacade.updateDoctor(dto);
 	}
 }
