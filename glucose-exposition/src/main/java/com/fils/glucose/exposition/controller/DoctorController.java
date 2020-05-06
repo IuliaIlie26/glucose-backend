@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.fils.glucose.exposition.dto.DoctorDto;
+import com.fils.glucose.exposition.dto.DoctorScheduleDto;
 import com.fils.glucose.exposition.service.DoctorFacade;
 
 @RestController
@@ -45,5 +46,10 @@ public class DoctorController {
 	@PostMapping("updateDoctor")
 	public void updateDoctor(@RequestBody DoctorDto dto) {
 		doctorFacade.updateDoctor(dto);
+	}
+	
+	@GetMapping("getScheduleForDoctor")
+	public DoctorScheduleDto getScheduleForDoctor(@RequestParam Long id) {
+		return doctorFacade.getScheduleForDoctor(id);
 	}
 }

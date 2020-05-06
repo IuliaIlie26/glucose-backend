@@ -1,4 +1,4 @@
-package com.fils.glucose.infra.jpa.sensors;
+package com.fils.glucose.infra.jpa.mongo.sensors;
 
 import com.fils.glucose.domain.sensor.SensorDistribution;
 import com.fils.glucose.domain.sensor.SensorDistributionRepository;

@@ -1,114 +1,31 @@
 package com.fils.glucose.domain.personal.information.doctor;
 
-import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotNull;
-
+@Document(collection = "doctor_schedule")
 public class DoctorSchedule {
 
-	@NotNull
-	private Long doctorId;
+	@Id
+	private Long id;
 
-	private LocalTime mondayStart;
-	private LocalTime mondayEnd;
+	Map<Integer, DailySchedule> schedule = new HashMap<>();
 
-	private LocalTime tuesdayStart;
-	private LocalTime tuesdayEnd;
+	public Map<Integer, DailySchedule> getSchedule() {
+		return schedule;
+	}
 
-	private LocalTime wednesdayStart;
-	private LocalTime wednesdayEnd;
-
-	private LocalTime thursdayStart;
-	private LocalTime thursdayEnd;
-
-	private LocalTime fridayStart;
-	private LocalTime fridayEnd;
+	public void setSchedule(Map<Integer, DailySchedule> schedule) {
+		this.schedule = schedule;
+	}
 
 	public Long getDoctorId() {
-		return doctorId;
+		return id;
 	}
 
 	public void setDoctorId(Long doctorId) {
-		this.doctorId = doctorId;
-	}
-
-	public LocalTime getMondayStart() {
-		return mondayStart;
-	}
-
-	public void setMondayStart(LocalTime mondayStart) {
-		this.mondayStart = mondayStart;
-	}
-
-	public LocalTime getMondayEnd() {
-		return mondayEnd;
-	}
-
-	public void setMondayEnd(LocalTime mondayEnd) {
-		this.mondayEnd = mondayEnd;
-	}
-
-	public LocalTime getTuesdayStart() {
-		return tuesdayStart;
-	}
-
-	public void setTuesdayStart(LocalTime tuesdayStart) {
-		this.tuesdayStart = tuesdayStart;
-	}
-
-	public LocalTime getTuesdayEnd() {
-		return tuesdayEnd;
-	}
-
-	public void setTuesdayEnd(LocalTime tuesdayEnd) {
-		this.tuesdayEnd = tuesdayEnd;
-	}
-
-	public LocalTime getWednesdayStart() {
-		return wednesdayStart;
-	}
-
-	public void setWednesdayStart(LocalTime wednesdayStart) {
-		this.wednesdayStart = wednesdayStart;
-	}
-
-	public LocalTime getWednesdayEnd() {
-		return wednesdayEnd;
-	}
-
-	public void setWednesdayEnd(LocalTime wednesdayEnd) {
-		this.wednesdayEnd = wednesdayEnd;
-	}
-
-	public LocalTime getThursdayStart() {
-		return thursdayStart;
-	}
-
-	public void setThursdayStart(LocalTime thursdayStart) {
-		this.thursdayStart = thursdayStart;
-	}
-
-	public LocalTime getThursdayEnd() {
-		return thursdayEnd;
-	}
-
-	public void setThursdayEnd(LocalTime thursdayEnd) {
-		this.thursdayEnd = thursdayEnd;
-	}
-
-	public LocalTime getFridayStart() {
-		return fridayStart;
-	}
-
-	public void setFridayStart(LocalTime fridayStart) {
-		this.fridayStart = fridayStart;
-	}
-
-	public LocalTime getFridayEnd() {
-		return fridayEnd;
-	}
-
-	public void setFridayEnd(LocalTime fridayEnd) {
-		this.fridayEnd = fridayEnd;
+		this.id = doctorId;
 	}
 }

@@ -1,4 +1,4 @@
-package com.fils.glucose.infra.jpa.sensors;
+package com.fils.glucose.infra.jpa.mongo.sensors;
 
 import java.util.Optional;
 
