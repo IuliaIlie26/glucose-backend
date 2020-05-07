@@ -2,6 +2,7 @@ package com.fils.glucose.infra.jpa.personal.information.doctor;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import com.fils.glucose.domain.personal.information.doctor.Doctor;
 import com.fils.glucose.domain.personal.information.doctor.DoctorRepository;
@@ -34,7 +35,7 @@ public class DoctorJpaRepository implements DoctorRepository {
 
 	@Override
 	public List<Doctor> findAll() {
-		return doctorRepository.findAll();
+		return doctorRepository.findAll(Sort.by(Sort.Direction.ASC, "firstName"));
 	}
 
 	@Override

@@ -18,4 +18,8 @@ public class CrudScheduleService {
 		return doctorScheduleRepository.findById(id).orElse(new DoctorSchedule());
 	}
 
+	public void save(DoctorSchedule schedule) {
+		doctorScheduleRepository.save(schedule);
+	}
+
 }

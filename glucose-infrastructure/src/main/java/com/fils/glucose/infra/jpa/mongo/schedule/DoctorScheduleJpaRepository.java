@@ -21,4 +21,9 @@ public class DoctorScheduleJpaRepository implements DoctorScheduleRepository {
 	public Optional<DoctorSchedule> findById(Long id) {
 		return doctorScheduleRepository.findById(id);
 	}
+
+	@Override
+	public void save(DoctorSchedule schedule) {
+		 doctorScheduleRepository.save(schedule);
+	}
 }

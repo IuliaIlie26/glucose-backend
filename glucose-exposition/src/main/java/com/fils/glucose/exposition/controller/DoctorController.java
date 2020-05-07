@@ -1,6 +1,6 @@
 package com.fils.glucose.exposition.controller;
 
-import java.util.Set;
+import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,12 +29,12 @@ public class DoctorController {
 	}
 
 	@GetMapping("getDoctorNameAndLastname")
-	public String getDoctorNameAndLastname(@RequestParam String username) {
-		return doctorFacade.getDoctorNameAndLastname(username);
+	public String getDoctorNameAndLastname(@RequestParam Long id) {
+		return doctorFacade.getDoctorNameAndLastname(id);
 	}
 
 	@GetMapping("getDoctorsList")
-	public Set<DoctorDto> getDoctorsList() {
+	public List<DoctorDto> getDoctorsList() {
 		return doctorFacade.getDoctorsList();
 	}
 
@@ -51,5 +51,10 @@ public class DoctorController {
 	@GetMapping("getScheduleForDoctor")
 	public DoctorScheduleDto getScheduleForDoctor(@RequestParam Long id) {
 		return doctorFacade.getScheduleForDoctor(id);
+	}
+	
+	@PostMapping("saveSchedule")
+	public void saveSchedule(@RequestBody DoctorScheduleDto schedule) {
+		doctorFacade.saveSchedule(schedule);
 	}
 }

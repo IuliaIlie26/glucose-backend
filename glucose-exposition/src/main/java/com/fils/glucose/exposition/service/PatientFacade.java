@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -51,10 +50,10 @@ public class PatientFacade {
 		crudPatientService.saveRiskFactors(riskFactors);
 	}
 
-	public Set<PatientDto> getAllPatients() {
+	public List<PatientDto> getAllPatients() {
 		List<Patient> allPatients = crudPatientService.getAllPatients();
-		Set<PatientDto> patientsSet = allPatients.stream().map(patientMapperService::mapFromDomain)
-				.collect(Collectors.toSet());
+		List<PatientDto> patientsSet = allPatients.stream().map(patientMapperService::mapFromDomain)
+				.collect(Collectors.toList());
 		patientsSet.forEach(this::computeFullAddress);
 		return patientsSet;
 	}

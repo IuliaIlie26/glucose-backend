@@ -1,20 +1,21 @@
 package com.fils.glucose.exposition.dto;
 
-import java.time.LocalTime;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DailyScheduleDto {
 
 	@JsonProperty
-	public LocalTime start;
+	public Integer dayOfWeek;
 	@JsonProperty
-	public LocalTime end;
+	public String start;
+	@JsonProperty
+	public String end;
 
 	public DailyScheduleDto() {
 	}
 
-	public DailyScheduleDto(LocalTime start, LocalTime end) {
+	public DailyScheduleDto(Integer dayOfWeek, String start, String end) {
+		this.dayOfWeek=dayOfWeek;
 		this.start = start;
 		this.end = end;
 	}

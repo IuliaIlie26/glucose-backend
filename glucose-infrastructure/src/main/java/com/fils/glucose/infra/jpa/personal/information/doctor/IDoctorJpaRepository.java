@@ -7,4 +7,5 @@ import com.fils.glucose.domain.personal.information.doctor.Doctor;
 public interface IDoctorJpaRepository extends JpaRepository<Doctor, Long>{
 
 	Optional<Doctor> findById(Long doctorId);
+	
 }

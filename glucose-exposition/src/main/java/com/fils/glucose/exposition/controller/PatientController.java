@@ -1,8 +1,6 @@
 package com.fils.glucose.exposition.controller;
 
 import java.util.List;
-import java.util.Set;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.fils.glucose.exposition.dto.MessageDto;
 import com.fils.glucose.exposition.dto.PatientDistributionDto;
 import com.fils.glucose.exposition.dto.PatientDto;
@@ -44,7 +41,7 @@ public class PatientController {
 	}
 	
 	@GetMapping("getAllPatients")
-	public Set<PatientDto> getAllPatients() {
+	public List<PatientDto> getAllPatients() {
 		return patientFacade.getAllPatients();
 	}
 	
