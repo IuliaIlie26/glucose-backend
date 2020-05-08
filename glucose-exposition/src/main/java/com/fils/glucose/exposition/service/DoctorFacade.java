@@ -1,8 +1,9 @@
 package com.fils.glucose.exposition.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
+
+import com.fils.glucose.application.exception.TechnicalException;
 import com.fils.glucose.application.service.doctor.CrudDoctorService;
 import com.fils.glucose.application.service.schedule.CrudScheduleService;
 import com.fils.glucose.domain.personal.information.doctor.DailySchedule;
@@ -75,6 +76,7 @@ public class DoctorFacade {
 		DoctorSchedule schedule = crudScheduleService.findById(doctorId);
 		DoctorScheduleDto dto = new DoctorScheduleDto();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
 		dto.schedule = schedule.getSchedule().entrySet().stream()
 				.map(entry -> new DailyScheduleDto(entry.getKey(),
 						entry.getValue().getStart().map(e -> e.format(formatter)).orElse(""),
@@ -97,8 +99,11 @@ public class DoctorFacade {
 	}
 
 	private void addToMap(Map<Integer, DailySchedule> map, DailyScheduleDto element) {
+
+		checkIfTimesAreValid(element);
+
 		DailySchedule dailySchedule;
-		if (StringUtils.isEmpty(element.start) || StringUtils.isEmpty(element.end)) {
+		if (StringUtils.isEmpty(element.start) && StringUtils.isEmpty(element.end)) {
 			dailySchedule = new DailySchedule();
 		} else {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -106,5 +111,18 @@ public class DoctorFacade {
 					LocalTime.parse(element.end, formatter));
 		}
 		map.put(element.dayOfWeek, dailySchedule);
+	}
+
+	private void checkIfTimesAreValid(DailyScheduleDto element) {
+		if (StringUtils.isEmpty(element.start) && !StringUtils.isEmpty(element.end)
+				|| !StringUtils.isEmpty(element.start) && StringUtils.isEmpty(element.end)) {
+			throw new TechnicalException("doctor.schedule.error.start.end.required");
+		}
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+		LocalTime startAsDate = LocalTime.parse(element.start, formatter);
+		LocalTime endAsDate = LocalTime.parse(element.end, formatter);
+		if (startAsDate.isAfter(endAsDate)) {
+			throw new TechnicalException("doctor.schedule.error.start.after.end");
+		}
 	}
 }
