@@ -21,5 +21,4 @@ public class CrudScheduleService {
 	public void save(DoctorSchedule schedule) {
 		doctorScheduleRepository.save(schedule);
 	}
-
 }

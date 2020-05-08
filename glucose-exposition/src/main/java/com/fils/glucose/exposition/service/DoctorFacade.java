@@ -2,7 +2,6 @@ package com.fils.glucose.exposition.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
 import com.fils.glucose.application.service.doctor.CrudDoctorService;
 import com.fils.glucose.application.service.schedule.CrudScheduleService;
 import com.fils.glucose.domain.personal.information.doctor.DailySchedule;
@@ -12,8 +11,7 @@ import com.fils.glucose.exposition.dto.DailyScheduleDto;
 import com.fils.glucose.exposition.dto.DoctorDto;
 import com.fils.glucose.exposition.dto.DoctorScheduleDto;
 import static java.util.Objects.requireNonNull;
-import java.time.OffsetDateTime;
-import java.time.OffsetTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
@@ -81,12 +79,15 @@ public class DoctorFacade {
 						entry.getValue().getStart().map(e -> e.format(formatter)).orElse(""),
 						entry.getValue().getEnd().map(e -> e.format(formatter)).orElse("")))
 				.collect(Collectors.toList());
+		dto.doctorId=doctorId;
 		return dto;
 	}
 
 	public void saveSchedule(DoctorScheduleDto dto) {
-		DoctorSchedule schedule = new DoctorSchedule();
-		schedule.setDoctorId(dto.doctorId);
+		DoctorSchedule schedule = crudScheduleService.findById(dto.doctorId);
+		if (schedule.getDoctorId() == 0) {
+			schedule.setDoctorId(dto.doctorId);
+		}
 		Map<Integer, DailySchedule> map = new HashMap<>();
 		dto.schedule.stream().forEach(element -> addToMap(map, element));
 		schedule.setSchedule(map);
@@ -99,8 +100,9 @@ public class DoctorFacade {
 		if (StringUtils.isEmpty(element.start) || StringUtils.isEmpty(element.end)) {
 			dailySchedule = new DailySchedule();
 		} else {
-			dailySchedule = new DailySchedule(OffsetTime.parse(element.start).toLocalTime(),
-					OffsetTime.parse(element.end).toLocalTime());
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+			dailySchedule = new DailySchedule(LocalTime.parse(element.start, formatter),
+					LocalTime.parse(element.end, formatter));
 		}
 		map.put(element.dayOfWeek, dailySchedule);
 	}
