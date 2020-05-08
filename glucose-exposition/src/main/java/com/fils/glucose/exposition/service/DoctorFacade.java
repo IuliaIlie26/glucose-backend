@@ -1,6 +1,7 @@
 package com.fils.glucose.exposition.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 import com.fils.glucose.application.service.doctor.CrudDoctorService;
 import com.fils.glucose.application.service.schedule.CrudScheduleService;
@@ -73,19 +74,19 @@ public class DoctorFacade {
 	public DoctorScheduleDto getScheduleForDoctor(Long doctorId) {
 		DoctorSchedule schedule = crudScheduleService.findById(doctorId);
 		DoctorScheduleDto dto = new DoctorScheduleDto();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 		dto.schedule = schedule.getSchedule().entrySet().stream()
 				.map(entry -> new DailyScheduleDto(entry.getKey(),
 						entry.getValue().getStart().map(e -> e.format(formatter)).orElse(""),
 						entry.getValue().getEnd().map(e -> e.format(formatter)).orElse("")))
 				.collect(Collectors.toList());
-		dto.doctorId=doctorId;
+		dto.doctorId = doctorId;
 		return dto;
 	}
 
 	public void saveSchedule(DoctorScheduleDto dto) {
 		DoctorSchedule schedule = crudScheduleService.findById(dto.doctorId);
-		if (schedule.getDoctorId() == 0) {
+		if (schedule.getDoctorId() == null) {
 			schedule.setDoctorId(dto.doctorId);
 		}
 		Map<Integer, DailySchedule> map = new HashMap<>();
@@ -100,7 +101,7 @@ public class DoctorFacade {
 		if (StringUtils.isEmpty(element.start) || StringUtils.isEmpty(element.end)) {
 			dailySchedule = new DailySchedule();
 		} else {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 			dailySchedule = new DailySchedule(LocalTime.parse(element.start, formatter),
 					LocalTime.parse(element.end, formatter));
 		}
