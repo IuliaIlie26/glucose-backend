@@ -100,29 +100,30 @@ public class DoctorFacade {
 
 	private void addToMap(Map<Integer, DailySchedule> map, DailyScheduleDto element) {
 
-		checkIfTimesAreValid(element);
-
 		DailySchedule dailySchedule;
 		if (StringUtils.isEmpty(element.start) && StringUtils.isEmpty(element.end)) {
 			dailySchedule = new DailySchedule();
 		} else {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-			dailySchedule = new DailySchedule(LocalTime.parse(element.start, formatter),
-					LocalTime.parse(element.end, formatter));
+			dailySchedule = checkIfTimesAreValidAndReturnDailyScheduleBean(element);
 		}
 		map.put(element.dayOfWeek, dailySchedule);
 	}
 
-	private void checkIfTimesAreValid(DailyScheduleDto element) {
+	private DailySchedule checkIfTimesAreValidAndReturnDailyScheduleBean(DailyScheduleDto element) {
+		
 		if (StringUtils.isEmpty(element.start) && !StringUtils.isEmpty(element.end)
 				|| !StringUtils.isEmpty(element.start) && StringUtils.isEmpty(element.end)) {
 			throw new TechnicalException("doctor.schedule.error.start.end.required");
 		}
+
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 		LocalTime startAsDate = LocalTime.parse(element.start, formatter);
 		LocalTime endAsDate = LocalTime.parse(element.end, formatter);
+
 		if (startAsDate.isAfter(endAsDate)) {
 			throw new TechnicalException("doctor.schedule.error.start.after.end");
 		}
+
+		return new DailySchedule(startAsDate, endAsDate);
 	}
 }
