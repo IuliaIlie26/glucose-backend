@@ -7,7 +7,7 @@
 	version="2.1">
 	<access>FIELD</access>
 	<entity
-		class="com.fils.glucose.domain.medical.info.risk.factors.RiskFactors">
+		class="com.fils.glucose.domain.personal.information.risk.factors.RiskFactors">
 		<table name="risk_factors" schema="personalInformation" />
 		<attributes>
 			<id name="patientId">

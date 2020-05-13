@@ -3,8 +3,9 @@ package com.fils.glucose.infra.jpa.personal.information.risk.factors;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
-import com.fils.glucose.domain.medical.info.risk.factors.RiskFactors;
-import com.fils.glucose.domain.medical.info.risk.factors.RiskFactorsRepository;
+import com.fils.glucose.domain.personal.information.risk.factors.RiskFactors;
+import com.fils.glucose.domain.personal.information.risk.factors.RiskFactorsRepository;
+
 import static java.util.Objects.requireNonNull;
 
 @Primary

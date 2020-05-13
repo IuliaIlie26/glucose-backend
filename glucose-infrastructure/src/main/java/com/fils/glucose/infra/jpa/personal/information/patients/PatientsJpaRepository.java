@@ -32,8 +32,8 @@ public class PatientsJpaRepository implements PatientsRepository {
 	}
 
 	@Override
-	public Optional<Long> findByCnp(String cnp) {
-		return patientsRepository.findByCnp(cnp);
+	public Optional<Long> findIdByCnp(String cnp) {
+		return patientsRepository.findIdByCnp(cnp);
 	}
 
 	@Override
@@ -49,5 +49,10 @@ public class PatientsJpaRepository implements PatientsRepository {
 	@Override
 	public void deleteById(Long id) {
 		patientsRepository.deleteById(id);
+	}
+
+	@Override
+	public Optional<Patient> findByCnp(String cnp) {
+		return patientsRepository.findByCnp(cnp);
 	}
 }

@@ -3,10 +3,10 @@ package com.fils.glucose.application.service.patient;
 import org.springframework.stereotype.Service;
 
 import com.fils.glucose.application.exception.TechnicalException;
-import com.fils.glucose.domain.medical.info.risk.factors.RiskFactors;
-import com.fils.glucose.domain.medical.info.risk.factors.RiskFactorsRepository;
 import com.fils.glucose.domain.personal.information.patient.Patient;
 import com.fils.glucose.domain.personal.information.patient.PatientsRepository;
+import com.fils.glucose.domain.personal.information.risk.factors.RiskFactors;
+import com.fils.glucose.domain.personal.information.risk.factors.RiskFactorsRepository;
 
 import static java.util.Objects.requireNonNull;
 
@@ -28,7 +28,7 @@ public class CrudPatientService {
 	}
 
 	public Long savePatient(Patient patient) {
-		if (patientRepository.findByCnp(patient.getCnp()).isPresent()) {
+		if (patientRepository.findIdByCnp(patient.getCnp()).isPresent()) {
 			throw new TechnicalException("patient.cnp.exists");
 		} else if (patientRepository.findByEmail(patient.getEmail()).isPresent()) {
 			throw new TechnicalException("patient.email.exists");
@@ -65,7 +65,11 @@ public class CrudPatientService {
 		return patientRepository.findById(id).orElseThrow(() -> new TechnicalException("patient.not.found"));
 	}
 
-	public Optional<Long> findByCnp(String cnp) {
-		return patientRepository.findByCnp(cnp);
+	public Optional<Long> findIdByCnp(String cnp) {
+		return patientRepository.findIdByCnp(cnp);
+	}
+	
+	public Patient findByCnp(String cnp) {
+		return patientRepository.findByCnp(cnp).orElseThrow(() -> new TechnicalException("patient.not.found"));
 	}
 }

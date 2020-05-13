@@ -1,4 +1,4 @@
-package com.fils.glucose.domain.medical.info.risk.factors;
+package com.fils.glucose.domain.personal.information.risk.factors;
 
 import javax.validation.constraints.NotNull;
 

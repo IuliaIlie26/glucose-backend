@@ -38,4 +38,8 @@ public class CrudDoctorService {
 	public void save(Doctor doc) {
 		doctorRepository.save(doc);
 	}
+
+	public List<Doctor> getDoctorsBySpeciality(String speciality) {
+		return doctorRepository.getDoctorsBySpeciality(speciality);
+	}
 }

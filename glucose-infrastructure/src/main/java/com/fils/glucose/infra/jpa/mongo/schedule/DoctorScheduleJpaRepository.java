@@ -4,8 +4,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import com.fils.glucose.domain.personal.information.doctor.DoctorSchedule;
-import com.fils.glucose.domain.personal.information.doctor.DoctorScheduleRepository;
+import com.fils.glucose.domain.schedule.DoctorSchedule;
+import com.fils.glucose.domain.schedule.DoctorScheduleRepository;
+
 import static java.util.Objects.requireNonNull;
 
 @Repository

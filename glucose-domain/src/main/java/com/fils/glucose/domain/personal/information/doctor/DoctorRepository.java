@@ -9,4 +9,5 @@ public interface DoctorRepository {
 	Optional<Users> findByUsername(String username);
 	List<Doctor> findAll();
 	void save(Doctor doc);
+	List<Doctor> getDoctorsBySpeciality(String speciality);
 }

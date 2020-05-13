@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import com.fils.glucose.application.service.patient.CrudPatientService;
 import com.fils.glucose.application.service.sensor.SensorService;
-import com.fils.glucose.domain.medical.info.risk.factors.RiskFactors;
 import com.fils.glucose.domain.personal.information.patient.Patient;
+import com.fils.glucose.domain.personal.information.risk.factors.RiskFactors;
 import com.fils.glucose.domain.sensor.SensorDistribution;
 import com.fils.glucose.exposition.dto.AddressDto;
 import com.fils.glucose.exposition.dto.MessageDto;
@@ -98,7 +98,7 @@ public class PatientFacade {
 
 		MessageDto result = new MessageDto();
 
-		Optional<Long> potentialPatient = crudPatientService.findByCnp(dto.patientCnp);
+		Optional<Long> potentialPatient = crudPatientService.findIdByCnp(dto.patientCnp);
 		if (!potentialPatient.isPresent()) {
 			result.message = "patient.manage.sensor.assign.not.found";
 			return result;
@@ -150,5 +150,10 @@ public class PatientFacade {
 		}
 		dto.sensorId = distribution.getSensorId();
 		patientList.add(dto);
+	}
+
+	public String getPatientNameByCnp(String cnp) {
+		Patient patient = crudPatientService.findByCnp(cnp);
+		return patient.getLastName() +" "+ patient.getFirstName();
 	}
 }

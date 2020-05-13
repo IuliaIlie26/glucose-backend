@@ -1,4 +1,4 @@
-package com.fils.glucose.domain.personal.information.doctor;
+package com.fils.glucose.domain.schedule;
 
 import java.time.LocalTime;
 import java.util.Optional;

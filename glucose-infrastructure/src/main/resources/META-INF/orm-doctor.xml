@@ -25,7 +25,7 @@
 			<basic name="phoneNumber">
 				<column name="PHONE" nullable="false" />
 			</basic>
-			<basic name="medicalSpeciality">
+			<basic name="speciality">
 				<column name="SPECIALITY" />
 			</basic>
 		</attributes>

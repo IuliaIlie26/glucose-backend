@@ -42,4 +42,9 @@ public class DoctorJpaRepository implements DoctorRepository {
 	public void save(Doctor doc) {
 		doctorRepository.save(doc);
 	}
+
+	@Override
+	public List<Doctor> getDoctorsBySpeciality(String speciality) {
+		return doctorRepository.findBySpeciality(speciality);
+	}
 }

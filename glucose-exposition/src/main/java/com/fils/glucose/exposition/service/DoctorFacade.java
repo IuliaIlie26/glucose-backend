@@ -6,9 +6,9 @@ import org.springframework.util.StringUtils;
 import com.fils.glucose.application.exception.TechnicalException;
 import com.fils.glucose.application.service.doctor.CrudDoctorService;
 import com.fils.glucose.application.service.schedule.CrudScheduleService;
-import com.fils.glucose.domain.personal.information.doctor.DailySchedule;
 import com.fils.glucose.domain.personal.information.doctor.Doctor;
-import com.fils.glucose.domain.personal.information.doctor.DoctorSchedule;
+import com.fils.glucose.domain.schedule.DailySchedule;
+import com.fils.glucose.domain.schedule.DoctorSchedule;
 import com.fils.glucose.exposition.dto.DailyScheduleDto;
 import com.fils.glucose.exposition.dto.DoctorDto;
 import com.fils.glucose.exposition.dto.DoctorScheduleDto;
@@ -125,5 +125,10 @@ public class DoctorFacade {
 		}
 
 		return new DailySchedule(startAsDate, endAsDate);
+	}
+
+	public List<DoctorDto> getDoctorsBySpeciality(String speciality) {
+		List<Doctor> doctors = crudDoctorService.getDoctorsBySpeciality(speciality);
+		return doctors.stream().map(doctorMapper::mapFromDomain).collect(Collectors.toList());
 	}
 }

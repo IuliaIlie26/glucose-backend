@@ -54,6 +54,11 @@ public class PatientController {
 	public PatientDto getPatientById(@RequestParam Long id) {
 		return patientFacade.getPatientById(id);
 	}
+
+	@GetMapping("getPatientNameByCnp")
+	public String getPatientNameByCnp(@RequestParam String cnp) {
+		return patientFacade.getPatientNameByCnp(cnp);
+	}
 	
 	@PostMapping("updatePatient")
 	public void updatePatient(@RequestBody PatientDto patientDto) {

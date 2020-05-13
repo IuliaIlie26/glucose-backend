@@ -23,7 +23,7 @@ public class Doctor {
 
 	@NotBlank
 	@Size(min = 2, max = 50)
-	private String medicalSpeciality;
+	private String speciality;
 
 	@NotBlank
 	@Email
@@ -41,7 +41,7 @@ public class Doctor {
 			@NotNull String email, String phoneNumber) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.medicalSpeciality = medicalSpeciality;
+		this.speciality = medicalSpeciality;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 	}
@@ -59,7 +59,7 @@ public class Doctor {
 	}
 
 	public String getMedicalSpeciality() {
-		return medicalSpeciality;
+		return speciality;
 	}
 
 	public String getEmail() {
@@ -79,7 +79,7 @@ public class Doctor {
 	}
 
 	public void setMedicalSpeciality(String medicalSpeciality) {
-		this.medicalSpeciality = medicalSpeciality;
+		this.speciality = medicalSpeciality;
 	}
 
 	public void setEmail(String email) {

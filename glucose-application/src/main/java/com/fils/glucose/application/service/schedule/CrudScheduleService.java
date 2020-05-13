@@ -1,12 +1,13 @@
 package com.fils.glucose.application.service.schedule;
 
 import org.springframework.stereotype.Service;
+
+import com.fils.glucose.domain.schedule.DoctorSchedule;
+import com.fils.glucose.domain.schedule.DoctorScheduleRepository;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
-
-import com.fils.glucose.domain.personal.information.doctor.DoctorSchedule;
-import com.fils.glucose.domain.personal.information.doctor.DoctorScheduleRepository;
 
 @Service
 public class CrudScheduleService {

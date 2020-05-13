@@ -7,10 +7,18 @@ import java.util.Optional;
 public interface PatientsRepository {
 
 	Optional<LocalDate> findBirthdateById(Long id);
+
 	Optional<Patient> findById(Long id);
+
 	Patient save(Patient patient);
-	Optional<Long> findByCnp(String cnp);
+
+	Optional<Long> findIdByCnp(String cnp);
+
 	Optional<Long> findByEmail(String email);
+
 	List<Patient> findAll();
+
 	void deleteById(Long id);
+
+	Optional<Patient> findByCnp(String cnp);
 }
