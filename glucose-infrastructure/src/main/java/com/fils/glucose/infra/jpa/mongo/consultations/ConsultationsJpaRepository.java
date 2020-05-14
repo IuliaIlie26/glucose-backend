@@ -1,7 +1,7 @@
 package com.fils.glucose.infra.jpa.mongo.consultations;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -19,14 +19,25 @@ public class ConsultationsJpaRepository implements ConsultationRepository {
 	}
 
 	@Override
-	public Optional<Consultation> findByDoctorIdAndStartAndDay(Long doctorId, LocalTime start, LocalDate date) {
-		return consultationRepository.findByDoctorIdAndStartAndDay(doctorId, date, start);
+	public Optional<Consultation> findByDoctorIdAndStartAndDay(Long doctorId, LocalDateTime consultationDate) {
+		return consultationRepository.findByDoctorIdAndConsultationDate(doctorId, consultationDate);
 	}
 
 	@Override
 	public void save(Consultation consultation) {
 		consultationRepository.save(consultation);
-		
+
+	}
+
+	@Override
+	public List<Consultation> findAll() {
+		return consultationRepository.findAll();
+	}
+
+	@Override
+	public void deleteByDoctorIdAndPatientIdAndConsultationDate(Long doctorId, Long patientId,
+			LocalDateTime consultationDate) {
+		consultationRepository.deleteByDoctorIdAndPatientIdAndConsultationDate(doctorId, patientId, consultationDate);
 	}
 
 }

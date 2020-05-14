@@ -18,4 +18,8 @@ public class ConsultationDto {
 	public Long doctorId;
 	@JsonProperty
 	public String patientCnp;
+	@JsonProperty
+	public String patientName;
+	@JsonProperty
+	public String patientLastName;
  }

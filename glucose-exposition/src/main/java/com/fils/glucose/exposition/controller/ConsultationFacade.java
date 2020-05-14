@@ -1,6 +1,7 @@
 package com.fils.glucose.exposition.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import com.fils.glucose.domain.consultations.Consultation;
 import com.fils.glucose.domain.personal.information.doctor.Doctor;
 import com.fils.glucose.domain.schedule.DailySchedule;
 import com.fils.glucose.exposition.dto.ConsultationFilterDto;
+import com.fils.glucose.exposition.service.ConsultationMapperService;
 import com.fils.glucose.exposition.dto.ConsultationDto;
 
 @Service
@@ -29,13 +31,16 @@ public class ConsultationFacade {
 	private final CrudScheduleService crudScheduleService;
 	private final CrudConsultationService crudConsultationService;
 	private final CrudPatientService crudPatientService;
+	private final ConsultationMapperService consultationMapper;
 
 	public ConsultationFacade(CrudDoctorService crudDoctorService, CrudScheduleService crudScheduleService,
-			CrudConsultationService crudConsultationService, CrudPatientService crudPatientService) {
+			CrudConsultationService crudConsultationService, CrudPatientService crudPatientService,
+			ConsultationMapperService consultationMapper) {
 		this.crudDoctorService = crudDoctorService;
 		this.crudScheduleService = crudScheduleService;
 		this.crudConsultationService = crudConsultationService;
 		this.crudPatientService = crudPatientService;
+		this.consultationMapper = consultationMapper;
 	}
 
 	public List<ConsultationDto> getFreeSpots(ConsultationFilterDto filter) {
@@ -48,10 +53,11 @@ public class ConsultationFacade {
 	public void saveConsultation(ConsultationDto consultation) {
 
 		Long patientId = this.crudPatientService.findByCnp(consultation.patientCnp).getId();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime consultationDate = LocalDateTime.parse(consultation.date + " " + consultation.startTime,
+				formatter);
 
-		Consultation consultationBean = new Consultation(consultation.doctorId, patientId,
-				LocalTime.parse(consultation.startTime, DateTimeFormatter.ofPattern("HH:mm")),
-				LocalDate.parse(consultation.date, FORMATTER));
+		Consultation consultationBean = new Consultation(consultation.doctorId, patientId, consultationDate);
 		crudConsultationService.save(consultationBean);
 	}
 
@@ -101,6 +107,18 @@ public class ConsultationFacade {
 		spot.speciality = doctor.getMedicalSpeciality();
 		spot.doctorId = doctor.getId();
 		return spot;
+	}
+
+	public List<ConsultationDto> getAllConsultations() {
+		return crudConsultationService.findAll().stream().map(consultationMapper::toDto).collect(Collectors.toList());
+	}
+
+	public void delete(ConsultationDto dto) {
+		Long patientId = crudPatientService.findByCnp(dto.patientCnp).getId();
+		Long doctorId = dto.doctorId;
+		LocalDateTime consultationDate = LocalDateTime.parse(dto.date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		crudConsultationService.deleteByDoctorIdAndPatientIdAndConsultationDate(doctorId, patientId, consultationDate);
+
 	}
 
 }

@@ -1,8 +1,6 @@
 package com.fils.glucose.domain.consultations;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
+import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,20 +9,17 @@ public class Consultation {
 
 	@Id
 	private String id;
-	
+
 	private Long doctorId;
 
 	private Long patientId;
 
-	private LocalTime start;
+	private LocalDateTime consultationDate;
 
-	private LocalDate day;
-
-	public Consultation(Long doctorId, Long patientId, LocalTime start, LocalDate day) {
+	public Consultation(Long doctorId, Long patientId, LocalDateTime consultationDate) {
 		this.doctorId = doctorId;
 		this.patientId = patientId;
-		this.start = start;
-		this.day = day;
+		this.consultationDate = consultationDate;
 	}
 
 	public Long getDoctorId() {
@@ -43,19 +38,12 @@ public class Consultation {
 		this.patientId = patientId;
 	}
 
-	public LocalTime getStart() {
-		return start;
+	public LocalDateTime getConsultationDate() {
+		return consultationDate;
 	}
 
-	public void setStart(LocalTime start) {
-		this.start = start;
+	public void setConsultationDate(LocalDateTime consultationDate) {
+		this.consultationDate = consultationDate;
 	}
 
-	public LocalDate getDay() {
-		return day;
-	}
-
-	public void setDay(LocalDate day) {
-		this.day = day;
-	}
 }

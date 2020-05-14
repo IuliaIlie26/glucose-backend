@@ -1,11 +1,14 @@
 package com.fils.glucose.domain.consultations;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public interface ConsultationRepository {
 
-	public Optional<Consultation> findByDoctorIdAndStartAndDay(Long doctorId, LocalTime start, LocalDate date);
 	public void save(Consultation consultation);
+	Optional<Consultation> findByDoctorIdAndStartAndDay(Long doctorId, LocalDateTime consultationDate);
+	public List<Consultation> findAll();
+	public void deleteByDoctorIdAndPatientIdAndConsultationDate(Long doctorId, Long patientId,
+			LocalDateTime consultationDate);
 }
