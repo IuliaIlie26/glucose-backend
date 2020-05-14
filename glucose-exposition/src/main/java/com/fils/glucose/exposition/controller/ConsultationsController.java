@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fils.glucose.exposition.dto.ConsultationFilterDto;
 import com.fils.glucose.exposition.dto.ConsultationDto;
-import com.fils.glucose.exposition.dto.ConsultationSpotDto;
 
 @RestController
 @RequestMapping("api/consultations")
@@ -24,8 +24,14 @@ public class ConsultationsController {
 	}
 	
 	@PostMapping("getFreeSpots")
-	public List<ConsultationSpotDto> getFreeSpots(@RequestBody ConsultationDto filter) {
+	public List<ConsultationDto> getFreeSpots(@RequestBody ConsultationFilterDto filter) {
 		return consultationFacade.getFreeSpots(filter);
+	}
+	
+	
+	@PostMapping("saveConsultation")
+	public void save(@RequestBody ConsultationDto dto) {
+		 consultationFacade.saveConsultation(dto);
 	}
 	
 }

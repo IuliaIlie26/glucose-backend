@@ -22,6 +22,5 @@ public class CrudConsultationService {
 
 	public void save(Consultation consultation) {
 		consultationRepository.save(consultation);
-		
 	} 
 }
