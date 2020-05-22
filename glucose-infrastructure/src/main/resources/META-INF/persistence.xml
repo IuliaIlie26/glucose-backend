@@ -8,8 +8,6 @@
 		<mapping-file>META-INF/orm-patient.xml</mapping-file>
 		<mapping-file>META-INF/orm-address.xml</mapping-file>
 		<mapping-file>META-INF/orm-doctor.xml</mapping-file>
-		<mapping-file>META-INF/orm-risk-factors.xml</mapping-file>
 		<mapping-file>META-INF/orm-users.xml</mapping-file>
-		<mapping-file>META-INF/orm-user-roles.xml</mapping-file>
 	</persistence-unit>
 </persistence>

@@ -3,6 +3,7 @@ package com.fils.glucose.application.service.users;
 import org.springframework.stereotype.Service;
 
 import com.fils.glucose.application.exception.TechnicalException;
+import com.fils.glucose.domain.users.Users;
 import com.fils.glucose.domain.users.UsersRepository;
 import static java.util.Objects.requireNonNull;
 
@@ -16,7 +17,7 @@ public class UserService {
 	}
 
 	public String login(String username) {
-		return userRepository.findByUsername(username).map(user -> user.getRole().getUserRole())
+		return userRepository.findByUsername(username).map(Users::getRole)
 				.orElseThrow(() -> new TechnicalException("username.not.found"));
 	}
 }

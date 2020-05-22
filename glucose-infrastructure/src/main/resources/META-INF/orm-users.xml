@@ -9,21 +9,15 @@
 	<entity class="com.fils.glucose.domain.users.Users">
 		<table name="USERS" schema="users" />
 		<attributes>
-			<id name="id">
-				<generated-value strategy="IDENTITY" />
-			</id>
-			<basic name="username">
+			<id name="username">
 				<column name="USERNAME" nullable="false" unique="true" />
-			</basic>
+			</id>
 			<basic name="password">
 				<column name="PASSWORD" nullable="false" />
 			</basic>
-			<one-to-one name="role">
-				<join-column name="id" />
-				<cascade>
-					<cascade-all />
-				</cascade>
-			</one-to-one>
+			<basic name="role">
+				<column name="ROLE" nullable="false" />
+			</basic>
 		</attributes>
 	</entity>
 </entity-mappings>

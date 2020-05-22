@@ -47,4 +47,9 @@ public class DoctorJpaRepository implements DoctorRepository {
 	public List<Doctor> getDoctorsBySpeciality(String speciality) {
 		return doctorRepository.findBySpeciality(speciality);
 	}
+
+	@Override
+	public Optional<Doctor> getDoctorIdByEmail(String email) {
+		return doctorRepository.findByEmail(email);
+	}
 }

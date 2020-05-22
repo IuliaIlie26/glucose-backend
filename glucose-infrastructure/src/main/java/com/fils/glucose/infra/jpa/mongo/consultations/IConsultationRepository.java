@@ -1,6 +1,7 @@
 package com.fils.glucose.infra.jpa.mongo.consultations;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -13,4 +14,6 @@ public interface IConsultationRepository extends MongoRepository<Consultation, L
 
 	void deleteByDoctorIdAndPatientIdAndConsultationDate(Long doctorId, Long patientId,
 			LocalDateTime consultationDate);
+
+	List<Consultation> findByDoctorId(Long doctorId);
 }

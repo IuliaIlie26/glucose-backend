@@ -5,6 +5,8 @@ import com.fils.glucose.application.exception.TechnicalException;
 import com.fils.glucose.domain.personal.information.doctor.Doctor;
 import com.fils.glucose.domain.personal.information.doctor.DoctorRepository;
 import com.fils.glucose.domain.users.Users;
+import com.fils.glucose.domain.users.UsersRepository;
+
 import static java.util.Objects.requireNonNull;
 import java.util.List;
 
@@ -12,19 +14,11 @@ import java.util.List;
 public class CrudDoctorService {
 
 	private final DoctorRepository doctorRepository;
+	private final UsersRepository usersRepository;
 
-	public CrudDoctorService(DoctorRepository doctorRepository) {
+	public CrudDoctorService(DoctorRepository doctorRepository, UsersRepository usersRepository) {
 		this.doctorRepository = requireNonNull(doctorRepository);
-	}
-
-	public Doctor findDoctorByUsername(String username) {
-		Long doctorId = findDoctorIdByUsername(username);
-		return findDoctorById(doctorId);
-	}
-
-	private Long findDoctorIdByUsername(String username) {
-		return doctorRepository.findByUsername(username).map(Users::getId)
-				.orElseThrow(() -> new TechnicalException("doctor.not.found"));
+		this.usersRepository=usersRepository;
 	}
 
 	public Doctor findDoctorById(Long doctorId) {
@@ -37,9 +31,17 @@ public class CrudDoctorService {
 
 	public void save(Doctor doc) {
 		doctorRepository.save(doc);
+		usersRepository.save(new Users(doc.getEmail(),"test", "DOCTOR"));
+		// TODO trimite credentialele pe mailul doctorului
+		// TODO genereaza parola
+		
 	}
 
 	public List<Doctor> getDoctorsBySpeciality(String speciality) {
 		return doctorRepository.getDoctorsBySpeciality(speciality);
+	}
+
+	public Long getDoctorIdByUsername(String username) {
+		return doctorRepository.getDoctorIdByEmail(username).map(Doctor::getId).orElseThrow(() -> new TechnicalException("doctor.not.found"));
 	}
 }

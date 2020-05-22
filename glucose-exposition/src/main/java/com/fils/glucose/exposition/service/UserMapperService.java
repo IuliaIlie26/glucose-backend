@@ -9,13 +9,13 @@ import com.fils.glucose.exposition.dto.UserDto;
 public class UserMapperService {
 
 	public Users mapToDomainUsers(UserDto dto) {
-		return new Users(dto.username, dto.password);
+		return new Users(dto.username, dto.password, dto.role);
 	}
 
 	public UserDto mapDomainToDto(Users user) {
 		UserDto dto = new UserDto();
 		dto.username = user.getUsername();
-		dto.role = user.getRole().getUserRole();
+		dto.role = user.getRole();
 		return dto;
 	}
 }

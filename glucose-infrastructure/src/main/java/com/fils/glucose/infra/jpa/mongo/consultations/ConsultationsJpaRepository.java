@@ -40,4 +40,9 @@ public class ConsultationsJpaRepository implements ConsultationRepository {
 		consultationRepository.deleteByDoctorIdAndPatientIdAndConsultationDate(doctorId, patientId, consultationDate);
 	}
 
+	@Override
+	public List<Consultation> findByDoctorId(Long doctorId) {
+		return consultationRepository.findByDoctorId(doctorId);
+	}
+
 }

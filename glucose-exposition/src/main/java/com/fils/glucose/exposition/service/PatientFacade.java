@@ -14,7 +14,7 @@ import org.springframework.util.StringUtils;
 import com.fils.glucose.application.service.patient.CrudPatientService;
 import com.fils.glucose.application.service.sensor.SensorService;
 import com.fils.glucose.domain.personal.information.patient.Patient;
-import com.fils.glucose.domain.personal.information.risk.factors.RiskFactors;
+import com.fils.glucose.domain.risk.factors.RiskFactors;
 import com.fils.glucose.domain.sensor.SensorDistribution;
 import com.fils.glucose.exposition.dto.AddressDto;
 import com.fils.glucose.exposition.dto.MessageDto;

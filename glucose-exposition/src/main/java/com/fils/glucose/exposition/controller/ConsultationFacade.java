@@ -18,9 +18,12 @@ import com.fils.glucose.application.service.patient.CrudPatientService;
 import com.fils.glucose.application.service.schedule.CrudScheduleService;
 import com.fils.glucose.domain.consultations.Consultation;
 import com.fils.glucose.domain.personal.information.doctor.Doctor;
+import com.fils.glucose.domain.personal.information.patient.Patient;
 import com.fils.glucose.domain.schedule.DailySchedule;
 import com.fils.glucose.exposition.dto.ConsultationFilterDto;
+import com.fils.glucose.exposition.dto.PatientDto;
 import com.fils.glucose.exposition.service.ConsultationMapperService;
+import com.fils.glucose.exposition.service.PatientMapperService;
 import com.fils.glucose.exposition.dto.ConsultationDto;
 
 @Service
@@ -32,15 +35,17 @@ public class ConsultationFacade {
 	private final CrudConsultationService crudConsultationService;
 	private final CrudPatientService crudPatientService;
 	private final ConsultationMapperService consultationMapper;
+	private final PatientMapperService patientMapperService;
 
 	public ConsultationFacade(CrudDoctorService crudDoctorService, CrudScheduleService crudScheduleService,
 			CrudConsultationService crudConsultationService, CrudPatientService crudPatientService,
-			ConsultationMapperService consultationMapper) {
+			ConsultationMapperService consultationMapper, PatientMapperService patientMapperService) {
 		this.crudDoctorService = crudDoctorService;
 		this.crudScheduleService = crudScheduleService;
 		this.crudConsultationService = crudConsultationService;
 		this.crudPatientService = crudPatientService;
 		this.consultationMapper = consultationMapper;
+		this.patientMapperService = patientMapperService;
 	}
 
 	public List<ConsultationDto> getFreeSpots(ConsultationFilterDto filter) {
@@ -121,4 +126,14 @@ public class ConsultationFacade {
 
 	}
 
+	public List<PatientDto> getPatientsForDoctor(String username) {
+		Long doctorId = crudDoctorService.getDoctorIdByUsername(username);
+		List<Consultation> consultations = crudConsultationService.getConsultationsForDoctor(doctorId);
+		return consultations.stream().map(this::extractPatientInfoFromConsultation).collect(Collectors.toList());
+	}
+
+	public PatientDto extractPatientInfoFromConsultation(Consultation consultation) {
+		Patient patient = crudPatientService.getPatientById(consultation.getPatientId());
+		return patientMapperService.mapFromDomain(patient);
+	}
 }

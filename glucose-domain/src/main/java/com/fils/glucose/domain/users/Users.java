@@ -5,8 +5,6 @@ import javax.validation.constraints.Size;
 
 public class Users {
 
-	private Long id;
-
 	@NotBlank
 	@Size(max = 50)
 	private String username;
@@ -16,19 +14,16 @@ public class Users {
 	private String password;
 
 	@NotBlank
-	private UserRoles role;
+	private String role;
 
 	protected Users() {
 	}
 
-	public Users(@NotBlank @Size(max = 50) String username, @NotBlank @Size(max = 50) String password) {
+	public Users(@NotBlank @Size(max = 50) String username, @NotBlank @Size(max = 50) String password, String role) {
 		super();
 		this.username = username;
 		this.password = password;
-	}
-
-	public Long getId() {
-		return id;
+		this.role = role;
 	}
 
 	public String getUsername() {
@@ -39,8 +34,7 @@ public class Users {
 		return password;
 	}
 
-	public UserRoles getRole() {
+	public String getRole() {
 		return role;
 	}
-
 }

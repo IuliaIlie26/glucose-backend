@@ -23,11 +23,6 @@ public class DoctorController {
 		this.doctorFacade = doctorFacade;
 	}
 
-	@GetMapping("getDoctorByUsername")
-	public DoctorDto getDoctorByUsername(@RequestParam String username) {
-		return doctorFacade.findDoctorByUsername(username);
-	}
-
 	@GetMapping("getDoctorNameAndLastname")
 	public String getDoctorNameAndLastname(@RequestParam Long id) {
 		return doctorFacade.getDoctorNameAndLastname(id);

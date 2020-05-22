@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import com.fils.glucose.application.exception.TechnicalException;
 import com.fils.glucose.domain.personal.information.patient.Patient;
 import com.fils.glucose.domain.personal.information.patient.PatientsRepository;
-import com.fils.glucose.domain.personal.information.risk.factors.RiskFactors;
-import com.fils.glucose.domain.personal.information.risk.factors.RiskFactorsRepository;
+import com.fils.glucose.domain.risk.factors.RiskFactors;
+import com.fils.glucose.domain.risk.factors.RiskFactorsRepository;
 
 import static java.util.Objects.requireNonNull;
 

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.fils.glucose.domain.personal.information.patient.Address;
 import com.fils.glucose.domain.personal.information.patient.Patient;
-import com.fils.glucose.domain.personal.information.risk.factors.RiskFactors;
+import com.fils.glucose.domain.risk.factors.RiskFactors;
 import com.fils.glucose.exposition.dto.AddressDto;
 import com.fils.glucose.exposition.dto.PatientDto;
 import com.fils.glucose.exposition.dto.RiskFactorsDto;

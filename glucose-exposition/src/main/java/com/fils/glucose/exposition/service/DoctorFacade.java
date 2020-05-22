@@ -34,11 +34,6 @@ public class DoctorFacade {
 		this.crudScheduleService = requireNonNull(scheduleService);
 	}
 
-	public DoctorDto findDoctorByUsername(String username) {
-		Doctor doctor = crudDoctorService.findDoctorByUsername(username);
-		return doctorMapper.mapFromDomain(doctor);
-	}
-
 	public String getDoctorNameAndLastname(Long id) {
 		Doctor doctor = crudDoctorService.findDoctorById(id);
 		return doctor.getFirstName() + " " + doctor.getLastName();

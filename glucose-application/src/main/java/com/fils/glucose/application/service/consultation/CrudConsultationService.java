@@ -38,4 +38,8 @@ public class CrudConsultationService {
 		consultationRepository.deleteByDoctorIdAndPatientIdAndConsultationDate(doctorId, patientId, consultationDate);
 
 	}
+
+	public List<Consultation> getConsultationsForDoctor(Long doctorId) {
+		return consultationRepository.findByDoctorId(doctorId);
+	}
 }

@@ -1,9 +1,14 @@
-package com.fils.glucose.domain.personal.information.risk.factors;
+package com.fils.glucose.domain.risk.factors;
 
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "risk_factors")
 public class RiskFactors {
 
+	@Id
 	@NotNull
 	private Long patientId;
 	@NotNull
@@ -22,9 +27,6 @@ public class RiskFactors {
 	private boolean macrosomicBaby;
 	@NotNull
 	private boolean previousGDM;
-
-	protected RiskFactors() {
-	}
 
 	public RiskFactors(Long patientId, Integer height, Integer weight, String racialOrigin, String conception,
 			String familyHistoryOfDiabetes, boolean smoker, boolean macrosomicBaby, boolean previousGDM) {
