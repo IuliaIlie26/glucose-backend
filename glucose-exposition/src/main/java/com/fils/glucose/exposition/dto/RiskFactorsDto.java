@@ -22,5 +22,8 @@ public class RiskFactorsDto {
 	public boolean macrosomicBaby;
 	@JsonProperty
 	public boolean previousGDM;
-	
+	@JsonProperty
+	public boolean historyOfAdverseOutcomes;
+	@JsonProperty
+	public boolean multipara;
 }

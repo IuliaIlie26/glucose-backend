@@ -12,15 +12,21 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import com.fils.glucose.application.service.patient.CrudPatientService;
+import com.fils.glucose.application.service.pregnancy.info.PregnancyInfoService;
+import com.fils.glucose.application.service.risk.factors.CrudRiskFactorsService;
 import com.fils.glucose.application.service.sensor.SensorService;
 import com.fils.glucose.domain.personal.information.patient.Patient;
+import com.fils.glucose.domain.pregnancy.info.PregnancyInfo;
 import com.fils.glucose.domain.risk.factors.RiskFactors;
+import com.fils.glucose.domain.risk.factors.RiskScore;
 import com.fils.glucose.domain.sensor.SensorDistribution;
 import com.fils.glucose.exposition.dto.AddressDto;
 import com.fils.glucose.exposition.dto.MessageDto;
 import com.fils.glucose.exposition.dto.PatientDistributionDto;
 import com.fils.glucose.exposition.dto.PatientDto;
+import com.fils.glucose.exposition.dto.PregnancyInfoDto;
 import com.fils.glucose.exposition.dto.RiskFactorsDto;
+import com.fils.glucose.exposition.dto.RiskScoreDto;
 
 @Service
 public class PatientFacade {
@@ -28,12 +34,20 @@ public class PatientFacade {
 	private final CrudPatientService crudPatientService;
 	private final PatientMapperService patientMapperService;
 	private final SensorService sensorService;
+	private final CrudRiskFactorsService riskFactorsService;
+	private final RiskFactorsMapperService riskFactorMapper;
+	private final PregnancyInfoService pregnancyInfoService;
+	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	public PatientFacade(CrudPatientService crudPatientService, PatientMapperService patientMapperService,
-			SensorService sensorService) {
+			SensorService sensorService, CrudRiskFactorsService riskFactorsService,
+			RiskFactorsMapperService riskFactorMapper, PregnancyInfoService pregnancyInfoService) {
 		this.crudPatientService = requireNonNull(crudPatientService);
 		this.patientMapperService = requireNonNull(patientMapperService);
 		this.sensorService = requireNonNull(sensorService);
+		this.riskFactorsService = requireNonNull(riskFactorsService);
+		this.riskFactorMapper = requireNonNull(riskFactorMapper);
+		this.pregnancyInfoService = requireNonNull(pregnancyInfoService);
 	}
 
 	public Long savePatient(PatientDto patientDto) {
@@ -79,7 +93,6 @@ public class PatientFacade {
 	}
 
 	public void updatePatient(PatientDto dto) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate birthdate = LocalDate.parse(dto.birthdate, formatter);
 
 		Long idLongValue = Long.parseLong(dto.id);
@@ -135,7 +148,6 @@ public class PatientFacade {
 		dto.patientCnp = patient.getCnp();
 		dto.patientName = patient.getFirstName() + " " + patient.getLastName();
 		dto.status = distribution.getStatus().name();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		Optional<LocalDate> activationDate = distribution.getActivationDate();
 		if (activationDate.isPresent()) {
 			dto.activationDate = activationDate.get().format(formatter);
@@ -154,6 +166,37 @@ public class PatientFacade {
 
 	public String getPatientNameByCnp(String cnp) {
 		Patient patient = crudPatientService.findByCnp(cnp);
-		return patient.getLastName() +" "+ patient.getFirstName();
+		return patient.getLastName() + " " + patient.getFirstName();
+	}
+
+	public RiskFactorsDto getRiskFactors(Long patientId) {
+		RiskFactors risks = riskFactorsService.findById(patientId);
+		return riskFactorMapper.mapFromDomain(risks);
+	}
+
+	public PregnancyInfoDto getPregancyInfo(Long patientId) {
+		PregnancyInfoDto dto = new PregnancyInfoDto();
+		PregnancyInfo pregnancyInfo = pregnancyInfoService.getPregancyInfoByPatientId(patientId);
+
+		dto.dueDate = pregnancyInfo.getDueDate().format(formatter);
+		dto.patientId = patientId;
+		return dto;
+	}
+
+	public void savePregancyInfo(PregnancyInfoDto dto) {
+		PregnancyInfo pregnancyInfo = new PregnancyInfo(dto.patientId, LocalDate.parse(dto.dueDate, formatter));
+		pregnancyInfoService.save(pregnancyInfo);
+	}
+
+	public RiskScoreDto calculateRiskScore(Long patientId) {
+		
+		RiskScore score = riskFactorsService.calculateRiskScore(patientId);
+		RiskScoreDto dto = new RiskScoreDto();
+		dto.caliskanScore = score.getCaliskanScore();
+		dto.nandaScore = score.getNandaScore();
+		dto.naylorScore = score.getNaylorScore();
+		dto.teedeScore = score.getTeedeScore();
+		dto.vanLeeuwenScore = score.getVanLeeuwenScore();
+		return dto;
 	}
 }

@@ -28,8 +28,18 @@ public class RiskFactors {
 	@NotNull
 	private boolean previousGDM;
 
+	@NotNull
+	private boolean historyOfAdverseOutcomes;
+	@NotNull
+	private boolean multipara;
+
+	public RiskFactors() {
+
+	}
+
 	public RiskFactors(Long patientId, Integer height, Integer weight, String racialOrigin, String conception,
-			String familyHistoryOfDiabetes, boolean smoker, boolean macrosomicBaby, boolean previousGDM) {
+			String familyHistoryOfDiabetes, boolean smoker, boolean macrosomicBaby, boolean previousGDM,
+			boolean historyOfAdverseOutcomes, boolean multipara) {
 		this.patientId = patientId;
 		this.height = height;
 		this.weight = weight;
@@ -39,5 +49,51 @@ public class RiskFactors {
 		this.smoker = smoker;
 		this.macrosomicBaby = macrosomicBaby;
 		this.previousGDM = previousGDM;
+		this.historyOfAdverseOutcomes = historyOfAdverseOutcomes;
+		this.multipara = multipara;
+	}
+
+	public boolean isMultipara() {
+		return multipara;
+	}
+
+	public Long getPatientId() {
+		return patientId;
+	}
+
+	public Integer getHeight() {
+		return height;
+	}
+
+	public Integer getWeight() {
+		return weight;
+	}
+
+	public String getRacialOrigin() {
+		return racialOrigin;
+	}
+
+	public String getConceptionMethod() {
+		return conceptionMethod;
+	}
+
+	public String getFamilyHistoryOfDiabetes() {
+		return familyHistoryOfDiabetes;
+	}
+
+	public boolean isSmoker() {
+		return smoker;
+	}
+
+	public boolean isMacrosomicBaby() {
+		return macrosomicBaby;
+	}
+
+	public boolean isPreviousGDM() {
+		return previousGDM;
+	}
+
+	public boolean isHistoryOfAdverseOutcomes() {
+		return historyOfAdverseOutcomes;
 	}
 }

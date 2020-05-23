@@ -17,14 +17,14 @@ public class PatientMapperService {
 	public PatientDto mapFromDomain(Patient patient) {
 		PatientDto patientDto = new PatientDto();
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
-		patientDto.id=patient.getId().toString();
+		patientDto.id = patient.getId().toString();
 		patientDto.name = patient.getFirstName();
 		patientDto.lastname = patient.getLastName();
 		patientDto.birthdate = patient.getBirthdate().format(formatter);
 		patientDto.email = patient.getEmail();
 		patientDto.phone = patient.getPhoneNumber();
 		patientDto.address = mapAddressDtoFromDomain(patient.getAddress());
-		patientDto.cnp= patient.getCnp();
+		patientDto.cnp = patient.getCnp();
 		return patientDto;
 	}
 
@@ -53,6 +53,7 @@ public class PatientMapperService {
 
 	public RiskFactors mapRiskFactorsToDomain(RiskFactorsDto dto) {
 		return new RiskFactors(dto.patientId, dto.height, dto.weight, dto.racialOrigin, dto.conceptionMethod,
-				dto.familyHistoryOfDiabetes, dto.smoker, dto.macrosomicBaby, dto.previousGDM);
+				dto.familyHistoryOfDiabetes, dto.smoker, dto.macrosomicBaby, dto.previousGDM,
+				dto.historyOfAdverseOutcomes, dto.multipara);
 	}
 }
