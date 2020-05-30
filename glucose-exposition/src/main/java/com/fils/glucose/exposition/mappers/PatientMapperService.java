@@ -1,15 +1,12 @@
-package com.fils.glucose.exposition.service;
+package com.fils.glucose.exposition.mappers;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
-
 import com.fils.glucose.domain.personal.information.patient.Address;
 import com.fils.glucose.domain.personal.information.patient.Patient;
-import com.fils.glucose.domain.risk.factors.RiskFactors;
 import com.fils.glucose.exposition.dto.AddressDto;
 import com.fils.glucose.exposition.dto.PatientDto;
-import com.fils.glucose.exposition.dto.RiskFactorsDto;
 
 @Service
 public class PatientMapperService {
@@ -49,11 +46,5 @@ public class PatientMapperService {
 		addressDto.region = address.getRegion();
 		addressDto.zipCode = address.getZipCode().isPresent() ? address.getZipCode().get() : "";
 		return addressDto;
-	}
-
-	public RiskFactors mapRiskFactorsToDomain(RiskFactorsDto dto) {
-		return new RiskFactors(dto.patientId, dto.height, dto.weight, dto.racialOrigin, dto.conceptionMethod,
-				dto.familyHistoryOfDiabetes, dto.smoker, dto.macrosomicBaby, dto.previousGDM,
-				dto.historyOfAdverseOutcomes, dto.multipara);
 	}
 }

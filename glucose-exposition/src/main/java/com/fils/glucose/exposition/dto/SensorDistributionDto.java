@@ -2,7 +2,7 @@ package com.fils.glucose.exposition.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PatientDistributionDto {
+public class SensorDistributionDto {
 	
 	@JsonProperty
 	public String sensorId;

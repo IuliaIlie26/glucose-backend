@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fils.glucose.exposition.dto.ConsultationFilterDto;
 import com.fils.glucose.exposition.dto.PatientDto;
+import com.fils.glucose.exposition.facade.ConsultationFacade;
 import com.fils.glucose.exposition.dto.ConsultationDto;
 
 @RestController

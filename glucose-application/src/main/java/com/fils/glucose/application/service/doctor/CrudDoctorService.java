@@ -18,7 +18,7 @@ public class CrudDoctorService {
 
 	public CrudDoctorService(DoctorRepository doctorRepository, UsersRepository usersRepository) {
 		this.doctorRepository = requireNonNull(doctorRepository);
-		this.usersRepository=usersRepository;
+		this.usersRepository = usersRepository;
 	}
 
 	public Doctor findDoctorById(Long doctorId) {
@@ -31,10 +31,10 @@ public class CrudDoctorService {
 
 	public void save(Doctor doc) {
 		doctorRepository.save(doc);
-		usersRepository.save(new Users(doc.getEmail(),"test", "DOCTOR"));
+		usersRepository.save(new Users(doc.getEmail(), "test", "DOCTOR"));
 		// TODO trimite credentialele pe mailul doctorului
 		// TODO genereaza parola
-		
+
 	}
 
 	public List<Doctor> getDoctorsBySpeciality(String speciality) {
@@ -42,6 +42,12 @@ public class CrudDoctorService {
 	}
 
 	public Long getDoctorIdByUsername(String username) {
-		return doctorRepository.getDoctorIdByEmail(username).map(Doctor::getId).orElseThrow(() -> new TechnicalException("doctor.not.found"));
+		return doctorRepository.getDoctorIdByEmail(username).map(Doctor::getId)
+				.orElseThrow(() -> new TechnicalException("doctor.not.found"));
+	}
+
+	public String getDoctorNameAndLastname(Long id) {
+		Doctor doctor = doctorRepository.findById(id).orElseThrow(() -> new TechnicalException("doctor.not.found"));
+		return doctor.getFirstName() + " " + doctor.getLastName();
 	}
 }

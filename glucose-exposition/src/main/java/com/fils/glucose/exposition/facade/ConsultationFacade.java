@@ -1,4 +1,4 @@
-package com.fils.glucose.exposition.controller;
+package com.fils.glucose.exposition.facade;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,8 +22,8 @@ import com.fils.glucose.domain.personal.information.patient.Patient;
 import com.fils.glucose.domain.schedule.DailySchedule;
 import com.fils.glucose.exposition.dto.ConsultationFilterDto;
 import com.fils.glucose.exposition.dto.PatientDto;
-import com.fils.glucose.exposition.service.ConsultationMapperService;
-import com.fils.glucose.exposition.service.PatientMapperService;
+import com.fils.glucose.exposition.mappers.ConsultationMapperService;
+import com.fils.glucose.exposition.mappers.PatientMapperService;
 import com.fils.glucose.exposition.dto.ConsultationDto;
 
 @Service

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.fils.glucose.exposition.dto.DoctorDto;
 import com.fils.glucose.exposition.dto.DoctorScheduleDto;
-import com.fils.glucose.exposition.service.DoctorFacade;
+import com.fils.glucose.exposition.facade.DoctorFacade;
 
 @RestController
 @RequestMapping("api/doctor")

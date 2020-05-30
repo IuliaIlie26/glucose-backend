@@ -1,4 +1,4 @@
-package com.fils.glucose.exposition.service;
+package com.fils.glucose.exposition.facade;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -12,6 +12,8 @@ import com.fils.glucose.domain.schedule.DoctorSchedule;
 import com.fils.glucose.exposition.dto.DailyScheduleDto;
 import com.fils.glucose.exposition.dto.DoctorDto;
 import com.fils.glucose.exposition.dto.DoctorScheduleDto;
+import com.fils.glucose.exposition.mappers.DoctorMapperService;
+
 import static java.util.Objects.requireNonNull;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -35,8 +37,7 @@ public class DoctorFacade {
 	}
 
 	public String getDoctorNameAndLastname(Long id) {
-		Doctor doctor = crudDoctorService.findDoctorById(id);
-		return doctor.getFirstName() + " " + doctor.getLastName();
+		return crudDoctorService.getDoctorNameAndLastname(id);
 	}
 
 	public List<DoctorDto> getDoctorsList() {

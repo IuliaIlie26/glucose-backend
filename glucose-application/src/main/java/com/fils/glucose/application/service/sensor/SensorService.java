@@ -9,6 +9,7 @@ import com.fils.glucose.domain.sensor.Status;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SensorService {
@@ -19,8 +20,8 @@ public class SensorService {
 		this.sensorDistributionRepository = requireNonNull(sensorDistributionRepository);
 	}
 
-	public boolean checkIfPatientHasSensor(Long patientId) {
-		return sensorDistributionRepository.findByPatientId(patientId).isPresent();
+	public Optional<SensorDistribution> findByPatientId(Long patientId) {
+		return sensorDistributionRepository.findByPatientId(patientId);
 	}
 
 	public boolean checkIfSensorIsAlreadyAssigned(String sensorId) {
@@ -34,4 +35,6 @@ public class SensorService {
 	public List<SensorDistribution> getDistributionList() {
 		return sensorDistributionRepository.findAll();
 	}
+	
+	
 }

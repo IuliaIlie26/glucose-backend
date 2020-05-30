@@ -13,7 +13,7 @@ public class SensorDistribution {
 	private String sensorId;
 	private Long patientId;
 	private Status status;
-	private String doctorId;
+	private Long doctorId;
 	private LocalDate activationDate;
 	private LocalDate deactivationDate;
 
@@ -39,7 +39,7 @@ public class SensorDistribution {
 		return status;
 	}
 
-	public Optional<String> getDoctorId() {
+	public Optional<Long> getDoctorId() {
 		return Optional.ofNullable(doctorId);
 	}
 

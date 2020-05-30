@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import com.fils.glucose.application.exception.TechnicalException;
 import com.fils.glucose.domain.personal.information.patient.Patient;
 import com.fils.glucose.domain.personal.information.patient.PatientsRepository;
-import com.fils.glucose.domain.risk.factors.RiskFactors;
-import com.fils.glucose.domain.risk.factors.RiskFactorsRepository;
 
 import static java.util.Objects.requireNonNull;
 
@@ -19,11 +17,9 @@ import java.util.Optional;
 public class CrudPatientService {
 
 	private final PatientsRepository patientRepository;
-	private final RiskFactorsRepository riskFactorsRepository;
 
-	public CrudPatientService(PatientsRepository patientRepository, RiskFactorsRepository riskFactorsRepository) {
+	public CrudPatientService(PatientsRepository patientRepository) {
 		this.patientRepository = requireNonNull(patientRepository);
-		this.riskFactorsRepository = requireNonNull(riskFactorsRepository);
 
 	}
 
@@ -34,10 +30,6 @@ public class CrudPatientService {
 			throw new TechnicalException("patient.email.exists");
 		}
 		return patientRepository.save(patient).getId();
-	}
-
-	public void saveRiskFactors(RiskFactors riskFactors) {
-		riskFactorsRepository.save(riskFactors);
 	}
 
 	public void deletePatientById(Long idLongValue) {

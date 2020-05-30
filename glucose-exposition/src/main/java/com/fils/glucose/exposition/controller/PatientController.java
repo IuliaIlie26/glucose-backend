@@ -8,13 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.fils.glucose.exposition.dto.MessageDto;
-import com.fils.glucose.exposition.dto.PatientDistributionDto;
 import com.fils.glucose.exposition.dto.PatientDto;
-import com.fils.glucose.exposition.dto.PregnancyInfoDto;
-import com.fils.glucose.exposition.dto.RiskFactorsDto;
-import com.fils.glucose.exposition.dto.RiskScoreDto;
-import com.fils.glucose.exposition.service.PatientFacade;
+import com.fils.glucose.exposition.facade.PatientFacade;
 
 @RestController
 @RequestMapping("api/patient")
@@ -30,11 +25,6 @@ public class PatientController {
 	@PostMapping("savePatient")
 	public void savePatient(@RequestBody PatientDto patient) {
 		patientFacade.savePatient(patient);
-	}
-
-	@PostMapping("saveRiskFactors")
-	public void saveRiskFactors(@RequestBody RiskFactorsDto riskFactors) {
-		patientFacade.saveRiskFactors(riskFactors);
 	}
 
 	@GetMapping("getFullFormatAgeById")
@@ -65,36 +55,5 @@ public class PatientController {
 	@PostMapping("updatePatient")
 	public void updatePatient(@RequestBody PatientDto patientDto) {
 		patientFacade.updatePatient(patientDto);
-	}
-
-	@PostMapping("assignSensor")
-	public MessageDto assignSensor(@RequestBody PatientDistributionDto dto) {
-		return patientFacade.assignSensor(dto);
-	}
-
-	@GetMapping("getSensorDistribution")
-	public List<PatientDistributionDto> getSensorDistribution() {
-		return patientFacade.getSensorDistribution();
-	}
-
-	@GetMapping("getRiskFactors")
-	public RiskFactorsDto getRiskFactors(@RequestParam Long patientId) {
-		return patientFacade.getRiskFactors(patientId);
-
-	}
-
-	@GetMapping("getPregancyInfo")
-	public PregnancyInfoDto getPregancyInfo(@RequestParam Long patientId) {
-		return patientFacade.getPregancyInfo(patientId);
-	}
-
-	@PostMapping("savePregancyInfo")
-	public void savePregancyInfo(@RequestBody PregnancyInfoDto dto) {
-		patientFacade.savePregancyInfo(dto);
-	}
-
-	@GetMapping("calculateRiskScore")
-	public RiskScoreDto calculateRiskScore(@RequestParam Long patientId) {
-		return patientFacade.calculateRiskScore(patientId);
 	}
 }

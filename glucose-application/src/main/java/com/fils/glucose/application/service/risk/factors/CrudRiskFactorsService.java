@@ -1,5 +1,7 @@
 package com.fils.glucose.application.service.risk.factors;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -40,6 +42,10 @@ public class CrudRiskFactorsService {
 		Double nanda = calculateNanda(riskFactors, age);
 		return new RiskScore(naylor, caliskan, vanLeeuwen, teede, nanda);
 	}
+	
+	public void saveRiskFactors(RiskFactors riskFactors) {
+		riskFactorsRepository.save(riskFactors);
+	}
 
 	private Double calculateNanda(RiskFactors riskFactors, Long age) {
 
@@ -66,7 +72,8 @@ public class CrudRiskFactorsService {
 		Double bmi = calculateBmi(riskFactors.getHeight(), riskFactors.getWeight());
 		Double b = -8.68947 + (0.05365 * age) + (0.10852 * bmi) + (1.00312 * southAsian) + (0.88785 * eastAsian)
 				+ (3.72259 * previousGdm) + (0.67673 * macrosomic);
-		return 1 / (1 + Math.exp(-b));
+		double score = 1 / (1 + Math.exp(-b));
+		return BigDecimal.valueOf(score).setScale(3, RoundingMode.HALF_UP).doubleValue();
 	}
 
 	private Double calculateTeede(RiskFactors riskFactors, Long age) {
@@ -126,7 +133,9 @@ public class CrudRiskFactorsService {
 		Double bmi = calculateBmi(riskFactors.getHeight(), riskFactors.getWeight());
 		Double b = -6.1 + (0.83 * nonCaucasian) + (0.57 * familyWithDiabetes) - (0.67 * multiparaWithoutGDM)
 				+ (0.5 * multiparaWithGDM) + (0.13 * bmi);
-		return 1 / (1 + Math.exp(-b));
+
+		double score = 1 / (1 + Math.exp(-b));
+		return BigDecimal.valueOf(score).setScale(3, RoundingMode.HALF_UP).doubleValue();
 	}
 
 	private Double calculateCaliskan(RiskFactors riskFactors, Long age) {

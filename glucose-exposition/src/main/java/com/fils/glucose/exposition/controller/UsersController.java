@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fils.glucose.application.service.users.UserService;
 import com.fils.glucose.exposition.dto.UserDto;
-import com.fils.glucose.exposition.service.UserMapperService;
+import com.fils.glucose.exposition.mappers.UserMapperService;
 
 @RestController
 @RequestMapping("api/users")

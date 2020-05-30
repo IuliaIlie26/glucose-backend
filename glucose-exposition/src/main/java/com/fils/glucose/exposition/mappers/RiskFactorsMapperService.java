@@ -1,4 +1,4 @@
-package com.fils.glucose.exposition.service;
+package com.fils.glucose.exposition.mappers;
 
 import org.springframework.stereotype.Service;
 
@@ -20,5 +20,11 @@ public class RiskFactorsMapperService {
 		dto.smoker = risk.isSmoker();
 		dto.weight = risk.getWeight();
 		return dto;
+	}
+	
+	public RiskFactors mapRiskFactorsToDomain(RiskFactorsDto dto) {
+		return new RiskFactors(dto.patientId, dto.height, dto.weight, dto.racialOrigin, dto.conceptionMethod,
+				dto.familyHistoryOfDiabetes, dto.smoker, dto.macrosomicBaby, dto.previousGDM,
+				dto.historyOfAdverseOutcomes, dto.multipara);
 	}
 }
