@@ -20,37 +20,39 @@ import com.fils.glucose.exposition.dto.ConsultationDto;
 @CrossOrigin(origins = "http://localhost:2020")
 public class ConsultationsController {
 
-	
 	private final ConsultationFacade consultationFacade;
 
 	public ConsultationsController(ConsultationFacade consultationFacade) {
 		this.consultationFacade = consultationFacade;
 	}
-	
+
 	@PostMapping("getFreeSpots")
 	public List<ConsultationDto> getFreeSpots(@RequestBody ConsultationFilterDto filter) {
 		return consultationFacade.getFreeSpots(filter);
 	}
-	
-	
+
 	@PostMapping("saveConsultation")
 	public void save(@RequestBody ConsultationDto dto) {
-		 consultationFacade.saveConsultation(dto);
+		consultationFacade.saveConsultation(dto);
 	}
-	
-	
+
 	@GetMapping("getAllConsultations")
-	public List<ConsultationDto> getAllConsultations(){
+	public List<ConsultationDto> getAllConsultations() {
 		return consultationFacade.getAllConsultations();
 	}
-	
+
 	@PostMapping("delete")
 	public void delete(@RequestBody ConsultationDto dto) {
 		consultationFacade.delete(dto);
 	}
-	
+
 	@GetMapping("getPatientsForDoctor")
-	public List<PatientDto> getPatientsForDoctor(@RequestParam String username){
+	public List<PatientDto> getPatientsForDoctor(@RequestParam String username) {
 		return consultationFacade.getPatientsForDoctor(username);
+	}
+
+	@GetMapping("getPatientConsultations")
+	public List<ConsultationDto> getPatientConsultations(@RequestParam Long patientId) {
+		return consultationFacade.getPatientConsultations(patientId);
 	}
 }

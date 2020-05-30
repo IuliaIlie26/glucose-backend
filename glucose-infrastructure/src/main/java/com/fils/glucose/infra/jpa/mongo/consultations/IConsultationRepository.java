@@ -16,4 +16,6 @@ public interface IConsultationRepository extends MongoRepository<Consultation, L
 			LocalDateTime consultationDate);
 
 	List<Consultation> findByDoctorId(Long doctorId);
+
+	List<Consultation> findByPatientId(Long patientId);
 }

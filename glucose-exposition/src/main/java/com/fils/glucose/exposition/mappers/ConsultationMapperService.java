@@ -21,7 +21,7 @@ public class ConsultationMapperService {
 		this.crudPatientService = crudPatientService;
 	}
 
-	public ConsultationDto toDto(Consultation bean) {
+	public ConsultationDto mapFromDomain(Consultation bean) {
 		ConsultationDto dto = new ConsultationDto();
 		dto.doctorId = bean.getDoctorId();
 		Patient patient = crudPatientService.getPatientById(bean.getPatientId());

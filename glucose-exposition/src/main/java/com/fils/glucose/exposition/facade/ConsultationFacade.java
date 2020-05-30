@@ -115,7 +115,8 @@ public class ConsultationFacade {
 	}
 
 	public List<ConsultationDto> getAllConsultations() {
-		return crudConsultationService.findAll().stream().map(consultationMapper::toDto).collect(Collectors.toList());
+		return crudConsultationService.findAll().stream().map(consultationMapper::mapFromDomain)
+				.collect(Collectors.toList());
 	}
 
 	public void delete(ConsultationDto dto) {
@@ -135,5 +136,12 @@ public class ConsultationFacade {
 	public PatientDto extractPatientInfoFromConsultation(Consultation consultation) {
 		Patient patient = crudPatientService.getPatientById(consultation.getPatientId());
 		return patientMapperService.mapFromDomain(patient);
+	}
+
+	public List<ConsultationDto> getPatientConsultations(Long patientId) {
+		List<Consultation> consultations = crudConsultationService.getPatientConsultations(patientId);
+		return consultations.stream()
+				.filter(consultation -> consultation.getConsultationDate().isBefore(LocalDateTime.now()))
+				.map(consultationMapper::mapFromDomain).collect(Collectors.toList());
 	}
 }

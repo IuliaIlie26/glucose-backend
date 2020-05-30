@@ -12,4 +12,5 @@ public interface ConsultationRepository {
 	public void deleteByDoctorIdAndPatientIdAndConsultationDate(Long doctorId, Long patientId,
 			LocalDateTime consultationDate);
 	public List<Consultation> findByDoctorId(Long doctorId);
+	public List<Consultation> findByPatientId(Long patientId);
 }

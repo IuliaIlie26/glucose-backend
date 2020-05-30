@@ -42,4 +42,8 @@ public class CrudConsultationService {
 	public List<Consultation> getConsultationsForDoctor(Long doctorId) {
 		return consultationRepository.findByDoctorId(doctorId);
 	}
+
+	public List<Consultation> getPatientConsultations(Long patientId) {
+		return consultationRepository.findByPatientId(patientId);
+	}
 }
