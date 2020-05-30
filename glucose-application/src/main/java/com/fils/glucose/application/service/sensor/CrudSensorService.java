@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SensorService {
+public class CrudSensorService {
 
 	private final SensorDistributionRepository sensorDistributionRepository;
 
-	public SensorService(SensorDistributionRepository sensorDistributionRepository) {
+	public CrudSensorService(SensorDistributionRepository sensorDistributionRepository) {
 		this.sensorDistributionRepository = requireNonNull(sensorDistributionRepository);
 	}
 
@@ -28,13 +28,15 @@ public class SensorService {
 		return sensorDistributionRepository.findBySensorId(sensorId).isPresent();
 	}
 
-	public void assignSensorToPatient(String sensorId, Long patientId) {
+	public void save(String sensorId, Long patientId) {
 		sensorDistributionRepository.save(new SensorDistribution(sensorId, patientId, Status.INACTIVE));
 	}
 
 	public List<SensorDistribution> getDistributionList() {
 		return sensorDistributionRepository.findAll();
 	}
-	
-	
+
+	public void save(SensorDistribution distribution) {
+		sensorDistributionRepository.save(distribution);
+	}
 }

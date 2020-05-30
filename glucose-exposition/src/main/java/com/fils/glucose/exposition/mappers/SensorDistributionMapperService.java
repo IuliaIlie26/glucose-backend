@@ -30,6 +30,7 @@ public class SensorDistributionMapperService {
 		dto.patientName = patient.getFirstName() + " " + patient.getLastName();
 		dto.status = distribution.getStatus().name();
 		dto.deactivationDate = distribution.getDeactivationDate().map(formatter::format).orElse("");
+		dto.activationDate = distribution.getActivationDate().map(formatter::format).orElse("");
 		Optional<Long> doctorId = distribution.getDoctorId();
 		if (doctorId.isPresent()) {
 			dto.doctorName = crudDoctorService.getDoctorNameAndLastname(doctorId.get());

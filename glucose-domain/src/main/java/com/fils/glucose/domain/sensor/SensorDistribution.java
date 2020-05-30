@@ -50,4 +50,21 @@ public class SensorDistribution {
 	public Optional<LocalDate> getDeactivationDate() {
 		return Optional.ofNullable(deactivationDate);
 	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public void setDoctorId(Long doctorId) {
+		this.doctorId = doctorId;
+	}
+
+	public void setActivationDate(LocalDate activationDate) {
+		this.activationDate = activationDate;
+	}
+
+	public void setDeactivationDate(LocalDate deactivationDate) {
+		this.deactivationDate = deactivationDate;
+	}
+
 }

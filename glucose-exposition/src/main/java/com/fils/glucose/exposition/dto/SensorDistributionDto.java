@@ -18,5 +18,7 @@ public class SensorDistributionDto {
 	public String patientCnp;
 	@JsonProperty
 	public String status;
+	@JsonProperty
+	public String doctorUsername;
 
 }

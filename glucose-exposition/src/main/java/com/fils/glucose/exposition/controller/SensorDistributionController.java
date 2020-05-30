@@ -20,7 +20,7 @@ import com.fils.glucose.exposition.facade.SensorDistributionFacade;
 public class SensorDistributionController {
 
 	private final SensorDistributionFacade sensorDistributionFacade;
-	
+
 	public SensorDistributionController(SensorDistributionFacade sensorDistributionFacade) {
 		this.sensorDistributionFacade = sensorDistributionFacade;
 	}
@@ -34,10 +34,19 @@ public class SensorDistributionController {
 	public List<SensorDistributionDto> getSensorDistribution() {
 		return sensorDistributionFacade.getSensorDistribution();
 	}
-	
-	
+
 	@GetMapping("getSensorStatus")
-	public SensorDistributionDto getSensorStatus(@RequestParam Long patientId){
+	public SensorDistributionDto getSensorStatus(@RequestParam Long patientId) {
 		return sensorDistributionFacade.getSensorStatus(patientId);
+	}
+
+	@PostMapping("activateSensor")
+	public SensorDistributionDto activateSensor(@RequestBody SensorDistributionDto dto) {
+		return sensorDistributionFacade.activateSensor(dto);
+	}
+
+	@PostMapping("deactivateSensor")
+	public SensorDistributionDto deactivateSensor(@RequestBody SensorDistributionDto dto) {
+		return sensorDistributionFacade.deactivateSensor(dto);
 	}
 }
