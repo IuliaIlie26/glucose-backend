@@ -21,6 +21,10 @@ public class Consultation {
 		this.patientId = patientId;
 		this.consultationDate = consultationDate;
 	}
+	
+	public String getId() {
+		return id;
+	}
 
 	public Long getDoctorId() {
 		return doctorId;

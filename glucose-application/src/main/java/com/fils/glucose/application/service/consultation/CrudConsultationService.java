@@ -7,16 +7,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+
+import com.fils.glucose.application.exception.TechnicalException;
 import com.fils.glucose.domain.consultations.Consultation;
+import com.fils.glucose.domain.consultations.ConsultationNotes;
+import com.fils.glucose.domain.consultations.ConsultationNotesRepository;
 import com.fils.glucose.domain.consultations.ConsultationRepository;
 
 @Service
 public class CrudConsultationService {
 
 	private final ConsultationRepository consultationRepository;
+	private final ConsultationNotesRepository consultationNotesRepository;
 
-	public CrudConsultationService(ConsultationRepository consultationRepository) {
+	public CrudConsultationService(ConsultationRepository consultationRepository,
+			ConsultationNotesRepository consultationNotesRepository) {
 		this.consultationRepository = consultationRepository;
+		this.consultationNotesRepository = consultationNotesRepository;
 	}
 
 	public Optional<Consultation> findByDoctorIdAndStartAndDay(Long doctorId, LocalTime start, LocalDate date) {
@@ -45,5 +52,15 @@ public class CrudConsultationService {
 
 	public List<Consultation> getPatientConsultations(Long patientId) {
 		return consultationRepository.findByPatientId(patientId);
+	}
+
+	public ConsultationNotes findConsultationNotesByConsultationId(String consultationId) {
+		return consultationNotesRepository.findByConsultationId(consultationId)
+				.orElseThrow(() -> new TechnicalException("consultation.notes.not.found"));
+	}
+
+	public Consultation findById(String consultationId) {
+		return consultationRepository.findById(consultationId)
+				.orElseThrow(() -> new TechnicalException("consultation.not.found"));
 	}
 }

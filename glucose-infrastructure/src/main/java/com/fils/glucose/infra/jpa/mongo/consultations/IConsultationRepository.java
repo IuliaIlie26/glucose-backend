@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.fils.glucose.domain.consultations.Consultation;
 
-public interface IConsultationRepository extends MongoRepository<Consultation, Long>{
+public interface IConsultationRepository extends MongoRepository<Consultation, String>{
 	
 	Optional<Consultation> findByDoctorIdAndConsultationDate(Long doctorId, LocalDateTime consultationDate);
 

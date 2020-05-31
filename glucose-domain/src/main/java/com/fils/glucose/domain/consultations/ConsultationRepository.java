@@ -13,4 +13,5 @@ public interface ConsultationRepository {
 			LocalDateTime consultationDate);
 	public List<Consultation> findByDoctorId(Long doctorId);
 	public List<Consultation> findByPatientId(Long patientId);
+	public Optional<Consultation> findById(String consultationId);
 }

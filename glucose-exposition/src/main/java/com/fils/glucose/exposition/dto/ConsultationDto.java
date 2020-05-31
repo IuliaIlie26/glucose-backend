@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class ConsultationDto {
 
 	@JsonProperty
+	public String consultationId;
+	@JsonProperty
 	public String speciality;
 	@JsonProperty
 	public String doctorName;

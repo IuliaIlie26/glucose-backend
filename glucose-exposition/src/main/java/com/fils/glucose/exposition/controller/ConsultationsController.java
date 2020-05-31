@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fils.glucose.exposition.dto.ConsultationFilterDto;
+import com.fils.glucose.exposition.dto.ConsultationNotesDto;
 import com.fils.glucose.exposition.dto.PatientDto;
 import com.fils.glucose.exposition.facade.ConsultationFacade;
 import com.fils.glucose.exposition.dto.ConsultationDto;
@@ -54,5 +55,15 @@ public class ConsultationsController {
 	@GetMapping("getPatientConsultations")
 	public List<ConsultationDto> getPatientConsultations(@RequestParam Long patientId) {
 		return consultationFacade.getPatientConsultations(patientId);
+	}
+	
+	@GetMapping("getConsultationById")
+	public ConsultationDto getConsultationById(@RequestParam String consultationId) {
+		return consultationFacade.getConsultationById(consultationId);
+	}
+	
+	@GetMapping("getConsultationNote")
+	public ConsultationNotesDto getConsultationNote(@RequestParam String consultationId) {
+		return consultationFacade.getConsultationNote(consultationId);
 	}
 }

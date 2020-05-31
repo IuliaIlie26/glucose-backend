@@ -49,4 +49,9 @@ public class ConsultationsJpaRepository implements ConsultationRepository {
 	public List<Consultation> findByPatientId(Long patientId) {
 		return consultationRepository.findByPatientId(patientId);
 	}
+
+	@Override
+	public Optional<Consultation> findById(String consultationId) {
+		return consultationRepository.findById(consultationId);
+	}
 }

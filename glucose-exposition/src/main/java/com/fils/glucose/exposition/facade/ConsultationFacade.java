@@ -17,10 +17,12 @@ import com.fils.glucose.application.service.doctor.CrudDoctorService;
 import com.fils.glucose.application.service.patient.CrudPatientService;
 import com.fils.glucose.application.service.schedule.CrudScheduleService;
 import com.fils.glucose.domain.consultations.Consultation;
+import com.fils.glucose.domain.consultations.ConsultationNotes;
 import com.fils.glucose.domain.personal.information.doctor.Doctor;
 import com.fils.glucose.domain.personal.information.patient.Patient;
 import com.fils.glucose.domain.schedule.DailySchedule;
 import com.fils.glucose.exposition.dto.ConsultationFilterDto;
+import com.fils.glucose.exposition.dto.ConsultationNotesDto;
 import com.fils.glucose.exposition.dto.PatientDto;
 import com.fils.glucose.exposition.mappers.ConsultationMapperService;
 import com.fils.glucose.exposition.mappers.PatientMapperService;
@@ -143,5 +145,15 @@ public class ConsultationFacade {
 		return consultations.stream()
 				.filter(consultation -> consultation.getConsultationDate().isBefore(LocalDateTime.now()))
 				.map(consultationMapper::mapFromDomain).collect(Collectors.toList());
+	}
+
+	public ConsultationNotesDto getConsultationNote(String consultationId) {
+		ConsultationNotes notes = crudConsultationService.findConsultationNotesByConsultationId(consultationId);
+		return consultationMapper.mapNotesFromDomain(notes);
+	}
+
+	public ConsultationDto getConsultationById(String consultationId) {
+		Consultation consultation = crudConsultationService.findById(consultationId);
+		return consultationMapper.mapFromDomain(consultation);
 	}
 }
