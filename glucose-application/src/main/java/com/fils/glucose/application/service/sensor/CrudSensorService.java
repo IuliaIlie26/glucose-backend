@@ -2,6 +2,8 @@ package com.fils.glucose.application.service.sensor;
 
 import org.springframework.stereotype.Service;
 
+import com.fils.glucose.domain.sensor.GlycemiaValues;
+import com.fils.glucose.domain.sensor.GlycemiaValuesRepository;
 import com.fils.glucose.domain.sensor.SensorDistribution;
 import com.fils.glucose.domain.sensor.SensorDistributionRepository;
 import com.fils.glucose.domain.sensor.Status;
@@ -15,9 +17,12 @@ import java.util.Optional;
 public class CrudSensorService {
 
 	private final SensorDistributionRepository sensorDistributionRepository;
+	private final GlycemiaValuesRepository glycemiaRepo;
 
-	public CrudSensorService(SensorDistributionRepository sensorDistributionRepository) {
+	public CrudSensorService(SensorDistributionRepository sensorDistributionRepository,
+			GlycemiaValuesRepository glycemiaRepo) {
 		this.sensorDistributionRepository = requireNonNull(sensorDistributionRepository);
+		this.glycemiaRepo = glycemiaRepo;
 	}
 
 	public Optional<SensorDistribution> findByPatientId(Long patientId) {
@@ -38,5 +43,9 @@ public class CrudSensorService {
 
 	public void save(SensorDistribution distribution) {
 		sensorDistributionRepository.save(distribution);
+	}
+
+	public List<GlycemiaValues> getGlycemiaValues(String sensorId) {
+		return glycemiaRepo.findBySensorId(sensorId);
 	}
 }

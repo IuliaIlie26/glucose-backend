@@ -1,7 +1,9 @@
 package com.fils.glucose.domain.risk.factors;
 
+import java.util.Optional;
+
 public interface RiskFactorsRepository {
 	void save(RiskFactors riskFactors);
 
-	RiskFactors findById(Long patientId);
+	Optional<RiskFactors> findById(Long patientId);
 }

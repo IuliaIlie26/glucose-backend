@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.fils.glucose.application.exception.TechnicalException;
@@ -15,8 +15,10 @@ import com.fils.glucose.application.service.patient.CrudPatientService;
 import com.fils.glucose.application.service.sensor.CrudSensorService;
 import com.fils.glucose.domain.sensor.SensorDistribution;
 import com.fils.glucose.domain.sensor.Status;
+import com.fils.glucose.exposition.dto.GlycemiaValuesDto;
 import com.fils.glucose.exposition.dto.MessageDto;
 import com.fils.glucose.exposition.dto.SensorDistributionDto;
+import com.fils.glucose.exposition.mappers.GlycemiaValuesMapperService;
 import com.fils.glucose.exposition.mappers.SensorDistributionMapperService;
 
 @Service
@@ -25,14 +27,16 @@ public class SensorDistributionFacade {
 	private final SensorDistributionMapperService sensorDistributionMapper;
 	private final CrudPatientService crudPatientService;
 	private final CrudDoctorService crudDoctorService;
+	private final GlycemiaValuesMapperService glycemiaMapper;
 
 	public SensorDistributionFacade(CrudSensorService sensorService,
 			SensorDistributionMapperService sensorDistributionMapper, CrudPatientService crudPatientService,
-			CrudDoctorService crudDoctorService) {
+			CrudDoctorService crudDoctorService, GlycemiaValuesMapperService glycemiaMapper) {
 		this.crudSensorService = requireNonNull(sensorService);
 		this.crudPatientService = requireNonNull(crudPatientService);
 		this.sensorDistributionMapper = requireNonNull(sensorDistributionMapper);
 		this.crudDoctorService = requireNonNull(crudDoctorService);
+		this.glycemiaMapper = glycemiaMapper;
 	}
 
 	public MessageDto assignSensor(SensorDistributionDto dto) {
@@ -98,5 +102,21 @@ public class SensorDistributionFacade {
 				.orElseThrow(() -> new TechnicalException("patient.sensor.not.found"));
 		distribution.setDoctorId(doctorId);
 		return distribution;
+	}
+
+	public List<GlycemiaValuesDto> getGlycemiaForPatient(Long patientId) {
+
+		Optional<SensorDistribution> sensorOptional = crudSensorService.findByPatientId(patientId);
+		if (sensorOptional.isPresent()) {
+			SensorDistribution sensor = sensorOptional.get();
+			if (sensor.getStatus() == Status.ACTIVE) {
+				return crudSensorService.getGlycemiaValues(sensor.getSensorId()).stream()
+						.map(glycemiaMapper::mapFromDomain).collect(Collectors.toList());
+			} else {
+				throw new TechnicalException("sensor.not.active");
+			}
+		} else {
+			throw new TechnicalException("sensor.not.found");
+		}
 	}
 }

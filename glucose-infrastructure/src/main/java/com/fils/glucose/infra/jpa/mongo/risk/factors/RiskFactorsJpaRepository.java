@@ -5,6 +5,8 @@ import com.fils.glucose.domain.risk.factors.RiskFactors;
 import com.fils.glucose.domain.risk.factors.RiskFactorsRepository;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
+
 @Repository
 public class RiskFactorsJpaRepository implements RiskFactorsRepository {
 
@@ -20,7 +22,7 @@ public class RiskFactorsJpaRepository implements RiskFactorsRepository {
 	}
 
 	@Override
-	public RiskFactors findById(Long patientId) {
-		return factorsRepository.findById(patientId).orElse(new RiskFactors());
+	public Optional<RiskFactors> findById(Long patientId) {
+		return factorsRepository.findById(patientId);
 	}
 }

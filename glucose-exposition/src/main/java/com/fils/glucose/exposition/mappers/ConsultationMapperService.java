@@ -48,7 +48,7 @@ public class ConsultationMapperService {
 		dto.history = bean.getHistory();
 		dto.investigationTicketId = bean.getInvestigationTicketId();
 		dto.notes = bean.getNotes();
-		dto.recommandations = bean.getRecommandations();
+		dto.recommandations = bean.getRecommendations();
 		dto.symptoms = bean.getSymptoms();
 		return dto;
 	}

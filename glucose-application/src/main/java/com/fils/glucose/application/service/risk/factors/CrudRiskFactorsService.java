@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class CrudRiskFactorsService {
 		this.patientRepository = patientRepository;
 	}
 
-	public RiskFactors findById(Long patientId) {
+	public Optional<RiskFactors> findById(Long patientId) {
 		return riskFactorsRepository.findById(patientId);
 	}
 
@@ -34,15 +35,20 @@ public class CrudRiskFactorsService {
 		LocalDate today = LocalDate.from(LocalDate.now());
 		Long age = birthDate.until(today, ChronoUnit.YEARS);
 
-		RiskFactors riskFactors = findById(patientId);
-		Double naylor = calculateNaylor(riskFactors, age);
-		Double caliskan = calculateCaliskan(riskFactors, age);
-		Double vanLeeuwen = calculateVanLeeuwen(riskFactors);
-		Double teede = calculateTeede(riskFactors, age);
-		Double nanda = calculateNanda(riskFactors, age);
-		return new RiskScore(naylor, caliskan, vanLeeuwen, teede, nanda);
+		Optional<RiskFactors> riskFactorsOptional = findById(patientId);
+		if (riskFactorsOptional.isPresent()) {
+			RiskFactors riskFactors = riskFactorsOptional.get();
+			Double naylor = calculateNaylor(riskFactors, age);
+			Double caliskan = calculateCaliskan(riskFactors, age);
+			Double vanLeeuwen = calculateVanLeeuwen(riskFactors);
+			Double teede = calculateTeede(riskFactors, age);
+			Double nanda = calculateNanda(riskFactors, age);
+			return new RiskScore(naylor, caliskan, vanLeeuwen, teede, nanda);
+		}
+
+		return new RiskScore(0., 0., 0., 0., 0.);
 	}
-	
+
 	public void saveRiskFactors(RiskFactors riskFactors) {
 		riskFactorsRepository.save(riskFactors);
 	}

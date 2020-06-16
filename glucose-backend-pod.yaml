@@ -1,0 +1,13 @@
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: glucose-backend  
+  labels:  
+    app: glucose
+    tier: backend
+    service: backend
+spec: 
+  containers:
+  - name: glucose-backend
+    image: de.icr.io/glucose/glucose_backend:1
+    imagePullPolicy: Always

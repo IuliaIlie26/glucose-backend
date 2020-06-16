@@ -10,7 +10,7 @@ public class ConsultationNotes {
 	private String history;
 	private String symptoms;
 	private String diagnosis;
-	private String recommandations;
+	private String recommendations;
 	private String notes;
 
 	public String getConsultationId() {
@@ -53,12 +53,12 @@ public class ConsultationNotes {
 		this.diagnosis = diagnosis;
 	}
 
-	public String getRecommandations() {
-		return recommandations;
+	public String getRecommendations() {
+		return recommendations;
 	}
 
-	public void setRecommandations(String recommandations) {
-		this.recommandations = recommandations;
+	public void setRecommedations(String recommendations) {
+		this.recommendations = recommendations;
 	}
 
 	public String getNotes() {

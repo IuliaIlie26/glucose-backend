@@ -32,7 +32,7 @@ public class MedicalChartFacade {
 	}
 
 	public RiskFactorsDto getRiskFactors(Long patientId) {
-		RiskFactors risks = riskFactorsService.findById(patientId);
+		RiskFactors risks = riskFactorsService.findById(patientId).orElse(new RiskFactors());
 		return riskFactorMapper.mapFromDomain(risks);
 	}
 
