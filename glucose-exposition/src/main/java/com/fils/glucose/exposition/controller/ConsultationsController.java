@@ -66,4 +66,19 @@ public class ConsultationsController {
 	public ConsultationNotesDto getConsultationNote(@RequestParam String consultationId) {
 		return consultationFacade.getConsultationNote(consultationId);
 	}
+	
+	@GetMapping("getNextConsultationsForDoctor")
+	public List<ConsultationDto> getNextConsultationsForDoctor(@RequestParam String username){
+		return consultationFacade.getNextConsultationsForDoctor(username);
+	}
+	
+	@GetMapping("getCurrentConsultation")
+	public ConsultationDto getCurrentConsultation(@RequestParam String username) {
+		return consultationFacade.getCurrentConsultation(username);
+	}
+	
+	@PostMapping("saveNotes")
+	public void saveNotes(@RequestBody ConsultationNotesDto notes) {
+		consultationFacade.saveNotes(notes);
+	}
 }

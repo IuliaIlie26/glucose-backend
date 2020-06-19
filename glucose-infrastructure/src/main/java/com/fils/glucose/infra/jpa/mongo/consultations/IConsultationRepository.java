@@ -18,4 +18,5 @@ public interface IConsultationRepository extends MongoRepository<Consultation, S
 	List<Consultation> findByDoctorId(Long doctorId);
 
 	List<Consultation> findByPatientId(Long patientId);
+
 }

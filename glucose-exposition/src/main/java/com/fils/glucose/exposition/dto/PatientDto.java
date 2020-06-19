@@ -22,4 +22,8 @@ public class PatientDto {
 	public AddressDto address;
 	@JsonProperty
 	public String fullAddress;
+	
+	public String getId(){
+		return id;
+	}
 }

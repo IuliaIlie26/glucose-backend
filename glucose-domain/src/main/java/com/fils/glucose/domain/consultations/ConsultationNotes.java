@@ -1,12 +1,13 @@
 package com.fils.glucose.domain.consultations;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection ="consultation_notes")
 public class ConsultationNotes {
 
+	@Id
 	private String consultationId;
-	private String investigationTicketId;
 	private String history;
 	private String symptoms;
 	private String diagnosis;
@@ -19,14 +20,6 @@ public class ConsultationNotes {
 
 	public void setConsultationId(String consultationId) {
 		this.consultationId = consultationId;
-	}
-
-	public String getInvestigationTicketId() {
-		return investigationTicketId;
-	}
-
-	public void setInvestigationTicketId(String investigationTicketId) {
-		this.investigationTicketId = investigationTicketId;
 	}
 
 	public String getHistory() {

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -55,12 +56,25 @@ public class CrudConsultationService {
 	}
 
 	public ConsultationNotes findConsultationNotesByConsultationId(String consultationId) {
-		return consultationNotesRepository.findByConsultationId(consultationId)
-				.orElseThrow(() -> new TechnicalException("consultation.notes.not.found"));
+		return consultationNotesRepository.findByConsultationId(consultationId).orElse(new ConsultationNotes());
 	}
 
 	public Consultation findById(String consultationId) {
 		return consultationRepository.findById(consultationId)
 				.orElseThrow(() -> new TechnicalException("consultation.not.found"));
+	}
+
+	public Optional<Consultation> getCurrentConsultation(Long doctorId) {
+		LocalDateTime now = LocalDateTime.now();
+		LocalDateTime start = now.truncatedTo(ChronoUnit.HOURS).plusMinutes(30 * (now.getMinute() / 30) - 1);
+		LocalDateTime nextFinish = now.truncatedTo(ChronoUnit.HOURS).plusMinutes(30 * (now.getMinute() / 30 + 1));
+		return consultationRepository.findByDoctorId(doctorId).stream().filter(
+				cons -> cons.getConsultationDate().isBefore(nextFinish) && cons.getConsultationDate().isAfter(start))
+				.findFirst();
+	}
+
+	public void saveNotes(ConsultationNotes notes) {
+		consultationNotesRepository.save(notes);
+
 	}
 }

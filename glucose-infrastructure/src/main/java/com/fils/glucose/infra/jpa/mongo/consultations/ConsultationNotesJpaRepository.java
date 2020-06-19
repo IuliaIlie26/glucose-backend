@@ -21,4 +21,9 @@ public class ConsultationNotesJpaRepository implements ConsultationNotesReposito
 		return consultationNotesRepository.findByConsultationId(consultationId);
 	}
 
+	@Override
+	public void save(ConsultationNotes notes) {
+		consultationNotesRepository.save(notes);
+	}
+
 }

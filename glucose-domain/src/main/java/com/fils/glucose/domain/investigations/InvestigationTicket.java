@@ -1,8 +1,5 @@
 package com.fils.glucose.domain.investigations;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,46 +7,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class InvestigationTicket {
 
 	@Id
-	private String id;
-	private Long doctorId;
-	private Long patientId;
-	private List<String> investigations;
-	private LocalDate date;
+	private String consultationId;
+	private String investigations;
 
-	public String getId() {
-		return id;
-	}
-
-	public Long getDoctorId() {
-		return doctorId;
-	}
-
-	public void setDoctorId(Long doctorId) {
-		this.doctorId = doctorId;
-	}
-
-	public List<String> getInvestigations() {
+	public String getInvestigations() {
 		return investigations;
 	}
+	
+	public String getConsultationId() {
+		return consultationId;
+	}
 
-	public void setInvestigations(List<String> investigations) {
+	public void setConsultationId(String consultationId) {
+		this.consultationId = consultationId;
+	}
+
+	public void setInvestigations(String investigations) {
 		this.investigations = investigations;
 	}
-
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-
-	public Long getPatientId() {
-		return patientId;
-	}
-
-	public void setPatientId(Long patientId) {
-		this.patientId = patientId;
-	}
-
 }

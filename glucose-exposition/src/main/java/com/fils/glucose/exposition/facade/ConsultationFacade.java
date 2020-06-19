@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -26,6 +29,7 @@ import com.fils.glucose.exposition.dto.ConsultationNotesDto;
 import com.fils.glucose.exposition.dto.PatientDto;
 import com.fils.glucose.exposition.mappers.ConsultationMapperService;
 import com.fils.glucose.exposition.mappers.PatientMapperService;
+import com.mongodb.Function;
 import com.fils.glucose.exposition.dto.ConsultationDto;
 
 @Service
@@ -130,9 +134,14 @@ public class ConsultationFacade {
 	}
 
 	public List<PatientDto> getPatientsForDoctor(String username) {
-		Long doctorId = crudDoctorService.getDoctorIdByUsername(username);
-		List<Consultation> consultations = crudConsultationService.getConsultationsForDoctor(doctorId);
-		return consultations.stream().map(this::extractPatientInfoFromConsultation).collect(Collectors.toList());
+		List<Consultation> consultations = findAllConsultationsForDoctor(username);
+		return consultations.stream().map(this::extractPatientInfoFromConsultation)
+				.filter(distinctByKey(PatientDto::getId)).collect(Collectors.toList());
+	}
+
+	private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+		Set<Object> seen = ConcurrentHashMap.newKeySet();
+		return t -> seen.add(keyExtractor.apply(t));
 	}
 
 	public PatientDto extractPatientInfoFromConsultation(Consultation consultation) {
@@ -155,5 +164,32 @@ public class ConsultationFacade {
 	public ConsultationDto getConsultationById(String consultationId) {
 		Consultation consultation = crudConsultationService.findById(consultationId);
 		return consultationMapper.mapFromDomain(consultation);
+	}
+
+	public List<ConsultationDto> getNextConsultationsForDoctor(String username) {
+		List<Consultation> consultations = findAllConsultationsForDoctor(username);
+		return consultations.stream().filter(cons -> cons.getConsultationDate().isAfter(LocalDateTime.now()))
+				.map(consultationMapper::mapFromDomain).collect(Collectors.toList());
+	}
+
+	private List<Consultation> findAllConsultationsForDoctor(String username) {
+		Long doctorId = crudDoctorService.getDoctorIdByUsername(username);
+		return crudConsultationService.getConsultationsForDoctor(doctorId);
+	}
+
+	public ConsultationDto getCurrentConsultation(String username) {
+		Long doctorId = crudDoctorService.getDoctorIdByUsername(username);
+		Optional<Consultation> current = crudConsultationService.getCurrentConsultation(doctorId);
+		if (current.isPresent()) {
+			return consultationMapper.mapFromDomain(current.get());
+		}
+		return new ConsultationDto();
+
+	}
+
+	public void saveNotes(ConsultationNotesDto dto) {
+		ConsultationNotes notes = consultationMapper.mapDtoToNotesDomain(dto);
+		crudConsultationService.saveNotes(notes);
+
 	}
 }

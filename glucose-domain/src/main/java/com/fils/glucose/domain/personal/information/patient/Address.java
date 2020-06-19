@@ -29,7 +29,6 @@ public class Address {
 
 	@NotBlank
 	@Size(max = 20)
-	@Pattern(regexp = "(\\p{IsAlphabetic}|'|\\s)+")
 	private final String region;
 
 	@NotBlank

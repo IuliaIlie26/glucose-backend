@@ -37,7 +37,7 @@ public class ConsultationMapperService {
 		dto.doctorLastName = doc.getLastName();
 		dto.speciality = doc.getMedicalSpeciality();
 		dto.date = bean.getConsultationDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-
+		dto.patientId=bean.getPatientId();
 		return dto;
 	}
 
@@ -46,10 +46,20 @@ public class ConsultationMapperService {
 		dto.consultationId = bean.getConsultationId();
 		dto.diagnosis = bean.getDiagnosis();
 		dto.history = bean.getHistory();
-		dto.investigationTicketId = bean.getInvestigationTicketId();
 		dto.notes = bean.getNotes();
 		dto.recommandations = bean.getRecommendations();
 		dto.symptoms = bean.getSymptoms();
 		return dto;
+	}
+	
+	public ConsultationNotes mapDtoToNotesDomain(ConsultationNotesDto dto) {
+		ConsultationNotes notes = new ConsultationNotes();
+		notes.setConsultationId(dto.consultationId);
+		notes.setDiagnosis(dto.diagnosis);
+		notes.setHistory(dto.history);
+		notes.setNotes(dto.notes);
+		notes.setRecommedations(dto.recommandations);
+		notes.setSymptoms(dto.symptoms);
+		return notes;
 	}
 }

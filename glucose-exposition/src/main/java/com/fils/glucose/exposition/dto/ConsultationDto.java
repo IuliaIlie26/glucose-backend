@@ -24,4 +24,6 @@ public class ConsultationDto {
 	public String patientName;
 	@JsonProperty
 	public String patientLastName;
+	@JsonProperty
+	public Long patientId;
  }

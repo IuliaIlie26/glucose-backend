@@ -7,8 +7,6 @@ public class ConsultationNotesDto {
 	@JsonProperty
 	public String consultationId;
 	@JsonProperty
-	public String investigationTicketId;
-	@JsonProperty
 	public String history;
 	@JsonProperty
 	public String symptoms;

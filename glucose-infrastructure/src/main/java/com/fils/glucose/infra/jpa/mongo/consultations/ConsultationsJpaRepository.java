@@ -54,4 +54,5 @@ public class ConsultationsJpaRepository implements ConsultationRepository {
 	public Optional<Consultation> findById(String consultationId) {
 		return consultationRepository.findById(consultationId);
 	}
+
 }
