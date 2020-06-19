@@ -9,5 +9,6 @@
 		<mapping-file>META-INF/orm-address.xml</mapping-file>
 		<mapping-file>META-INF/orm-doctor.xml</mapping-file>
 		<mapping-file>META-INF/orm-users.xml</mapping-file>
+		<mapping-file>META-INF/orm-admin.xml</mapping-file>
 	</persistence-unit>
 </persistence>

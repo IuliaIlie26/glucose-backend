@@ -74,8 +74,14 @@ public class SensorDistributionFacade {
 	}
 
 	public SensorDistributionDto getSensorStatus(Long patientId) {
-		SensorDistribution distribution = crudSensorService.findByPatientId(patientId).orElse(new SensorDistribution());
-		return sensorDistributionMapper.mapFromDomain(distribution);
+		SensorDistributionDto dto = new SensorDistributionDto();
+		Optional<SensorDistribution> distribution = crudSensorService.findByPatientId(patientId);
+		if (distribution.isPresent()) {
+			dto = sensorDistributionMapper.mapFromDomain(distribution.get());
+		} else {
+			dto.status = Status.NOT_ASSIGNED.toString();
+		}
+		return dto;
 	}
 
 	public SensorDistributionDto activateSensor(SensorDistributionDto dto) {

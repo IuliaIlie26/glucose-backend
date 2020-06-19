@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.fils.glucose.exposition.dto.PatientDto;
+import com.fils.glucose.exposition.facade.PatientAlertsFacade;
 import com.fils.glucose.exposition.facade.PatientFacade;
 
 @RestController
@@ -17,9 +18,11 @@ import com.fils.glucose.exposition.facade.PatientFacade;
 public class PatientController {
 
 	private final PatientFacade patientFacade;
+	private final PatientAlertsFacade alertsFacade;
 
-	public PatientController(PatientFacade patientFacade) {
+	public PatientController(PatientFacade patientFacade, PatientAlertsFacade alertsFacade) {
 		this.patientFacade = patientFacade;
+		this.alertsFacade = alertsFacade;
 	}
 
 	@PostMapping("savePatient")
@@ -56,4 +59,20 @@ public class PatientController {
 	public void updatePatient(@RequestBody PatientDto patientDto) {
 		patientFacade.updatePatient(patientDto);
 	}
+
+	@GetMapping("getAllPatientAlertsForDoctor")
+	public List<PatientDto> getAllPatientAlertsForDoctor(@RequestParam String username) {
+		return alertsFacade.getAllPatientAlertsForDoctor(username);
+	}
+	
+	@GetMapping("getAlertsListForPatient")
+	public List<PatientAlertsDto> getAlertsListForPatient(@RequestParam Long patientId){
+		return alertsFacade.getAlertsListForPatient(patientId);
+	}
+	
+	@PostMapping("deleteAlertsForDoctor")
+	public void deleteAlertsForDoctor(@RequestBody String username) {
+		alertsFacade.deleteAlertsForDoctor(username);
+	}
+
 }

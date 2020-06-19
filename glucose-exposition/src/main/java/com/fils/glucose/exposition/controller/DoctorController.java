@@ -52,4 +52,9 @@ public class DoctorController {
 	public void saveSchedule(@RequestBody DoctorScheduleDto schedule) {
 		doctorFacade.saveSchedule(schedule);
 	}
+	
+	@GetMapping("getDoctorNameAndLastnameByUsername")
+	public String getDoctorNameAndLastnameByUsername(@RequestParam String username) {
+		return doctorFacade.getDoctorNameAndLastnameByUsername(username);
+	}
 }

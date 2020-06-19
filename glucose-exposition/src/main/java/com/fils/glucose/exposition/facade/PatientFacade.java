@@ -18,13 +18,13 @@ public class PatientFacade {
 
 	private final CrudPatientService crudPatientService;
 	private final PatientMapperService patientMapperService;
-	
+
 	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	public PatientFacade(CrudPatientService crudPatientService, PatientMapperService patientMapperService) {
 		this.crudPatientService = requireNonNull(crudPatientService);
 		this.patientMapperService = requireNonNull(patientMapperService);
-		
+
 	}
 
 	public Long savePatient(PatientDto patientDto) {
@@ -79,14 +79,9 @@ public class PatientFacade {
 		crudPatientService.updatePatient(oldPatient);
 	}
 
-	
-
 	public String getPatientNameByCnp(String cnp) {
 		Patient patient = crudPatientService.findByCnp(cnp);
 		return patient.getLastName() + " " + patient.getFirstName();
 	}
 
-	
-
-	
 }

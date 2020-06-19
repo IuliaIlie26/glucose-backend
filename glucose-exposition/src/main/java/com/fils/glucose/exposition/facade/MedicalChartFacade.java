@@ -39,8 +39,9 @@ public class MedicalChartFacade {
 	public PregnancyInfoDto getPregancyInfo(Long patientId) {
 		PregnancyInfoDto dto = new PregnancyInfoDto();
 		PregnancyInfo pregnancyInfo = pregnancyInfoService.getPregancyInfoByPatientId(patientId);
-
-		dto.dueDate = pregnancyInfo.getDueDate().format(formatter);
+		if (pregnancyInfo.getDueDate() != null) {
+			dto.dueDate = pregnancyInfo.getDueDate().format(formatter);
+		}
 		dto.patientId = patientId;
 		return dto;
 	}

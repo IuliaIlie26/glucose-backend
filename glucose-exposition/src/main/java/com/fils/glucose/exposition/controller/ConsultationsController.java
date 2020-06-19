@@ -77,6 +77,11 @@ public class ConsultationsController {
 		return consultationFacade.getCurrentConsultation(username);
 	}
 	
+	@GetMapping("getTodaysConsultations")
+	public List<ConsultationDto> getTodaysConsultations(@RequestParam String username){
+		return consultationFacade.getTodaysConsultations(username);
+	}
+	
 	@PostMapping("saveNotes")
 	public void saveNotes(@RequestBody ConsultationNotesDto notes) {
 		consultationFacade.saveNotes(notes);

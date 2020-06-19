@@ -192,4 +192,10 @@ public class ConsultationFacade {
 		crudConsultationService.saveNotes(notes);
 
 	}
+
+	public List<ConsultationDto> getTodaysConsultations(String username) {
+		Long doctorId = crudDoctorService.getDoctorIdByUsername(username);
+		return crudConsultationService.getTodaysConsultations(doctorId).stream().map(consultationMapper::mapFromDomain)
+				.collect(Collectors.toList());
+	}
 }

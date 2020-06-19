@@ -106,7 +106,7 @@ public class DoctorFacade {
 	}
 
 	private DailySchedule checkIfTimesAreValidAndReturnDailyScheduleBean(DailyScheduleDto element) {
-		
+
 		if (StringUtils.isEmpty(element.start) && !StringUtils.isEmpty(element.end)
 				|| !StringUtils.isEmpty(element.start) && StringUtils.isEmpty(element.end)) {
 			throw new TechnicalException("doctor.schedule.error.start.end.required");
@@ -126,5 +126,10 @@ public class DoctorFacade {
 	public List<DoctorDto> getDoctorsBySpeciality(String speciality) {
 		List<Doctor> doctors = crudDoctorService.getDoctorsBySpeciality(speciality);
 		return doctors.stream().map(doctorMapper::mapFromDomain).collect(Collectors.toList());
+	}
+
+	public String getDoctorNameAndLastnameByUsername(String username) {
+		Long id = crudDoctorService.getDoctorIdByUsername(username);
+		return getDoctorNameAndLastname(id);
 	}
 }

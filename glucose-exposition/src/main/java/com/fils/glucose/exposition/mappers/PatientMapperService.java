@@ -3,8 +3,11 @@ package com.fils.glucose.exposition.mappers;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
+
+import com.fils.glucose.domain.alerts.PatientAlerts;
 import com.fils.glucose.domain.personal.information.patient.Address;
 import com.fils.glucose.domain.personal.information.patient.Patient;
+import com.fils.glucose.exposition.controller.PatientAlertsDto;
 import com.fils.glucose.exposition.dto.AddressDto;
 import com.fils.glucose.exposition.dto.PatientDto;
 
@@ -46,5 +49,14 @@ public class PatientMapperService {
 		addressDto.region = address.getRegion();
 		addressDto.zipCode = address.getZipCode().isPresent() ? address.getZipCode().get() : "";
 		return addressDto;
+	}
+
+	public PatientAlertsDto mapAlertsFromDomain(PatientAlerts bean) {
+		PatientAlertsDto dto = new PatientAlertsDto();
+		dto.id = bean.getId();
+		dto.patientId = bean.getPatientId();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		dto.timestamp = bean.getTimestamp().format(formatter);
+		return dto;
 	}
 }

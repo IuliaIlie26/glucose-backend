@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
-
 import com.fils.glucose.application.exception.TechnicalException;
 import com.fils.glucose.domain.consultations.Consultation;
 import com.fils.glucose.domain.consultations.ConsultationNotes;
@@ -76,5 +76,11 @@ public class CrudConsultationService {
 	public void saveNotes(ConsultationNotes notes) {
 		consultationNotesRepository.save(notes);
 
+	}
+
+	public List<Consultation> getTodaysConsultations(Long doctorId) {
+		return consultationRepository.findByDoctorId(doctorId).stream()
+				.filter(cons -> cons.getConsultationDate().toLocalDate().isEqual(LocalDate.now()))
+				.collect(Collectors.toList());
 	}
 }
