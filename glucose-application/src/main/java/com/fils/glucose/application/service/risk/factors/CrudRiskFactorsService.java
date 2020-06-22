@@ -31,7 +31,7 @@ public class CrudRiskFactorsService {
 
 	public RiskScore calculateRiskScore(Long patientId) {
 		LocalDate birthDate = this.patientRepository.findBirthdateById(patientId)
-				.orElseThrow(() -> new TechnicalException("patient.not.found"));
+				.orElseThrow(() -> new TechnicalException("backend.patient.not.found"));
 		LocalDate today = LocalDate.from(LocalDate.now());
 		Long age = birthDate.until(today, ChronoUnit.YEARS);
 

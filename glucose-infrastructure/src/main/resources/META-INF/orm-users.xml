@@ -16,7 +16,7 @@
 				<column name="PASSWORD" nullable="false" />
 			</basic>
 			<basic name="role">
-				<column name="ROLE" nullable="false" />
+				 <enumerated>STRING</enumerated>
 			</basic>
 		</attributes>
 	</entity>

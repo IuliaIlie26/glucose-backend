@@ -75,4 +75,9 @@ public class PatientController {
 		alertsFacade.deleteAlertsForDoctor(username);
 	}
 
+	@GetMapping("getPatientByEmail")
+	public PatientDto getPatientByEmail(@RequestParam String username) {
+		return patientFacade.getPatientByEmail(username);
+	}
+	
 }

@@ -103,9 +103,9 @@ public class SensorDistributionFacade {
 	private SensorDistribution getSensorDistribution(SensorDistributionDto dto) {
 		Long doctorId = crudDoctorService.getDoctorIdByUsername(dto.doctorUsername);
 		Long patientId = crudPatientService.findIdByCnp(dto.patientCnp)
-				.orElseThrow(() -> new TechnicalException("patient.not.found"));
+				.orElseThrow(() -> new TechnicalException("backend.patient.not.found"));
 		SensorDistribution distribution = crudSensorService.findByPatientId(patientId)
-				.orElseThrow(() -> new TechnicalException("patient.sensor.not.found"));
+				.orElseThrow(() -> new TechnicalException("backend.patient.sensor.not.found"));
 		distribution.setDoctorId(doctorId);
 		return distribution;
 	}
@@ -119,10 +119,10 @@ public class SensorDistributionFacade {
 				return crudSensorService.getGlycemiaValues(sensor.getSensorId()).stream()
 						.map(glycemiaMapper::mapFromDomain).collect(Collectors.toList());
 			} else {
-				throw new TechnicalException("sensor.not.active");
+				throw new TechnicalException("backend.sensor.not.active");
 			}
 		} else {
-			throw new TechnicalException("sensor.not.found");
+			throw new TechnicalException("backend.sensor.not.found");
 		}
 	}
 }

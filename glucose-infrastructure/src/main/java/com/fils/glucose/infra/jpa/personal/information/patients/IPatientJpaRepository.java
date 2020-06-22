@@ -16,8 +16,7 @@ public interface IPatientJpaRepository extends JpaRepository<Patient, Long> {
 	@Query("SELECT p.id FROM Patient p where p.cnp = :cnp")
 	Optional<Long> findIdByCnp(@Param("cnp") String cnp);
 
-	@Query("SELECT p.id FROM Patient p where p.email = :email")
-	Optional<Long> findByEmail(@Param("email") String email);
+	Optional<Patient> findByEmail(String email);
 
 	Optional<Patient> findByCnp(String cnp);
 

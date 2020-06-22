@@ -13,13 +13,12 @@ public class Users {
 	@Size(max = 50)
 	private String password;
 
-	@NotBlank
-	private String role;
+	private UserRoles role;
 
-	protected Users() {
+	public Users() {
 	}
 
-	public Users(@NotBlank @Size(max = 50) String username, @NotBlank @Size(max = 50) String password, String role) {
+	public Users(@NotBlank @Size(max = 50) String username, @NotBlank @Size(max = 50) String password, UserRoles role) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -34,7 +33,21 @@ public class Users {
 		return password;
 	}
 
-	public String getRole() {
+	public UserRoles getRole() {
 		return role;
+	}
+
+	
+	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setRole(UserRoles role) {
+		this.role = role;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

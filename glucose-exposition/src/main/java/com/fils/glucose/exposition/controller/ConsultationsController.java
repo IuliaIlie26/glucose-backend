@@ -56,34 +56,39 @@ public class ConsultationsController {
 	public List<ConsultationDto> getPatientConsultations(@RequestParam Long patientId) {
 		return consultationFacade.getPatientConsultations(patientId);
 	}
-	
+
 	@GetMapping("getConsultationById")
 	public ConsultationDto getConsultationById(@RequestParam String consultationId) {
 		return consultationFacade.getConsultationById(consultationId);
 	}
-	
+
 	@GetMapping("getConsultationNote")
 	public ConsultationNotesDto getConsultationNote(@RequestParam String consultationId) {
 		return consultationFacade.getConsultationNote(consultationId);
 	}
-	
+
 	@GetMapping("getNextConsultationsForDoctor")
-	public List<ConsultationDto> getNextConsultationsForDoctor(@RequestParam String username){
+	public List<ConsultationDto> getNextConsultationsForDoctor(@RequestParam String username) {
 		return consultationFacade.getNextConsultationsForDoctor(username);
 	}
-	
+
 	@GetMapping("getCurrentConsultation")
 	public ConsultationDto getCurrentConsultation(@RequestParam String username) {
 		return consultationFacade.getCurrentConsultation(username);
 	}
-	
+
 	@GetMapping("getTodaysConsultations")
-	public List<ConsultationDto> getTodaysConsultations(@RequestParam String username){
+	public List<ConsultationDto> getTodaysConsultations(@RequestParam String username) {
 		return consultationFacade.getTodaysConsultations(username);
 	}
-	
+
 	@PostMapping("saveNotes")
 	public void saveNotes(@RequestBody ConsultationNotesDto notes) {
 		consultationFacade.saveNotes(notes);
+	}
+
+	@GetMapping("getFutureConsultationForPatient")
+	public List<ConsultationDto> getFutureConsultationForPatient(@RequestParam Long patientId) {
+		return consultationFacade.getFutureConsultationForPatient(patientId);
 	}
 }

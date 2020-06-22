@@ -37,7 +37,7 @@ public class PatientsJpaRepository implements PatientsRepository {
 	}
 
 	@Override
-	public Optional<Long> findByEmail(String email) {
+	public Optional<Patient> findByEmail(String email) {
 		return patientsRepository.findByEmail(email);
 	}
 

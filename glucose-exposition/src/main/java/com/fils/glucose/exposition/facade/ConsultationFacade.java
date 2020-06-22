@@ -198,4 +198,10 @@ public class ConsultationFacade {
 		return crudConsultationService.getTodaysConsultations(doctorId).stream().map(consultationMapper::mapFromDomain)
 				.collect(Collectors.toList());
 	}
+
+	public List<ConsultationDto> getFutureConsultationForPatient(Long patientId) {
+		return crudConsultationService.getFutureConsultationForPatient(patientId).stream()
+				.filter(cons -> cons.getConsultationDate().isAfter(LocalDateTime.now()))
+				.map(consultationMapper::mapFromDomain).collect(Collectors.toList());
+	}
 }

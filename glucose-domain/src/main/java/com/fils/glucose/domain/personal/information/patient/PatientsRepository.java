@@ -14,7 +14,7 @@ public interface PatientsRepository {
 
 	Optional<Long> findIdByCnp(String cnp);
 
-	Optional<Long> findByEmail(String email);
+	Optional<Patient> findByEmail(String email);
 
 	List<Patient> findAll();
 

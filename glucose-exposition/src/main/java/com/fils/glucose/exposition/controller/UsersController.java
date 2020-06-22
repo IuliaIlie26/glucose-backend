@@ -7,27 +7,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.fils.glucose.application.service.users.UserService;
 import com.fils.glucose.exposition.dto.UserDto;
+import com.fils.glucose.exposition.facade.UsersFacade;
 
 @RestController
 @RequestMapping("api/users")
 @CrossOrigin(origins = "http://localhost:2020")
 public class UsersController {
 
-	private final UserService userService;
+	private final UsersFacade usersFacade;
 
-	public UsersController(UserService userService) {
-		this.userService = userService;
+	public UsersController(UsersFacade usersFacade) {
+		this.usersFacade = usersFacade;
 	}
 
 	@PostMapping("login")
 	public String login(@RequestBody UserDto userDto) {
-		return userService.login(userDto.username);
+		return usersFacade.login(userDto);
+
+	}
+
+	@GetMapping("getAdminNameById")
+	public String getAdminNameById(@RequestParam String username) {
+		return usersFacade.getAdminNameById(username);
 	}
 	
-	@GetMapping("getAdminNameById")
-	public String getAdminNameById(@RequestParam String username){
-		return userService.getAdminNameById(username);
+	@PostMapping("changePassword")
+	public void changePassword(@RequestBody UserDto userDto) {
+		usersFacade.changePassword(userDto);
 	}
 }

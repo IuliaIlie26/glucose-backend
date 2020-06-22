@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import com.fils.glucose.application.exception.TechnicalException;
 import com.fils.glucose.application.service.patient.CrudPatientService;
 import com.fils.glucose.domain.personal.information.patient.Patient;
 import com.fils.glucose.exposition.dto.AddressDto;
@@ -82,6 +84,12 @@ public class PatientFacade {
 	public String getPatientNameByCnp(String cnp) {
 		Patient patient = crudPatientService.findByCnp(cnp);
 		return patient.getLastName() + " " + patient.getFirstName();
+	}
+
+	public PatientDto getPatientByEmail(String username) {
+		Patient patient = crudPatientService.getPatientByEmail(username)
+				.orElseThrow(() -> new TechnicalException("backend.patient.not.found"));
+		return patientMapperService.mapFromDomain(patient);
 	}
 
 }

@@ -109,7 +109,7 @@ public class DoctorFacade {
 
 		if (StringUtils.isEmpty(element.start) && !StringUtils.isEmpty(element.end)
 				|| !StringUtils.isEmpty(element.start) && StringUtils.isEmpty(element.end)) {
-			throw new TechnicalException("doctor.schedule.error.start.end.required");
+			throw new TechnicalException("backend.doctor.schedule.error.start.end.required");
 		}
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -117,7 +117,7 @@ public class DoctorFacade {
 		LocalTime endAsDate = LocalTime.parse(element.end, formatter);
 
 		if (startAsDate.isAfter(endAsDate)) {
-			throw new TechnicalException("doctor.schedule.error.start.after.end");
+			throw new TechnicalException("backend.doctor.schedule.error.start.after.end");
 		}
 
 		return new DailySchedule(startAsDate, endAsDate);

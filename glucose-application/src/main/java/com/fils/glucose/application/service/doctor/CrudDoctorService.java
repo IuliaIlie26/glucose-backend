@@ -1,9 +1,12 @@
 package com.fils.glucose.application.service.doctor;
 
 import org.springframework.stereotype.Service;
+
+import com.fils.glucose.application.encryption.PasswordGeneratorService;
 import com.fils.glucose.application.exception.TechnicalException;
 import com.fils.glucose.domain.personal.information.doctor.Doctor;
 import com.fils.glucose.domain.personal.information.doctor.DoctorRepository;
+import com.fils.glucose.domain.users.UserRoles;
 import com.fils.glucose.domain.users.Users;
 import com.fils.glucose.domain.users.UsersRepository;
 
@@ -15,14 +18,18 @@ public class CrudDoctorService {
 
 	private final DoctorRepository doctorRepository;
 	private final UsersRepository usersRepository;
+	private final PasswordGeneratorService passGeneratorService;
 
-	public CrudDoctorService(DoctorRepository doctorRepository, UsersRepository usersRepository) {
+	public CrudDoctorService(DoctorRepository doctorRepository, UsersRepository usersRepository,
+			PasswordGeneratorService passGeneratorService) {
 		this.doctorRepository = requireNonNull(doctorRepository);
 		this.usersRepository = usersRepository;
+		this.passGeneratorService = passGeneratorService;
 	}
 
 	public Doctor findDoctorById(Long doctorId) {
-		return doctorRepository.findById(doctorId).orElseThrow(() -> new TechnicalException("doctor.not.found"));
+		return doctorRepository.findById(doctorId)
+				.orElseThrow(() -> new TechnicalException("backend.doctor.not.found"));
 	}
 
 	public List<Doctor> findAll() {
@@ -31,9 +38,8 @@ public class CrudDoctorService {
 
 	public void save(Doctor doc) {
 		doctorRepository.save(doc);
-		usersRepository.save(new Users(doc.getEmail(), "test", "DOCTOR"));
-		// TODO trimite credentialele pe mailul doctorului
-		// TODO genereaza parola
+		String password = passGeneratorService.generateEncryptedPassword();
+		usersRepository.save(new Users(doc.getEmail(), password, UserRoles.DOCTOR));
 
 	}
 
@@ -43,11 +49,12 @@ public class CrudDoctorService {
 
 	public Long getDoctorIdByUsername(String username) {
 		return doctorRepository.getDoctorIdByEmail(username).map(Doctor::getId)
-				.orElseThrow(() -> new TechnicalException("doctor.not.found"));
+				.orElseThrow(() -> new TechnicalException("backend.doctor.not.found"));
 	}
 
 	public String getDoctorNameAndLastname(Long id) {
-		Doctor doctor = doctorRepository.findById(id).orElseThrow(() -> new TechnicalException("doctor.not.found"));
+		Doctor doctor = doctorRepository.findById(id)
+				.orElseThrow(() -> new TechnicalException("backend.doctor.not.found"));
 		return doctor.getFirstName() + " " + doctor.getLastName();
 	}
 }

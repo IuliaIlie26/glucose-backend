@@ -61,7 +61,7 @@ public class CrudConsultationService {
 
 	public Consultation findById(String consultationId) {
 		return consultationRepository.findById(consultationId)
-				.orElseThrow(() -> new TechnicalException("consultation.not.found"));
+				.orElseThrow(() -> new TechnicalException("backend.consultation.not.found"));
 	}
 
 	public Optional<Consultation> getCurrentConsultation(Long doctorId) {
@@ -82,5 +82,9 @@ public class CrudConsultationService {
 		return consultationRepository.findByDoctorId(doctorId).stream()
 				.filter(cons -> cons.getConsultationDate().toLocalDate().isEqual(LocalDate.now()))
 				.collect(Collectors.toList());
+	}
+
+	public List<Consultation> getFutureConsultationForPatient(Long patientId) {
+		return consultationRepository.findByPatientId(patientId);
 	}
 }

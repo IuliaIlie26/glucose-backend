@@ -15,6 +15,11 @@
 			<artifactId>glucose-domain</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.10</version>
+		</dependency>
+		<dependency>
 			<groupId>${project.group}</groupId>
 			<artifactId>glucose-domain</artifactId>
 			<classifier>tests</classifier>
