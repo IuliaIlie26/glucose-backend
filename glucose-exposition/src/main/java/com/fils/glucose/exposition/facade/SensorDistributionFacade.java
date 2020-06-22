@@ -122,7 +122,7 @@ public class SensorDistributionFacade {
 				throw new TechnicalException("backend.sensor.not.active");
 			}
 		} else {
-			throw new TechnicalException("backend.sensor.not.found");
+			throw new TechnicalException("backend.patient.sensor.not.found");
 		}
 	}
 }
