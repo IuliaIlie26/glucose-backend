@@ -2,8 +2,10 @@ package com.fils.glucose.application.service.patient;
 
 import org.springframework.stereotype.Service;
 
-import com.fils.glucose.application.encryption.PasswordGeneratorService;
 import com.fils.glucose.application.exception.TechnicalException;
+import com.fils.glucose.application.password.AESEncryptionService;
+import com.fils.glucose.application.password.EmailService;
+import com.fils.glucose.application.password.PasswordGeneratorService;
 import com.fils.glucose.domain.personal.information.patient.Patient;
 import com.fils.glucose.domain.personal.information.patient.PatientsRepository;
 import com.fils.glucose.domain.users.UserRoles;
@@ -23,10 +25,15 @@ public class CrudPatientService {
 	private final PatientsRepository patientRepository;
 	private final UsersRepository usersRepository;
 	private final PasswordGeneratorService passGeneratorService;
+	private final AESEncryptionService aesEncryptionService;
+	private final EmailService emailService;
 
 	public CrudPatientService(PatientsRepository patientRepository, UsersRepository usersRepository,
-			PasswordGeneratorService passGeneratorService) {
+			PasswordGeneratorService passGeneratorService, AESEncryptionService aesEncryptionService,
+			EmailService emailService) {
 		this.patientRepository = requireNonNull(patientRepository);
+		this.aesEncryptionService = aesEncryptionService;
+		this.emailService = emailService;
 		this.usersRepository = usersRepository;
 		this.passGeneratorService = passGeneratorService;
 
@@ -38,10 +45,16 @@ public class CrudPatientService {
 		} else if (patientRepository.findByEmail(patient.getEmail()).isPresent()) {
 			throw new TechnicalException("backend.patient.email.exists");
 		}
-		String password = passGeneratorService.generateEncryptedPassword();
-		Users newUser = new Users(patient.getEmail(), password, UserRoles.PATIENT);
+
+		Patient patientFromDb = patientRepository.save(patient);
+
+		String password = passGeneratorService.generatePassword();
+		Users newUser = new Users(patient.getEmail(), aesEncryptionService.encrypt(password), UserRoles.PATIENT);
 		usersRepository.save(newUser);
-		return patientRepository.save(patient).getId();
+		
+		emailService.sendEmail(patientFromDb.getEmail(), password);
+
+		return patientFromDb.getId();
 	}
 
 	public void deletePatientById(Long idLongValue) {

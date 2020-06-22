@@ -1,4 +1,4 @@
-package com.fils.glucose.application.encryption;
+package com.fils.glucose.application.password;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,13 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PasswordGeneratorService {
 
-	private final AESEncryption encryptionService;
-
-	public PasswordGeneratorService(AESEncryption encryptionService) {
-		this.encryptionService = encryptionService;
-	}
-
-	public String generateEncryptedPassword() {
+	public String generatePassword() {
 		String upperCaseLetters = RandomStringUtils.random(2, 65, 90, true, true);
 		String lowerCaseLetters = RandomStringUtils.random(2, 97, 122, true, true);
 		String numbers = RandomStringUtils.randomNumeric(2);
@@ -26,9 +20,7 @@ public class PasswordGeneratorService {
 				.concat(totalChars);
 		List<Character> pwdChars = combinedChars.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
 		Collections.shuffle(pwdChars);
-		String password = pwdChars.stream().collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
-				.toString();
-		return encryptionService.encrypt(password);
+		return pwdChars.stream().collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
 
 	}
 }

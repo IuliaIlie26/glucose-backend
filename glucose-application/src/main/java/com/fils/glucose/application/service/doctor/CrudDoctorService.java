@@ -2,8 +2,10 @@ package com.fils.glucose.application.service.doctor;
 
 import org.springframework.stereotype.Service;
 
-import com.fils.glucose.application.encryption.PasswordGeneratorService;
 import com.fils.glucose.application.exception.TechnicalException;
+import com.fils.glucose.application.password.AESEncryptionService;
+import com.fils.glucose.application.password.EmailService;
+import com.fils.glucose.application.password.PasswordGeneratorService;
 import com.fils.glucose.domain.personal.information.doctor.Doctor;
 import com.fils.glucose.domain.personal.information.doctor.DoctorRepository;
 import com.fils.glucose.domain.users.UserRoles;
@@ -19,11 +21,16 @@ public class CrudDoctorService {
 	private final DoctorRepository doctorRepository;
 	private final UsersRepository usersRepository;
 	private final PasswordGeneratorService passGeneratorService;
+	private final AESEncryptionService aesEncryptionService;
+	private final EmailService emailService;
 
 	public CrudDoctorService(DoctorRepository doctorRepository, UsersRepository usersRepository,
-			PasswordGeneratorService passGeneratorService) {
+			PasswordGeneratorService passGeneratorService, AESEncryptionService aesEncryptionService,
+			EmailService emailService) {
 		this.doctorRepository = requireNonNull(doctorRepository);
 		this.usersRepository = usersRepository;
+		this.emailService = emailService;
+		this.aesEncryptionService = aesEncryptionService;
 		this.passGeneratorService = passGeneratorService;
 	}
 
@@ -38,8 +45,9 @@ public class CrudDoctorService {
 
 	public void save(Doctor doc) {
 		doctorRepository.save(doc);
-		String password = passGeneratorService.generateEncryptedPassword();
-		usersRepository.save(new Users(doc.getEmail(), password, UserRoles.DOCTOR));
+		String password = passGeneratorService.generatePassword();
+		usersRepository.save(new Users(doc.getEmail(), aesEncryptionService.encrypt(password), UserRoles.DOCTOR));
+		emailService.sendEmail(doc.getEmail(), password);
 
 	}
 

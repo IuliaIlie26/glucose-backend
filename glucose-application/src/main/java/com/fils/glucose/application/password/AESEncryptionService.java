@@ -1,4 +1,4 @@
-package com.fils.glucose.application.encryption;
+package com.fils.glucose.application.password;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -12,7 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AESEncryption {
+public class AESEncryptionService {
 
 	private static SecretKeySpec secretKey;
 	private static byte[] key;

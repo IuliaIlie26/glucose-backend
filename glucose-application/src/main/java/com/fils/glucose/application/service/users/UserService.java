@@ -2,8 +2,8 @@ package com.fils.glucose.application.service.users;
 
 import org.springframework.stereotype.Service;
 
-import com.fils.glucose.application.encryption.AESEncryption;
 import com.fils.glucose.application.exception.TechnicalException;
+import com.fils.glucose.application.password.AESEncryptionService;
 import com.fils.glucose.domain.personal.information.admin.Admin;
 import com.fils.glucose.domain.personal.information.admin.AdminRepository;
 import com.fils.glucose.domain.users.Users;
@@ -15,9 +15,9 @@ public class UserService {
 
 	private final UsersRepository userRepository;
 	private final AdminRepository adminRepo;
-	private final AESEncryption encryptionService;
+	private final AESEncryptionService encryptionService;
 
-	public UserService(UsersRepository repository, AdminRepository adminRepo, AESEncryption encryptionService) {
+	public UserService(UsersRepository repository, AdminRepository adminRepo, AESEncryptionService encryptionService) {
 		this.userRepository = requireNonNull(repository);
 		this.adminRepo = adminRepo;
 		this.encryptionService = encryptionService;
