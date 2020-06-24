@@ -11,4 +11,5 @@ public interface DoctorRepository {
 	void save(Doctor doc);
 	List<Doctor> getDoctorsBySpeciality(String speciality);
 	Optional<Doctor> getDoctorIdByEmail(String username);
+	void deleteById(Long doctorId);
 }

@@ -57,4 +57,9 @@ public class DoctorController {
 	public String getDoctorNameAndLastnameByUsername(@RequestParam String username) {
 		return doctorFacade.getDoctorNameAndLastnameByUsername(username);
 	}
+	
+	@PostMapping("deleteDoctorById")
+	public void deleteDoctorById(@RequestBody Long doctorId) {
+		doctorFacade.deleteDoctorById(doctorId);
+	}
 }

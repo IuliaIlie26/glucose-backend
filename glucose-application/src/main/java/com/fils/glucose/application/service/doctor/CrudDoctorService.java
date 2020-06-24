@@ -65,4 +65,9 @@ public class CrudDoctorService {
 				.orElseThrow(() -> new TechnicalException("backend.doctor.not.found"));
 		return doctor.getFirstName() + " " + doctor.getLastName();
 	}
+
+	public void deleteById(Long doctorId) {
+		doctorRepository.deleteById(doctorId);
+		
+	}
 }

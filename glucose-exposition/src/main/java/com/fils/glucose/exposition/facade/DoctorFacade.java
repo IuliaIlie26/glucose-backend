@@ -132,4 +132,9 @@ public class DoctorFacade {
 		Long id = crudDoctorService.getDoctorIdByUsername(username);
 		return getDoctorNameAndLastname(id);
 	}
+
+	public void deleteDoctorById(Long doctorId) {
+		crudDoctorService.deleteById(doctorId);
+		
+	}
 }

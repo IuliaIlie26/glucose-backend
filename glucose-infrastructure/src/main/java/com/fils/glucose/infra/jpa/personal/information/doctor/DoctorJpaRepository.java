@@ -52,4 +52,10 @@ public class DoctorJpaRepository implements DoctorRepository {
 	public Optional<Doctor> getDoctorIdByEmail(String email) {
 		return doctorRepository.findByEmail(email);
 	}
+
+	@Override
+	public void deleteById(Long doctorId) {
+		doctorRepository.deleteById(doctorId);
+
+	}
 }
