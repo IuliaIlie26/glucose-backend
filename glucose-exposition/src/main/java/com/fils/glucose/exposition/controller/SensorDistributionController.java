@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fils.glucose.exposition.dto.GlucoseFilterDto;
 import com.fils.glucose.exposition.dto.GlycemiaValuesDto;
 import com.fils.glucose.exposition.dto.MessageDto;
 import com.fils.glucose.exposition.dto.SensorDistributionDto;
@@ -54,5 +55,10 @@ public class SensorDistributionController {
 	@GetMapping("getGlycemiaForPatient")
 	public List<GlycemiaValuesDto> getGlycemiaForPatient(@RequestParam Long patientId){
 		return sensorDistributionFacade.getGlycemiaForPatient(patientId);
+	}
+	
+	@PostMapping("getGlycemiaForPatientAndDate")
+	public List<GlycemiaValuesDto> getGlycemiaForPatientAndDate(@RequestBody GlucoseFilterDto filter){
+		return sensorDistributionFacade.getGlycemiaForPatientAndDate(filter);
 	}
 }

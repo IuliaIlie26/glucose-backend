@@ -202,6 +202,7 @@ public class ConsultationFacade {
 	public List<ConsultationDto> getFutureConsultationForPatient(Long patientId) {
 		return crudConsultationService.getFutureConsultationForPatient(patientId).stream()
 				.filter(cons -> cons.getConsultationDate().isAfter(LocalDateTime.now()))
+				.sorted((c1, c2) -> c1.getConsultationDate().compareTo(c2.getConsultationDate()))
 				.map(consultationMapper::mapFromDomain).collect(Collectors.toList());
 	}
 }

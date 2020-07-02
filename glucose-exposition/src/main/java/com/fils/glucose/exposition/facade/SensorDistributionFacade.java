@@ -3,6 +3,7 @@ package com.fils.glucose.exposition.facade;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import com.fils.glucose.application.service.patient.CrudPatientService;
 import com.fils.glucose.application.service.sensor.CrudSensorService;
 import com.fils.glucose.domain.sensor.SensorDistribution;
 import com.fils.glucose.domain.sensor.Status;
+import com.fils.glucose.exposition.dto.GlucoseFilterDto;
 import com.fils.glucose.exposition.dto.GlycemiaValuesDto;
 import com.fils.glucose.exposition.dto.MessageDto;
 import com.fils.glucose.exposition.dto.SensorDistributionDto;
@@ -87,6 +89,7 @@ public class SensorDistributionFacade {
 	public SensorDistributionDto activateSensor(SensorDistributionDto dto) {
 		SensorDistribution distribution = getSensorDistribution(dto);
 		distribution.setActivationDate(LocalDate.now());
+		distribution.setDeactivationDate(null);
 		distribution.setStatus(Status.ACTIVE);
 		crudSensorService.save(distribution);
 		return sensorDistributionMapper.mapFromDomain(distribution);
@@ -118,6 +121,23 @@ public class SensorDistributionFacade {
 			if (sensor.getStatus() == Status.ACTIVE) {
 				return crudSensorService.getGlycemiaValues(sensor.getSensorId()).stream()
 						.map(glycemiaMapper::mapFromDomain).collect(Collectors.toList());
+			} else {
+				throw new TechnicalException("backend.sensor.not.active");
+			}
+		} else {
+			throw new TechnicalException("backend.patient.sensor.not.found");
+		}
+	}
+
+	public List<GlycemiaValuesDto> getGlycemiaForPatientAndDate(GlucoseFilterDto filter) {
+		Optional<SensorDistribution> sensorOptional = crudSensorService.findByPatientId(filter.patientId);
+		LocalDate date = LocalDate.parse(filter.glDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		if (sensorOptional.isPresent()) {
+			SensorDistribution sensor = sensorOptional.get();
+			if (sensor.getStatus() == Status.ACTIVE) {
+				return crudSensorService.getGlycemiaValues(sensor.getSensorId()).stream()
+						.filter(gl -> gl.getTimestamp().toLocalDate().equals(date)).map(glycemiaMapper::mapFromDomain)
+						.collect(Collectors.toList());
 			} else {
 				throw new TechnicalException("backend.sensor.not.active");
 			}

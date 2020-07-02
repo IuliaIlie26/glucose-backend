@@ -38,7 +38,10 @@ public class CrudConsultationService {
 	}
 
 	public List<Consultation> findAll() {
-		return consultationRepository.findAll();
+		List<Consultation> list = consultationRepository.findAll();
+		list.sort((c1, c2) -> c2.getConsultationDate().compareTo(c1.getConsultationDate()));
+
+		return list;
 	}
 
 	public void deleteByDoctorIdAndPatientIdAndConsultationDate(Long doctorId, Long patientId,
@@ -48,7 +51,9 @@ public class CrudConsultationService {
 	}
 
 	public List<Consultation> getConsultationsForDoctor(Long doctorId) {
-		return consultationRepository.findByDoctorId(doctorId);
+		List<Consultation> list =consultationRepository.findByDoctorId(doctorId);
+		list.sort((c1, c2) -> c1.getConsultationDate().compareTo(c2.getConsultationDate()));
+		return list;
 	}
 
 	public List<Consultation> getPatientConsultations(Long patientId) {
@@ -81,6 +86,7 @@ public class CrudConsultationService {
 	public List<Consultation> getTodaysConsultations(Long doctorId) {
 		return consultationRepository.findByDoctorId(doctorId).stream()
 				.filter(cons -> cons.getConsultationDate().toLocalDate().isEqual(LocalDate.now()))
+				.sorted((c1, c2) -> c1.getConsultationDate().compareTo(c2.getConsultationDate()))
 				.collect(Collectors.toList());
 	}
 
